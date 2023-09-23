@@ -1,6 +1,9 @@
 html {
+  margin: 0;
+  padding: 0;
   box-sizing: border-box;
   font-size: 100%;
+  min-height: 100vh;
 
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
@@ -30,9 +33,9 @@ a:visited {
 }
 
 body {
-  margin: 0;
+  margin: 0 !important;
   padding: 0;
-
+  width: calc(100% - var(--removed-body-scroll-bar-size, 0px));  overflow-y: scroll;
   font-family: var(--font-family-primary), sans-serif;
   line-height: var(--line-height-m);
   color: var(--color-light-100);

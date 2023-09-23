@@ -1,0 +1,10 @@
+.dropDownMenuItem {
+  display: flex;
+  outline: none;
+  //border-radius: 6px;
+  cursor: pointer;
+}
+.dropDownMenuItem[data-highlighted] {
+  background-color: var(--color-accent-900);
+
+}

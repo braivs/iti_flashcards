@@ -1,0 +1,34 @@
+.component {
+    //display: flex;
+    //flex-direction: column;
+    //align-items: center;
+    width: 100%;
+    max-width: 1024px;
+
+    .searchContainer {
+        //width: 100%;
+    }
+
+    .buttonsContainer {
+        width: 100%;
+    }
+
+    .tableContainer {
+        width: 100%;
+    }
+
+
+    .paginationContainer {
+        margin-top: 10px;
+    }
+
+    .iconContainer {
+        display: flex;
+        .trashIcon {
+            cursor: pointer;
+        }
+    }
+
+
+
+}

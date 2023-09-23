@@ -1,21 +1,19 @@
-import { useState } from 'react'
-
-import { OptionType, Select } from '@/src/components/ui/Select/Select.tsx'
-import { Typography } from '@/src/components/ui/Typography/Typography.tsx'
+import {Provider} from "react-redux"
+import {store} from "@/services/store.ts"
+import {Router} from "@/router.tsx"
+import {Header} from "@/components/ui/Header/header.tsx"
+import s from "./App.module.scss"
 
 export function App() {
-  const arr: Array<OptionType> = [
-    { id: 1, value: 'value 1' },
-    { id: 2, value: 'value 2' },
-    { id: 3, value: 'value 3' },
-  ]
-  const [value, setValue] = useState('Select-box')
 
   return (
-    <div>
-      <Select options={arr} value={value} onChangeOption={setValue} isDisabled={true} />
-      <Typography variant={'Subtitle_1'}>Header</Typography>
-      <Typography variant={'Overline'}>Header</Typography>
+    <div className={s.app}>
+      <Provider store={store}>
+        <Header/>
+        <div className={s.container}>
+          <Router/>
+        </div>
+      </Provider>
     </div>
   )
 }
