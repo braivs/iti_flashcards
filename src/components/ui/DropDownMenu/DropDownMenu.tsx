@@ -25,7 +25,7 @@ export const DropDownMenu: FC<DropDownMenuType> = ({
   }
 
   return (
-    <DropdownMenu.Root>
+    <DropdownMenu.Root modal={false}>
       <DropdownMenu.Trigger className={classNames.trigger}>{trigger}</DropdownMenu.Trigger>
       <DropdownMenu.Portal>
         <DropdownMenu.Content avoidCollisions={true} align={align} className={classNames.content}>

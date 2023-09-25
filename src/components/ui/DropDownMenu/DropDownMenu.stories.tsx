@@ -1,7 +1,8 @@
 import * as DropdownMenu from '@radix-ui/react-dropdown-menu'
 import { Meta, StoryObj } from '@storybook/react'
 
-import s from '@/App.module.scss'
+import s from './DropDownMenu.module.scss'
+
 import { Edit } from '@/assets/icons/Edit'
 import { Logout } from '@/assets/icons/Logout.tsx'
 import { Person } from '@/assets/icons/Person.tsx'
@@ -38,7 +39,7 @@ export const WithUserAvatar: Story = {
     ),
     align: 'center',
     children: (
-      <>
+      <div className={s.container}>
         <DropdownItemWithAvatar
           trigger={
             <Avatar
@@ -66,7 +67,7 @@ export const WithUserAvatar: Story = {
           icon={<Logout color={'var(--color-light-100)'} className={s.icons} />}
           title={'Sign Out'}
         />
-      </>
+      </div>
     ),
     className: '',
   },
@@ -81,7 +82,7 @@ export const WithIcon: Story = {
     align: 'end',
     className: '',
     children: (
-      <>
+      <div className={s.container}>
         <DropdownItemWithIcon
           title={'Learn'}
           icon={<Play color={'var(--color-light-100)'} className={s.icons} />}
@@ -96,7 +97,7 @@ export const WithIcon: Story = {
           icon={<TrashHollow color={'var(--color-light-100)'} className={s.icons} />}
           title={'Delete'}
         />
-      </>
+      </div>
     ),
   },
 }

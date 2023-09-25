@@ -1,5 +1,6 @@
-import {baseApi} from "@/services/base-api.ts"
-import {LoginArgs, LoginResponse} from "./auth.types.ts"
+import { LoginArgs, LoginResponse } from './auth.types.ts'
+
+import { baseApi } from '@/services/base-api.ts'
 
 const authService = baseApi.injectEndpoints({
   endpoints: builder => ({
@@ -7,15 +8,15 @@ const authService = baseApi.injectEndpoints({
       async queryFn(_name, _api, _extraOptions, baseQuery) {
         const result = await baseQuery({
           url: `/v1/auth/me`,
-          method: 'GET'
+          method: 'GET',
         })
 
         if (result.error) {
           // don't refetch on 404
-          return {data: {success: false}}
+          return { data: { success: false } }
         }
 
-        return {data: result.data}
+        return { data: result.data }
       },
       extraOptions: {
         maxRetries: 0,
@@ -42,16 +43,11 @@ const authService = baseApi.injectEndpoints({
         return {
           url: 'v1/auth/sign-up',
           method: 'POST',
-          body: params
+          body: params,
         }
       },
     }),
   }),
 })
 
-export const {
-  useGetMeQuery,
-  useLoginMutation,
-  useSignUpMutation,
-  useLogoutMutation,
-} = authService
+export const { useGetMeQuery, useLoginMutation, useSignUpMutation, useLogoutMutation } = authService

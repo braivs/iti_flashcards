@@ -3,42 +3,56 @@
   z-index: 10;
   top: 0;
   left: 0;
-
   display: flex;
   align-items: center;
   justify-content: space-between;
-
   width: 100%;
   padding: 12px 24px;
-
   background-color: var(--color-dark-700);
   border-bottom: 1px solid var(--color-dark-500);
-}
-
-.wrapper {
-  display: flex;
-  justify-content: space-between;
-
-  width: 100%;
-  max-width: 1024px;
-  margin: 0 auto;
-
-  .containerNameAva {
+  .wrapper {
     display: flex;
-    align-items: center;
-
-    .name {
-      margin-right: 14px;
-    }
-
-    .ava {
-      width: 37px;
-      height: 37px;
-      cursor: pointer;
+    justify-content: space-between;
+    width: 100%;
+    max-width: 1024px;
+    margin: 0 auto;
+    .containerNameAva {
+      display: flex;
+      align-items: center;
+      .name {
+        margin-right: 14px;
+      }
+      .ava {
+        width: 36px;
+        height: 36px;
+        cursor: pointer;
+      }
     }
   }
 }
 
-.button {
-  text-align: right;
+.userName {
+  font-weight: var(--font-weight-bold);
+  padding-right: 28px;
 }
+.userEmail {
+  color: var(--color-dark-100);
+  padding-right: 28px;
+}
+.dropDownMenuSeparator {
+  background-color: var(--color-dark-500);
+  height: 1px;
+  margin: 12px 0;
+}
+.icons {
+  width: 16px;
+  height: 16px;
+  margin-right: 6px;
+}
+
+
+
+
+
+
+

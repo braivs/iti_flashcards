@@ -18,7 +18,7 @@
   padding: 12px;
   animation-duration: 5s;
   background-color: var(--color-dark-700);
-
+  z-index: 10;
 }
 
 .dropDownMenuArrow {
@@ -35,6 +35,47 @@
   width: 16px;
   height: 16px;
   margin-right: 6px;
+}
+
+.container {
+  .userAvatar {
+    width: 36px;
+    height: 36px;
+    border-radius: 100%;
+    margin-right: 8px;
+  }
+
+  .button {
+    all: unset;
+    //border-radius: 100%;
+  }
+  .userName {
+    font-weight: var(--font-weight-bold);
+  }
+  .userEmail {
+    color: var(--color-dark-100)
+  }
+  .dropDownMenuSeparator {
+    background-color: var(--color-dark-500);
+    height: 1px;
+    margin: 12px 0;
+  }
+
+  .dropDownMenuItem {
+    display: flex;
+    outline: none;
+    border-radius: 6px;
+  }
+  .dropDownMenuItem[data-highlighted] {
+    background-color: var(--color-accent-900);
+
+  }
+
+  .icons {
+    width: 16px;
+    height: 16px;
+    margin-right: 6px;
+  }
 }
 
 

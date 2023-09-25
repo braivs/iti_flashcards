@@ -9,8 +9,8 @@ import s from './personal-information.module.scss'
 
 import { Edit } from '@/assets/icons/Edit.tsx'
 import { Logout } from '@/assets/icons/Logout.tsx'
+import { Button } from '@/components/ui/Button'
 import { Textfield } from '@/components/ui/Textfield'
-import {Button} from "@/components/ui/Button"
 
 type PersonalInformationType = {
   userName?: string
