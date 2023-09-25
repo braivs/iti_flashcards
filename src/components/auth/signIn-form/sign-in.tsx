@@ -1,15 +1,15 @@
-import {zodResolver} from '@hookform/resolvers/zod'
-import {clsx} from 'clsx'
-import {useForm} from 'react-hook-form'
-import {z} from 'zod'
+import { zodResolver } from '@hookform/resolvers/zod'
+import { clsx } from 'clsx'
+import { useForm } from 'react-hook-form'
+import { z } from 'zod'
 
-import {Card} from '../../ui/Card'
-import {Typography} from '../../ui/Typography'
+import { Card } from '../../ui/Card'
+import { Typography } from '../../ui/Typography'
 
-import {ControlledCheckbox} from '@/components/ui/controlled/controlled-checkbox/controlled-checkbox.tsx'
+import { Button } from '@/components/ui/Button'
+import { ControlledCheckbox } from '@/components/ui/controlled/controlled-checkbox/controlled-checkbox.tsx'
+import { ControlledTextField } from '@/components/ui/controlled/controlled-text-field'
 import sC from '@/styles/formStyles.module.scss'
-import {ControlledTextField} from "@/components/ui/controlled/controlled-text-field"
-import {Button} from "@/components/ui/Button"
 
 const schema = z.object({
   email: z.string().email(),
@@ -20,11 +20,10 @@ const schema = z.object({
 type FormValues = z.input<typeof schema>
 
 export const SignIn = (props: PropsType) => {
-
   const {
     handleSubmit,
     control,
-    formState: {errors},
+    formState: { errors },
   } = useForm<FormValues>({
     mode: 'onSubmit',
     resolver: zodResolver(schema),
