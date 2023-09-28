@@ -1,12 +1,20 @@
 .component {
-    //display: flex;
-    //flex-direction: column;
-    //align-items: center;
     width: 100%;
     max-width: 1024px;
 
-    .searchContainer {
-        //width: 100%;
+    .topContainer, .middleContainer {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 10px;
+    }
+
+    .middleContainer {
+        flex-direction: row;
+        .searchContainer {
+            width: 100%;
+            max-width: 299px;
+        }
     }
 
     .buttonsContainer {
