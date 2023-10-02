@@ -4,6 +4,7 @@ import { baseApi } from '@/services/base-api.ts'
 
 const authService = baseApi.injectEndpoints({
   endpoints: builder => ({
+    //  todo: fix any
     getMe: builder.query<any, void>({
       async queryFn(_name, _api, _extraOptions, baseQuery) {
         const result = await baseQuery({
