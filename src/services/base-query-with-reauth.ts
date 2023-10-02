@@ -1,6 +1,6 @@
-import type {BaseQueryFn, FetchArgs, FetchBaseQueryError,} from '@reduxjs/toolkit/query'
-import {fetchBaseQuery} from '@reduxjs/toolkit/query'
-import {Mutex} from "async-mutex"
+import type { BaseQueryFn, FetchArgs, FetchBaseQueryError } from '@reduxjs/toolkit/query'
+import { fetchBaseQuery } from '@reduxjs/toolkit/query'
+import { Mutex } from 'async-mutex'
 
 const baseQuery = fetchBaseQuery({
   baseUrl: 'https://api.flashcards.andrii.es',
@@ -29,6 +29,7 @@ export const baseQueryWithReauth: BaseQueryFn<
         api,
         extraOptions
       )
+
       if (refreshResult?.meta?.response?.status === 204) {
         // retry the initial query
         result = await baseQuery(args, api, extraOptions)
@@ -39,5 +40,6 @@ export const baseQueryWithReauth: BaseQueryFn<
       result = await baseQuery(args, api, extraOptions)
     }
   }
+
   return result
 }

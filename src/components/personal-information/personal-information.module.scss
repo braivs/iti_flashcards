@@ -48,13 +48,12 @@
   & .userEmail {
     color: var(--color-dark-100);
     margin-bottom: 19px;
-
   }
   & .logButton {
     font-size: var(--font-size-s);
     :nth-child(1) {
-        width: 16px;
-        height: 16px;
+      width: 16px;
+      height: 16px;
     }
   }
   & .editModeContainer {
@@ -65,12 +64,3 @@
     }
   }
 }
-
-
-
-
-
-
-
-
-

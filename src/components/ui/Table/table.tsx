@@ -5,8 +5,9 @@ import { clsx } from 'clsx'
 // import { ChevronUp } from '../../../assets/icons'
 
 import s from './table.module.scss'
-import {Typography} from "@/components/ui/Typography"
-import ChevronUp from "@/assets/icons/chevron-up.tsx"
+
+import ChevronUp from '@/assets/icons/chevron-up.tsx'
+import { Typography } from '@/components/ui/Typography'
 
 export type RootProps = ComponentProps<'table'>
 

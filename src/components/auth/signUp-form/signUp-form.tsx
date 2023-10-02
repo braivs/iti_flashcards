@@ -1,18 +1,19 @@
+import { useEffect } from 'react'
+
 import { DevTool } from '@hookform/devtools'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { clsx } from 'clsx'
 import { useForm } from 'react-hook-form'
-import { z } from 'zod'
 import { omit } from 'remeda'
+import { z } from 'zod'
 
 import { Button } from '../../ui/Button/button.tsx'
 import { Card } from '../../ui/Card'
 import { Textfield } from '../../ui/Textfield'
 import { Typography } from '../../ui/Typography'
 
+import { useSignUpMutation } from '@/services/auth/auth.service.ts'
 import sC from '@/styles/formStyles.module.scss'
-import {useEffect} from "react"
-import {useSignUpMutation} from "@/services/auth/auth.service.ts"
 
 const schema = z
   .object({
@@ -28,44 +29,39 @@ const schema = z
 type FormValues = z.input<typeof schema>
 
 export const SignUpForm = () => {
-  const [signUp, {error}] = useSignUpMutation()
+  const [signUp, { error }] = useSignUpMutation()
 
   const {
     register,
     handleSubmit,
     control,
     formState: { errors },
-    setError
+    setError,
   } = useForm<FormValues>({
     resolver: zodResolver(schema),
   })
 
-  const handleFormSubmitted = handleSubmit(data =>
-    signUp(omit(data, ['confirm']))
-  )
-
+  const handleFormSubmitted = handleSubmit(data => signUp(omit(data, ['confirm'])))
 
   useEffect(() => {
-    console.log(error)
-      if (
-        error &&
-        'status' in error &&
-        'data' in error &&
-        error.status === 400 &&
-        typeof error.data === 'object' &&
-        error.data &&
-        'errorMessages' in error.data &&
-        Array.isArray(error.data.errorMessages)
-      ) {
-        error.data.errorMessages.forEach((errorMessage: any) => {
-          setError(errorMessage.field, {
-            type: 'custom',
-            message: errorMessage.message as string,
-          })
+    if (
+      error &&
+      'status' in error &&
+      'data' in error &&
+      error.status === 400 &&
+      typeof error.data === 'object' &&
+      error.data &&
+      'errorMessages' in error.data &&
+      Array.isArray(error.data.errorMessages)
+    ) {
+      error.data.errorMessages.forEach((errorMessage: any) => {
+        setError(errorMessage.field, {
+          type: 'custom',
+          message: errorMessage.message as string,
         })
-      }
+      })
+    }
   }, [error])
-
 
   return (
     <form onSubmit={handleFormSubmitted}>

@@ -2,9 +2,9 @@ import { useState } from 'react'
 
 import { Meta, StoryObj } from '@storybook/react'
 
-import {RadioElementType, RadioGroup} from './RadioGroup.tsx'
-
 import sC from '../../../styles/common.module.scss'
+
+import { RadioElementType, RadioGroup } from './RadioGroup.tsx'
 
 const meta = {
   title: 'Components/RadioGroup',
@@ -31,7 +31,7 @@ export const Default: Story = {
 
     return (
       <div className={sC.storyContainer}>
-        <RadioGroup {...args} options={arr} onValueChange={setValue} value={value}/>
+        <RadioGroup {...args} options={arr} onValueChange={setValue} value={value} />
       </div>
     )
   },

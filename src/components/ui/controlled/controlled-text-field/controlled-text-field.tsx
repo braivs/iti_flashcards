@@ -1,6 +1,6 @@
 import { Control, FieldPath, FieldValues, useController } from 'react-hook-form'
-import {Textfield, TextfieldPropsType} from "@/components/ui/Textfield"
 
+import { Textfield, TextfieldPropsType } from '@/components/ui/Textfield'
 
 export type ControlledTextFieldProps<TFieldValues extends FieldValues> = {
   name: FieldPath<TFieldValues>
@@ -17,5 +17,6 @@ export const ControlledTextField = <TFieldValues extends FieldValues>(
     name: props.name,
     control: props.control,
   })
+
   return <Textfield {...props} {...field} errorMessage={error?.message} id={props.name} />
 }

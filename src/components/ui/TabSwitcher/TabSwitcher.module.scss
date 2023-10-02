@@ -1,46 +1,47 @@
-.TabsRoot {}
+.TabsRoot {
+}
 
-.TabsList {}
+.TabsList {
+}
 
 .TabsTrigger {
-    background-color: var(--color-dark-900);
-    border: 1px solid var(--color-dark-300);
-    color: var(--color-light-100);
-    padding: 0 20px;
-    height: 36px;
-    font-size: 16px;
-    user-select: none;
-    cursor: pointer;
+  background-color: var(--color-dark-900);
+  border: 1px solid var(--color-dark-300);
+  color: var(--color-light-100);
+  padding: 0 20px;
+  height: 36px;
+  font-size: 16px;
+  user-select: none;
+  cursor: pointer;
 }
 
 .TabsTrigger:hover {
-    color: var(--color-light-900);
-    background: var(--color-dark-300);
-    border: 1px solid var(--color-dark-100);
-    background: var(--color-dark-300);
-    border-radius: 2px;
+  color: var(--color-light-900);
+  background: var(--color-dark-300);
+  border: 1px solid var(--color-dark-100);
+  background: var(--color-dark-300);
+  border-radius: 2px;
 }
 
 .TabsTrigger[data-state='active'] {
-    background-color: var(--color-accent-500);
-    border: 1px solid var(--color-accent-500);
+  background-color: var(--color-accent-500);
+  border: 1px solid var(--color-accent-500);
 }
 
 .TabsTrigger:active {
-    position: relative;
-    background: var(--color-dark-700);
-    border: 1px solid var(--color-dark-700);
-    outline: 2px solid var(--color-info-900);
-    border-radius: 2px;
+  position: relative;
+  background: var(--color-dark-700);
+  border: 1px solid var(--color-dark-700);
+  outline: 2px solid var(--color-info-900);
+  border-radius: 2px;
 }
 
 .TabsTrigger:disabled,
 .TabsTrigger[data-disabled]:hover,
-.TabsTrigger[data-disabled]:active
-{
-    background-color: var(--color-dark-700);
-    border: 1px solid var(--color-dark-300);
-    color: var(--color-dark-300);
-    cursor: auto;
-    outline: none;
+.TabsTrigger[data-disabled]:active {
+  background-color: var(--color-dark-700);
+  border: 1px solid var(--color-dark-300);
+  color: var(--color-dark-300);
+  cursor: auto;
+  outline: none;
 }

@@ -1,8 +1,16 @@
-import {createBrowserRouter, Navigate, Outlet, RouteObject, RouterProvider} from 'react-router-dom'
-import {DecksPage} from "@/pages/decks-page/decks-page.tsx"
-import {SignInPage} from "@/pages/sign-in-page/sign-in-page.tsx"
-import {SignUpPage} from "@/pages/sign-up.tsx"
-import {useGetMeQuery} from "@/services/auth/auth.service.ts"
+import {
+  createBrowserRouter,
+  Navigate,
+  Outlet,
+  RouteObject,
+  RouterProvider,
+} from 'react-router-dom'
+
+import { DecksPage } from '@/pages/decks-page/decks-page.tsx'
+import { SignInPage } from '@/pages/sign-in-page/sign-in-page.tsx'
+import { SignUpPage } from '@/pages/sign-up.tsx'
+import { useGetMeQuery } from '@/services/auth/auth.service.ts'
+import { useCreateDeckMutation } from '@/services/decks/decks.service.ts'
 
 const publicRoutes: RouteObject[] = [
   {
@@ -11,8 +19,8 @@ const publicRoutes: RouteObject[] = [
   },
   {
     path: '/sign-up',
-    element: <SignUpPage />
-  }
+    element: <SignUpPage />,
+  },
 ]
 
 const privateRoutes: RouteObject[] = [
@@ -27,11 +35,11 @@ const router = createBrowserRouter([
     element: <PrivateRoutes />,
     children: privateRoutes,
   },
-  ...publicRoutes
+  ...publicRoutes,
 ])
 
 export const Router = () => {
-  const {isLoading: isMeLoading} = useGetMeQuery()
+  const { isLoading: isMeLoading } = useGetMeQuery()
 
   if (isMeLoading) return <div>Loading...</div>
 
@@ -39,7 +47,8 @@ export const Router = () => {
 }
 
 function PrivateRoutes() {
-  const {data: me, isLoading: isMeLoading} = useGetMeQuery()
+  const { data: me, isLoading: isMeLoading } = useGetMeQuery()
+  const [] = useCreateDeckMutation()
 
   const isAuthenticated = me && me?.success !== false
 

@@ -1,8 +1,8 @@
 import * as RRadioGroup from '@radix-ui/react-radio-group'
+
 import s from './RadioGroup.module.scss'
 
 export const RadioGroup = (props: PropsType) => {
-
   const Element = (props: RadioElementType) => {
     return (
       <div className={s.element}>
@@ -23,7 +23,9 @@ export const RadioGroup = (props: PropsType) => {
         defaultValue={props.value}
         aria-label="View density"
         value={props.value}
-        onValueChange={(e) => {props.onValueChange(e)}}
+        onValueChange={e => {
+          props.onValueChange(e)
+        }}
         disabled={props.isDisabled ? props.isDisabled : false}
       >
         {props.options.map(e => (
@@ -31,7 +33,6 @@ export const RadioGroup = (props: PropsType) => {
         ))}
       </RRadioGroup.Root>
     </div>
-
   )
 }
 

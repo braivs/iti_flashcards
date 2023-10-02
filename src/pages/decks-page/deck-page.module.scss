@@ -1,42 +1,43 @@
 .component {
+  width: 100%;
+  max-width: 1024px;
+
+  .topContainer,
+  .middleContainer {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 10px;
+  }
+
+  .topContainer {
+    align-items: center;
+  }
+
+  .middleContainer {
+    flex-direction: row;
+    align-items: end;
+    .searchContainer {
+      width: 100%;
+      max-width: 299px;
+    }
+  }
+
+  .buttonsContainer {
     width: 100%;
-    max-width: 1024px;
+  }
 
-    .topContainer, .middleContainer {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        margin-bottom: 10px;
+  .tableContainer {
+    width: 100%;
+  }
+
+  .paginationContainer {
+    margin-top: 10px;
+  }
+
+  .iconContainer {
+    display: flex;
+    .trashIcon {
+      cursor: pointer;
     }
-
-    .middleContainer {
-        flex-direction: row;
-        .searchContainer {
-            width: 100%;
-            max-width: 299px;
-        }
-    }
-
-    .buttonsContainer {
-        width: 100%;
-    }
-
-    .tableContainer {
-        width: 100%;
-    }
-
-
-    .paginationContainer {
-        margin-top: 10px;
-    }
-
-    .iconContainer {
-        display: flex;
-        .trashIcon {
-            cursor: pointer;
-        }
-    }
-
-
-
+  }
 }
