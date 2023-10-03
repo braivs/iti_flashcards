@@ -1,101 +1,89 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 
 import { ChevronLeftIcon, ChevronRightIcon } from '@radix-ui/react-icons'
+import { clsx } from 'clsx'
+import { v4 } from 'uuid'
 
-import s from './Paginations.module.scss'
+import s from './Pagination.module.scss'
+import { usePagination, DOTS } from './usePagination.ts'
 
-import { Select } from '@/components/ui/Select/Select.tsx'
+import { Select } from '@/components/ui/Select'
 
-export const Pagination: React.FC<PropsType> = props => {
-  let pagesCount = Math.ceil(props.cardPacksTotalCount / props.pageCount) // count of ALL pages, before the paginator
+export const Pagination = (props: PropsType) => {
+  const { onPageChange, totalCount, siblingCount = 1, currentPage, pageSize, className } = props
 
-  // console.log('pagesCount: ' + pagesCount + '\n' + )
-  let pages: number[] = []
+  const paginationRange = usePagination({
+    currentPage,
+    totalCount,
+    siblingCount,
+    pageSize,
+  })
 
-  for (let i = 1; i <= pagesCount; i++) {
-    pages.push(i)
-  }
-  const portionSize = 5 // Hom much pagination buttons to show // todo: this hardcoded value create question
-  const portionCount = Math.ceil(pagesCount / portionSize) // how much total pagination buttons
-
-  const [portion, setPortion] = useState(1)
-  const leftNumber = (portion - 1) * portionSize + 1
-  const rightNumber = portion * portionSize
-
-  const onFirstPageClick = () => {
-    props.currentPageHandler(1)
-    setPortion(1)
+  if (currentPage === 0 || (paginationRange && paginationRange.length < 2)) {
+    return null
   }
 
-  const onLastPageClick = () => {
-    props.currentPageHandler(pagesCount)
-    setPortion(portionCount)
+  const onNext = () => {
+    onPageChange(currentPage + 1)
+  }
+
+  const onPrevious = () => {
+    onPageChange(currentPage - 1)
+  }
+
+  let lastPage = paginationRange && paginationRange[paginationRange.length - 1]
+
+  // vars for state and styles
+  const [isDisabled, setIsDisabled] = useState(false)
+  // const [isSelected, setIsSelected] = useState(false)
+
+  useEffect(() => {
+    setIsDisabled(currentPage == 1)
+    // setIsSelected(pageNumber === currentPage)
+  }, [currentPage])
+
+  const isSelected = (pageNumber: number) => {
+    return pageNumber === currentPage
   }
 
   return (
-    <div className={s.pagination}>
-      {portion === 1 && (
-        <>
-          <button className={`${s.btn} ${s.btnLeft} ${s.btnFake}`}>
-            <ChevronLeftIcon />
-          </button>
-        </>
-      )}
-      {portion > 1 && (
-        <>
-          <button
-            className={`${s.btn} ${s.btnLeft}`}
-            onClick={() => {
-              props.currentPageHandler(portionSize * (portion - 2) + 1)
-              setPortion(portion - 1)
-            }}
-          >
-            <ChevronLeftIcon />
-          </button>
-          <div className={s.item} onClick={onFirstPageClick}>
-            1
-          </div>{' '}
-          {/*first page click*/}
-          <div className={s.points}>...</div>
-        </>
-      )}
+    <div className={clsx(s.paginationContainer, className)}>
+      <div
+        className={clsx(s.paginationItem, isDisabled && s.disabled)}
+        onClick={!isDisabled ? onPrevious : () => {}}
+      >
+        <ChevronLeftIcon className={isDisabled ? s.disabled : ''} />
+      </div>
+      {paginationRange &&
+        paginationRange.map(pageNumber => {
+          if (pageNumber === DOTS) {
+            return (
+              <div key={v4()} className={clsx(s.paginationItem, s.dots)}>
+                ...
+              </div>
+            )
+          }
 
-      {pages
-        .filter(p => (p ? p >= leftNumber && p <= rightNumber : ''))
-        .map(q => {
           return (
             <div
-              key={q}
-              className={`${s.item} ${props.page === q ? s.select : ''}`}
-              onClick={() => {
-                props.currentPageHandler(q)
-              }}
+              key={v4()}
+              className={clsx(s.paginationItem, {
+                [s.selected]: isSelected(+pageNumber),
+              })}
+              onClick={() => onPageChange(pageNumber)}
             >
-              {q}
+              {pageNumber}
             </div>
           )
         })}
-      {portion !== portionCount && (
-        <>
-          <div className={s.points}>...</div>
-          <div className={s.item} onClick={onLastPageClick}>
-            {pagesCount}
-          </div>{' '}
-          {/*last page click*/}
-        </>
-      )}
-      {portionCount > portion && (
-        <button
-          className={`${s.btn} ${s.btnRight}`}
-          onClick={() => {
-            setPortion(portion + 1)
-            props.currentPageHandler(portionSize * portion + 1)
-            // dispatch(updateCurrentPage(props.page))
-          }}
-        >
-          <ChevronRightIcon />
-        </button>
-      )}
+      <li
+        className={clsx(s.paginationItem, {
+          disabled: currentPage === lastPage,
+        })}
+        onClick={onNext}
+      >
+        <ChevronRightIcon />
+      </li>
       <div className={s.selectBlock}>
         <span className={s.label1}>Show</span>
         <Select
@@ -111,14 +99,16 @@ export const Pagination: React.FC<PropsType> = props => {
 }
 
 type PropsType = {
-  cardPacksTotalCount: number
-  pageCount: number
+  onPageChange: (value: number | string) => void
+  totalCount: number
+  siblingCount?: number
+  currentPage: number
+  pageSize: number
+  className?: string
   selectSettings: {
     // setting for Select
     value: string
     onChangeOption: (value: string) => void
     arr: Array<string>
   }
-  page: number
-  currentPageHandler: (page: number) => void
 }

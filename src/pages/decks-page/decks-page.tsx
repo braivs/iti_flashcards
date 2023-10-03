@@ -4,7 +4,7 @@ import s from './deck-page.module.scss'
 
 import trashIcon from '@/assets/icons/trashIcon.png'
 import { Button } from '@/components/ui/Button'
-import { Pagination } from '@/components/ui/Pagination'
+import { Pagination } from '@/components/ui/Pagination/Pagination.tsx'
 import { Column, Table } from '@/components/ui/Table'
 import { TabSwitcher } from '@/components/ui/TabSwitcher'
 import { TabSwitcherValuesType } from '@/components/ui/TabSwitcher/TabSwitcher.tsx'
@@ -28,8 +28,8 @@ export const DecksPage = () => {
 
   const dispatch = useAppDispatch()
 
-  const updateCurrentPageCallback = (page: number) => {
-    dispatch(updateCurrentPage(page))
+  const updateCurrentPageCallback = (page: number | string) => {
+    dispatch(updateCurrentPage(+page))
   }
   const [search, setSearch] = useState('')
   const {
@@ -183,17 +183,31 @@ export const DecksPage = () => {
 
       <div className={s.paginationContainer}>
         {decks && (
-          <Pagination
-            cardPacksTotalCount={decks.pagination.totalItems}
-            pageCount={Number(itemsPerPage)}
-            selectSettings={{
-              value: itemsPerPage,
-              onChangeOption: setItemsPerPageCallback,
-              arr: selectValues,
-            }}
-            page={currentPage}
-            currentPageHandler={updateCurrentPageCallback}
-          />
+          <div>
+            {/*<Pagination
+              cardPacksTotalCount={decks.pagination.totalItems}
+              pageCount={Number(itemsPerPage)}
+              selectSettings={{
+                value: itemsPerPage,
+                onChangeOption: setItemsPerPageCallback,
+                arr: selectValues,
+              }}
+              page={currentPage}
+              currentPageHandler={updateCurrentPageCallback}
+            />*/}
+            <Pagination
+              onPageChange={updateCurrentPageCallback}
+              totalCount={decks.pagination.totalItems}
+              currentPage={currentPage}
+              pageSize={+itemsPerPage}
+              siblingCount={2}
+              selectSettings={{
+                value: itemsPerPage,
+                onChangeOption: setItemsPerPageCallback,
+                arr: selectValues,
+              }}
+            />
+          </div>
         )}
       </div>
     </div>
