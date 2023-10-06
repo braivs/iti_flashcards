@@ -1,3 +1,5 @@
+import { OrderByType } from '@/common/types.ts'
+
 export type Author = {
   id: string
   name: string
@@ -33,11 +35,13 @@ export type DecksResponse = {
 }
 
 export type DeckParams = {
+  name?: string
+  authorId?: string
+  orderBy?: OrderByType
   minCardsCount?: number
   maxCardsCount?: number
-  authorId?: string
-  orderBy?: string
   currentPage?: number
   itemsPerPage?: number
-  name?: string
-} | void
+}
+
+// const orderBy: DeckParams['orderBy'] = 'updated-desc'

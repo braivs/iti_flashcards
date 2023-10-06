@@ -4,7 +4,7 @@ import { RootState } from '@/services/store.ts'
 
 const decksService = baseApi.injectEndpoints({
   endpoints: builder => ({
-    getDecks: builder.query<DecksResponse, DeckParams>({
+    getDecks: builder.query<DecksResponse, DeckParams | void>({
       query: params => ({
         url: 'v1/decks',
         method: 'GET',
