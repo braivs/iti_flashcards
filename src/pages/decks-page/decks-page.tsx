@@ -62,6 +62,8 @@ export const DecksPage = () => {
     } else {
       setAuthorId('')
     }
+
+    dispatch(updateCurrentPage(1))
   }
 
   // for pagination
@@ -168,25 +170,21 @@ export const DecksPage = () => {
       </Table.Root>
 
       <div className={s.paginationContainer}>
-        {decks && (
-          <div>
-            <Pagination
-              onPageChange={updateCurrentPageCallback}
-              totalCount={decks.pagination.totalItems}
-              currentPage={currentPage}
-              pageSize={+itemsPerPage}
-              siblingCount={2}
-              selectSettings={{
-                value: itemsPerPage,
-                onChangeOption: setItemsPerPageCallback,
-                arr: selectValues,
-              }}
-            />
-          </div>
-        )}
+        <div>
+          <Pagination
+            onPageChange={updateCurrentPageCallback}
+            totalCount={decks?.pagination.totalItems ?? 0}
+            currentPage={currentPage}
+            pageSize={+itemsPerPage}
+            siblingCount={2}
+            selectSettings={{
+              value: itemsPerPage,
+              onChangeOption: setItemsPerPageCallback,
+              arr: selectValues,
+            }}
+          />
+        </div>
       </div>
     </div>
   )
 }
-
-// todo: I`m not using pagination.totalPages, maybe later need to check

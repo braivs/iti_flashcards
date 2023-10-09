@@ -112,3 +112,5 @@ type PropsType = {
     arr: Array<string>
   }
 }
+
+//todo add disabled maybe later and if totalItems === 0 than disable
