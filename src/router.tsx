@@ -7,11 +7,12 @@ import {
 } from 'react-router-dom'
 
 import { Layout } from './layout'
+
 import { CheckEmailPage } from '@/pages/check-email-page/check-email-page.tsx'
 import { CreateNewPasswordPage } from '@/pages/create-new-password/create-new-password-page.tsx'
 import { DecksPage } from '@/pages/decks-page/decks-page.tsx'
-import { RecoverPasswordPage } from '@/pages/recover-password-page/recover-password-page.tsx'
 import { PersonalInformationPage } from '@/pages/personal-information/personal-information-page.tsx'
+import { RecoverPasswordPage } from '@/pages/recover-password-page/recover-password-page.tsx'
 import { SignInPage } from '@/pages/sign-in-page/sign-in-page.tsx'
 import { SignUpPage } from '@/pages/sign-up.tsx'
 import { useGetMeQuery } from '@/services/auth/auth.service.ts'
