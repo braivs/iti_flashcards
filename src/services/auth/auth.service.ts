@@ -1,4 +1,4 @@
-import { LoginArgs, LoginResponse } from './auth.types.ts'
+import { AuthMeResponse, LoginArgs, LoginResponse } from './auth.types.ts'
 
 import { baseApi } from '@/services/base-api.ts'
 
@@ -48,7 +48,21 @@ const authService = baseApi.injectEndpoints({
         }
       },
     }),
+    patchMe: builder.mutation<AuthMeResponse, FormData>({
+      query: data => ({
+        url: `/v1/auth/me`,
+        method: 'PATCH',
+        body: data,
+      }),
+      invalidatesTags: ['Me'],
+    }),
   }),
 })
 
-export const { useGetMeQuery, useLoginMutation, useSignUpMutation, useLogoutMutation } = authService
+export const {
+  useGetMeQuery,
+  useLoginMutation,
+  useSignUpMutation,
+  useLogoutMutation,
+  usePatchMeMutation,
+} = authService

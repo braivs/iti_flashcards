@@ -6,16 +6,12 @@
   .middleContainer {
     display: flex;
     justify-content: space-between;
-    margin-bottom: 10px;
-  }
-
-  .topContainer {
     align-items: center;
+    margin-bottom: 10px;
   }
 
   .middleContainer {
     flex-direction: row;
-    align-items: end;
     .searchContainer {
       width: 100%;
       max-width: 299px;

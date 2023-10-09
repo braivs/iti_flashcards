@@ -1,32 +1,44 @@
-import { useState } from 'react'
+import { ChangeEvent, useState } from 'react'
 
+import { zodResolver } from '@hookform/resolvers/zod'
 import { clsx } from 'clsx'
+import { useForm } from 'react-hook-form'
+import { z } from 'zod'
 
+import defaultAva from '../../assets/images/defaultAva.png'
 import { Card } from '../ui/Card'
+import { ControlledTextField } from '../ui/controlled/controlled-text-field'
 import { Typography } from '../ui/Typography'
 
 import s from './personal-information.module.scss'
 
 import { Edit } from '@/assets/icons/Edit.tsx'
 import { Logout } from '@/assets/icons/Logout.tsx'
+import { AvatarRadix } from '@/components/ui/AvatarRadix/AvatarRadix.tsx'
 import { Button } from '@/components/ui/Button'
-import { Textfield } from '@/components/ui/Textfield'
 
 type PersonalInformationType = {
   userName?: string
-  email?: string
-  avatar?: string
-  onChangeUserName?: (userName: string) => void
+  userEmail?: string
+  avatar?: string | null
   onLogout?: () => void
-  onChangeAvatar?: (newAvatar: string) => void
+  onChangePersonalData?: (newName: FormData) => void
+  onChangeAvatar?: (data: FormData) => void
 }
+
+const schema = z.object({
+  name: z.string().min(1),
+})
+
+type FormValues = z.input<typeof schema>
+
 export const PersonalInformation = ({
   userName = 'Ivan',
-  email = 'google-shmoogle.gsh.com',
+  userEmail = 'google-shmoogle.gsh.com',
   avatar = 'https://img.freepik.com/free-vector/cute-cat-gaming-cartoon_138676-2969.jpg?w=826&t=st=1693944282~exp=1693944882~hmac=db975532c35e66aee49662f13349eb1ca1eab57963a6931222633c594a4f5a90',
-  onChangeUserName,
-  onChangeAvatar,
+  onChangePersonalData,
   onLogout,
+  onChangeAvatar,
 }: PersonalInformationType) => {
   const classNames = {
     imageContainer: clsx(s.imageContainer),
@@ -44,21 +56,38 @@ export const PersonalInformation = ({
   }
 
   const [editMode, setEditMode] = useState(false)
-  const onChangeEditMode = () => {
-    onChangeAvatar && onChangeAvatar('newAvatar')
-    onChangeUserName && onChangeUserName('New Name')
 
-    setEditMode(!editMode)
+  const finalUrlAvatar = avatar ? avatar : defaultAva
+
+  const { handleSubmit, control } = useForm<FormValues>({
+    resolver: zodResolver(schema),
+    defaultValues: {
+      name: userName,
+    },
+  })
+
+  const onChangeAvatarHandler = (e: ChangeEvent<HTMLInputElement>) => {
+    const formData = new FormData()
+
+    if (e.target.files && e.target.files.length) {
+      const file = e.target.files[0]
+
+      formData.append('avatar', file)
+    }
+
+    onChangeAvatar && onChangeAvatar(formData)
   }
 
-  // const changeAvatarHandler = () => {
-  //   onChangeAvatar && onChangeAvatar('newAvatar')
-  // }
-  //
-  // const changeUserNameHandler = () => {
-  //   onChangeUserName && onChangeUserName('New Name')
-  // }
+  const handleFormSubmitted = handleSubmit(data => {
+    const formData = new FormData()
 
+    if (data.name) {
+      formData.append('name', data.name)
+    }
+    onChangePersonalData && onChangePersonalData(formData)
+    setEditMode(!editMode)
+    //setFileCount(0)
+  })
   const logoutHandler = () => {
     onLogout && onLogout()
   }
@@ -69,42 +98,59 @@ export const PersonalInformation = ({
         Personal Information
       </Typography>
       <div className={classNames.imageContainer}>
-        <img src={avatar} alt="personalImg" className={classNames.image} />
+        <AvatarRadix urlAdress={finalUrlAvatar} userName={userName} />
         {!editMode && (
-          <Button
-            variant={'secondary'}
-            className={classNames.imageButton}
-            onClick={onChangeEditMode}
-          >
-            <Edit color={'var(--color-light-100)'} className={classNames.iconButton} />
-          </Button>
+          <div className={classNames.imageButton}>
+            <input
+              name={'avatar'}
+              type={'file'}
+              accept={'image/*'}
+              onChange={onChangeAvatarHandler}
+              id={'input_file'}
+              className={s.inputFile}
+            />
+            <label htmlFor="input_file">
+              <Button
+                as={'span'}
+                variant={'secondary'}
+                fullWidth={true}
+                className={classNames.imageButton}
+              >
+                <Edit color={'var(--color-light-100)'} className={classNames.iconButton} />
+              </Button>
+            </label>
+          </div>
         )}
       </div>
       {editMode ? (
-        <div className={classNames.editModeContainer}>
-          <Textfield label={'Nickname'} type={'text'} placeholder={userName} onChange={() => {}} />
+        <form onSubmit={handleFormSubmitted} className={classNames.editModeContainer}>
+          <ControlledTextField name={'name'} control={control} label={'Nickname'} type={'text'} />
           <Button
+            type="submit"
             variant={'primary'}
             fullWidth={true}
-            onClick={onChangeEditMode}
             className={classNames.editModeButton}
           >
             Save Changes
           </Button>
-        </div>
+        </form>
       ) : (
         <>
           <div className={classNames.subtitleContainer}>
             <Typography variant={'H1'} className={classNames.userName}>
               {userName}
             </Typography>
-            <Button variant={'link'} onClick={onChangeEditMode}>
+            <Button
+              variant={'link'}
+              onClick={() => setEditMode(true)}
+              className={classNames.imageButton}
+            >
               <Edit color={'var(--color-light-100)'} className={classNames.iconButton} />
             </Button>
           </div>
           <div>
             <Typography variant={'Body_2'} className={classNames.userEmail}>
-              {email}
+              {userEmail}
             </Typography>
           </div>
 
