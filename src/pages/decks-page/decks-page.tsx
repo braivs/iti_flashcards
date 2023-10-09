@@ -7,6 +7,7 @@ import { OrderByType } from '@/common/types.ts'
 import { Button } from '@/components/ui/Button'
 import { Dialog } from '@/components/ui/Dialog/Dialog.tsx'
 import { Pagination } from '@/components/ui/Pagination/Pagination.tsx'
+import { Slider } from '@/components/ui/Slider/slider.tsx'
 import { Column, Table } from '@/components/ui/Table'
 import { TabSwitcher } from '@/components/ui/TabSwitcher'
 import { TabSwitcherValuesType } from '@/components/ui/TabSwitcher/TabSwitcher.tsx'
@@ -160,7 +161,21 @@ export const DecksPage = () => {
           defaultValue={'AllCards'}
           label={'Show packs cards'}
         />
+        <Slider
+          value={[1, 10]}
+          defaultValue={[1]}
+          onValueChange={() => {}}
+          step={1}
+          min={0}
+          max={decks?.maxCardsCount || 52}
+          minStepsBetweenThumbs={1}
+        />
+        <Button variant="secondary">
+          <img src={trashIcon} alt="" className={s.trashIcon} />
+          Clear Filter
+        </Button>
       </div>
+
       <Table.Root className={s.tableContainer}>
         <Table.Header columns={columns} onSort={setSort} sort={sort} />
         <Table.Body>

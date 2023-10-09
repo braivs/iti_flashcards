@@ -1,41 +1,37 @@
 import { DevTool } from '@hookform/devtools'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useForm } from 'react-hook-form'
+import { useParams } from 'react-router-dom'
 import { z } from 'zod'
 
 import s from './create-new-password.module.scss'
 
 import { Button } from '@/components/ui/Button'
 import { Card } from '@/components/ui/Card'
-import { Textfield } from '@/components/ui/Textfield'
+import { ControlledTextField } from '@/components/ui/controlled/controlled-text-field'
 import { Typography } from '@/components/ui/Typography'
+import { CreatPass } from '@/services/auth/auth.types.ts'
 
 const schema = z.object({
   password: z.string().min(6),
 })
 
-type FormType = z.infer<typeof schema>
-
-export const CreateNewPassword = () => {
-  const {
-    register,
-    control,
-    handleSubmit,
-    formState: { errors },
-  } = useForm<FormType>({
+export type FormeType = z.infer<typeof schema>
+type Props = {
+  onSubmit: (data: CreatPass) => void
+}
+export const CreateNewPassword = (props: Props) => {
+  const { control, handleSubmit } = useForm<FormeType>({
     mode: 'onSubmit',
     resolver: zodResolver(schema),
     defaultValues: {
       password: '',
     },
   })
-  const onSubmit = (data: FormType) => {
-    console.log(data)
-  }
-  /*const handleFormSubmitted = handleSubmit(props.onSubmit)
-      type Props = {
-        onSubmit: (data: FormType) => void
-      }*/
+  const { token } = useParams()
+  const handleFormSubmitted = handleSubmit(data =>
+    props.onSubmit({ ...data, token: token || 'not found' })
+  )
 
   return (
     <>
@@ -44,13 +40,13 @@ export const CreateNewPassword = () => {
         <Typography variant="Large" className={s.title}>
           Create new password
         </Typography>
-        <form onSubmit={handleSubmit(onSubmit)}>
+        <form onSubmit={handleFormSubmitted}>
           <div className={s.input}>
-            <Textfield
-              {...register('password')}
-              label={'Password'}
+            <ControlledTextField
+              placeholder={'Password'}
+              name={'password'}
+              control={control}
               type={'password'}
-              errorMessage={errors.password?.message}
             />
           </div>
           <Typography variant="Caption" className={s.instructions}>

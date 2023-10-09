@@ -1,4 +1,4 @@
-import { AuthMeResponse, LoginArgs, LoginResponse } from './auth.types.ts'
+import { LoginArgs, LoginResponse } from './auth.types.ts'
 
 import { baseApi } from '@/services/base-api.ts'
 
@@ -57,6 +57,37 @@ const authService = baseApi.injectEndpoints({
       invalidatesTags: ['Me'],
     }),
   }),
+  recoverPassword: builder.mutation<any, RecoverArgs>({
+    query: params => {
+      return {
+        url: '/v1/auth/recover-password',
+        method: 'POST',
+        body: {
+          ...params,
+          html: '<h1>Hi, ##name##</h1><p>Click <a href="http://localhost:5173/confirm-email/##token##">here</a> to recover your password</p>',
+          subject: 'Password recovery',
+        },
+      }
+    },
+  }),
+  checkEmail: builder.mutation<any, RecoverArgs>({
+    query: params => {
+      return {
+        url: '/v1/auth/recover-password',
+        method: 'POST',
+        body: params,
+      }
+    },
+  }),
+  createNewPassword: builder.mutation<any, CreatPass>({
+    query: ({ token, password }) => {
+      return {
+        url: `/v1/auth/reset-password/${token}`,
+        method: 'POST',
+        body: { password },
+      }
+    },
+  }),
 })
 
 export const {
@@ -65,4 +96,7 @@ export const {
   useSignUpMutation,
   useLogoutMutation,
   usePatchMeMutation,
+  useRecoverPasswordMutation,
+  useCheckEmailMutation,
+  useCreateNewPasswordMutation,
 } = authService

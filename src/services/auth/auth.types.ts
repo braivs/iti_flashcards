@@ -23,3 +23,11 @@ export type UpdateUserDataArgs = {
   name?: string
   email?: string
 }
+
+export type RecoverArgs = {
+  email: string
+}
+export type CreatPass = {
+  password: string
+  token: string
+}

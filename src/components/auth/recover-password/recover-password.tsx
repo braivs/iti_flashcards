@@ -1,28 +1,28 @@
 import { DevTool } from '@hookform/devtools'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useForm } from 'react-hook-form'
+import { useNavigate } from 'react-router-dom'
 import { z } from 'zod'
 
 import s from './recover-password.module.scss'
 
 import { Button } from '@/components/ui/Button'
 import { Card } from '@/components/ui/Card'
-import { Textfield } from '@/components/ui/Textfield'
+import { ControlledTextField } from '@/components/ui/controlled/controlled-text-field'
 import { Typography } from '@/components/ui/Typography'
 
 const schema = z.object({
   email: z.string().email(),
 })
 
-type FormType = z.infer<typeof schema>
+export type FormType = z.infer<typeof schema>
 
-export const RecoverPassword = () => {
-  const {
-    register,
-    control,
-    handleSubmit,
-    formState: { errors },
-  } = useForm<FormType>({
+type Props = {
+  onSubmit: (data: FormType) => void
+}
+export const RecoverPassword = (props: Props) => {
+  const navigate = useNavigate()
+  const { control, handleSubmit } = useForm<FormType>({
     mode: 'onSubmit',
     resolver: zodResolver(schema),
     defaultValues: {
@@ -30,9 +30,7 @@ export const RecoverPassword = () => {
     },
   })
 
-  const onSubmit = (data: FormType) => {
-    console.log(data)
-  }
+  const handleFormSubmitted = handleSubmit(props.onSubmit)
 
   return (
     <>
@@ -41,12 +39,13 @@ export const RecoverPassword = () => {
         <Typography variant="Large" className={s.title}>
           Forgot your password?
         </Typography>
-        <form onSubmit={handleSubmit(onSubmit)}>
+        <form onSubmit={handleFormSubmitted}>
           <div className={s.form}>
-            <Textfield
-              {...register('email')}
-              errorMessage={errors.email?.message}
-              label={'email'}
+            <ControlledTextField
+              placeholder={'Email'}
+              name={'email'}
+              control={control}
+              type={'email'}
             />
           </div>
           <Typography variant="Body_2" className={s.instructions}>
@@ -59,7 +58,7 @@ export const RecoverPassword = () => {
         <Typography variant="Body_2" className={s.caption}>
           Did you remember your password?
         </Typography>
-        <Button variant="link" className={s.loginLink}>
+        <Button variant="link" className={s.loginLink} onClick={() => navigate('/login')}>
           Try logging in
         </Button>
       </Card>

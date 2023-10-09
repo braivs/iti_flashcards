@@ -8,7 +8,7 @@ import s from './slider.module.scss'
 export const Slider = forwardRef<
   ElementRef<typeof SliderPrimitive.Root>,
   ComponentPropsWithoutRef<typeof SliderPrimitive.Root>
->(({ className, ...props }, ref) => (
+>(({ className, name, ...props }, ref) => (
   <div className={s.container}>
     <span className={s.value}>{props?.value?.[0]}</span>
     <SliderPrimitive.Root ref={ref} className={clsx(s.root, className)} {...props}>
