@@ -12,7 +12,7 @@ const decksService = baseApi.injectEndpoints({
       }),
       providesTags: ['Decks'],
     }),
-    createDeck: builder.mutation<Deck, { name: string }>({
+    createDeck: builder.mutation<Deck, { name: string; isPrivate: boolean }>({
       query: data => ({
         url: `v1/decks`,
         method: 'POST',

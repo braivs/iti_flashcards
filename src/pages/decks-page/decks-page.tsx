@@ -5,7 +5,8 @@ import s from './deck-page.module.scss'
 import trashIcon from '@/assets/icons/trashIcon.png'
 import { OrderByType } from '@/common/types.ts'
 import { Button } from '@/components/ui/Button'
-import { Dialog } from '@/components/ui/Dialog/Dialog.tsx'
+import { DialogAddPack } from '@/components/ui/Dialogs/DialogAddPack/DialogAddPack.tsx'
+import { DialogRemovePack } from '@/components/ui/Dialogs/DialogRemovePack/DialogRemovePack.tsx'
 import { Pagination } from '@/components/ui/Pagination/Pagination.tsx'
 import { Slider } from '@/components/ui/Slider/slider.tsx'
 import { Column, Table } from '@/components/ui/Table'
@@ -31,8 +32,15 @@ export const DecksPage = () => {
   const [selectedDeck, setSelectedDeck] = useState<SelectedDeckType>({
     id: '',
     name: '',
-  }) // for delete dialog
-  const [isDeleteDialogOpen, setIsDeleteDialogOpen] = useState(false)
+  })
+
+  const [isDeleteDialogOpen, setIsDeleteDialogOpen] = useState(false) // for delete dialog
+
+  // for add dialog
+  const [newPackName, setNewPackName] = useState('')
+  const [isAddDialogOpen, setIsAddDialogOpen] = useState(false)
+  const [isPrivate, setIsPrivate] = useState(false)
+  // ===
 
   const { data: me } = useGetMeQuery()
   const [createDeck, { isLoading }] = useCreateDeckMutation()
@@ -69,6 +77,13 @@ export const DecksPage = () => {
       })
     setIsDeleteDialogOpen(false)
     setSelectedDeck({ id: '', name: '' })
+  }
+
+  const onAddDeck = () => {
+    if (!newPackName) return
+    dispatch(updateCurrentPage(1))
+    createDeck({ name: newPackName, isPrivate })
+    setIsAddDialogOpen(false)
   }
 
   //for tabSwitcher
@@ -129,21 +144,24 @@ export const DecksPage = () => {
 
   return (
     <div className={s.component}>
-      <Dialog
+      <DialogRemovePack
         open={isDeleteDialogOpen}
         setOpen={setIsDeleteDialogOpen}
         packName={selectedDeck.name}
         onDelete={onDeleteDeck}
       />
+      <DialogAddPack
+        open={isAddDialogOpen}
+        setOpen={setIsAddDialogOpen}
+        onAdd={onAddDeck}
+        onChangeNewPackName={setNewPackName}
+        newPackName={newPackName}
+        isPrivate={isPrivate}
+        setIsPrivate={setIsPrivate}
+      />
       <div className={s.topContainer}>
         <Typography variant="Large">Packs list</Typography>
-        <Button
-          onClick={() => {
-            dispatch(updateCurrentPage(1))
-            createDeck({ name: 'New Deck 4' })
-          }}
-          disabled={isLoading}
-        >
+        <Button onClick={() => setIsAddDialogOpen(true)} disabled={isLoading}>
           Add New Pack
         </Button>
       </div>
