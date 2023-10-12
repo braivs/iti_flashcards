@@ -52,6 +52,12 @@ export const DecksPage = () => {
     dispatch(updateCurrentPage(+page))
   }
   const [search, setSearch] = useState('')
+
+  //for slider
+  const [value, setValue] = useState<number[]>([0, 52])
+  const sliderChangeHandler = (newValue: number[]) => {
+    setValue(newValue)
+  }
   const {
     currentData: decks,
     isLoading: decksLoading,
@@ -59,6 +65,8 @@ export const DecksPage = () => {
   } = useGetDecksQuery({
     itemsPerPage: +itemsPerPage,
     name: search,
+    minCardsCount: value[0],
+    maxCardsCount: value[1],
     currentPage,
     authorId,
     orderBy,
@@ -180,9 +188,9 @@ export const DecksPage = () => {
           label={'Show packs cards'}
         />
         <Slider
-          value={[1, 10]}
+          value={value}
           defaultValue={[1]}
-          onValueChange={() => {}}
+          onValueChange={sliderChangeHandler}
           step={1}
           min={0}
           max={decks?.maxCardsCount || 52}

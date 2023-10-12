@@ -1,6 +1,7 @@
 import { zodResolver } from '@hookform/resolvers/zod'
 import { clsx } from 'clsx'
 import { useForm } from 'react-hook-form'
+import { useNavigate } from 'react-router-dom'
 import { z } from 'zod'
 
 import { Card } from '../../ui/Card'
@@ -20,6 +21,8 @@ const schema = z.object({
 type FormValues = z.input<typeof schema>
 
 export const SignIn = (props: PropsType) => {
+  const navigate = useNavigate()
+
   const {
     handleSubmit,
     control,
@@ -69,18 +72,23 @@ export const SignIn = (props: PropsType) => {
             className={sC.checkbox}
             position={'left'}
           />
-          <Typography variant={'Body_2'} className={sC.right}>
+          <Button variant="link" className={sC.right} onClick={() => navigate('/recover-password')}>
             Forgot Password?
-          </Typography>
+          </Button>
           <Button type="submit" className={sC.button}>
             Sign in
           </Button>
           <Typography variant={'Body_2'} className={clsx(sC.center, sC.colorLight)}>
             Don&apos;t have an account?
           </Typography>
-          <Typography variant={'Link_1'} className={clsx(sC.center, sC.signUp)}>
+          <Button
+            type="button"
+            variant="link"
+            className={clsx(sC.center, sC.signUp)}
+            onClick={() => navigate('/sign-up')}
+          >
             Sign Up
-          </Typography>
+          </Button>
         </Card>
       </div>
     </form>

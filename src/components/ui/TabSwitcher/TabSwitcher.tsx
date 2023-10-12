@@ -6,8 +6,14 @@ import { Typography } from '@/components/ui/Typography'
 
 export const TabSwitcher = (props: PropsType) => {
   return (
-    <div>
-      {props.label && <Typography variant={'Body_2'}>{props.label}</Typography>}
+    <div className={s.conteiner}>
+      <div className={s.TypBox}>
+        {props.label && (
+          <Typography variant={'Body_2'} className={s.TabLabel}>
+            {props.label}
+          </Typography>
+        )}
+      </div>
       <Tabs.Root className={s.TabsRoot} defaultValue={props.defaultValue}>
         <Tabs.List className={s.TabsList} aria-label="Manage your account">
           {props.values.map(v => {

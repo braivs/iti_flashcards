@@ -4,14 +4,15 @@ import { DevTool } from '@hookform/devtools'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { clsx } from 'clsx'
 import { useForm } from 'react-hook-form'
+import { useNavigate } from 'react-router-dom'
 import { omit } from 'remeda'
 import { z } from 'zod'
 
 import { Button } from '../../ui/Button/button.tsx'
 import { Card } from '../../ui/Card'
-import { Textfield } from '../../ui/Textfield'
 import { Typography } from '../../ui/Typography'
 
+import { ControlledTextField } from '@/components/ui/controlled/controlled-text-field'
 import { useSignUpMutation } from '@/services/auth/auth.service.ts'
 import sC from '@/styles/formStyles.module.scss'
 
@@ -30,9 +31,9 @@ type FormValues = z.input<typeof schema>
 
 export const SignUpForm = () => {
   const [signUp, { error }] = useSignUpMutation()
+  const navigate = useNavigate()
 
   const {
-    register,
     handleSubmit,
     control,
     formState: { errors },
@@ -73,26 +74,29 @@ export const SignUpForm = () => {
           </Typography>
           <div className={sC.values}>
             <div className={sC.element}>
-              <Textfield
-                {...register('email')}
+              <ControlledTextField
+                name={'email'}
                 errorMessage={errors.email?.message}
                 label={'email'}
+                control={control}
               />
             </div>
             <div className={sC.element}>
-              <Textfield
-                {...register('password')}
+              <ControlledTextField
+                name={'password'}
                 label={'Password'}
                 type={'password'}
                 errorMessage={errors.password?.message}
+                control={control}
               />
             </div>
             <div className={sC.element}>
-              <Textfield
-                {...register('confirm')}
-                label={'Confirm password'}
+              <ControlledTextField
+                name={'password'}
+                label={'Password'}
                 type={'password'}
-                errorMessage={errors.confirm?.message}
+                errorMessage={errors.password?.message}
+                control={control}
               />
             </div>
           </div>
@@ -102,9 +106,13 @@ export const SignUpForm = () => {
           <Typography variant={'Body_2'} className={clsx(sC.center, sC.colorLight)}>
             Already have an account?
           </Typography>
-          <Typography variant={'Link_1'} className={clsx(sC.center, sC.signUp)}>
-            Sign Up
-          </Typography>
+          <Button
+            variant="link"
+            className={clsx(sC.center, sC.signUp)}
+            onClick={() => navigate('/login')}
+          >
+            Sign In
+          </Button>
         </Card>
       </div>
     </form>
