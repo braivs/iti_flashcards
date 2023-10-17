@@ -46,6 +46,7 @@ export const RecoverPassword = (props: Props) => {
               name={'email'}
               control={control}
               type={'email'}
+              label={'Email'}
             />
           </div>
           <Typography variant="Body_2" className={s.instructions}>

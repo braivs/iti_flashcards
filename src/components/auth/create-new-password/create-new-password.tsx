@@ -47,6 +47,7 @@ export const CreateNewPassword = (props: Props) => {
               name={'password'}
               control={control}
               type={'password'}
+              label={'Password'}
             />
           </div>
           <Typography variant="Caption" className={s.instructions}>
