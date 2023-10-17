@@ -17,6 +17,7 @@ import { TabSwitcherValuesType } from '@/components/ui/TabSwitcher/TabSwitcher.t
 import { Textfield } from '@/components/ui/Textfield'
 import { Typography } from '@/components/ui/Typography'
 import { useAppDispatch, useAppSelector } from '@/hooks.ts'
+import { maxCardsCountHard } from '@/pages/decks-page/maxCardsCount.tsx'
 import { useGetMeQuery } from '@/services/auth/auth.service.ts'
 import { Sort } from '@/services/common/types.ts'
 import {
@@ -57,7 +58,7 @@ export const DecksPage = () => {
   const [search, setSearch] = useState('')
 
   //for slider
-  const [value, setValue] = useState<number[]>([0, 52])
+  const [value, setValue] = useState<number[]>([0, maxCardsCountHard])
   const sliderChangeHandler = (newValue: number[]) => {
     setValue(newValue)
   }
@@ -110,6 +111,13 @@ export const DecksPage = () => {
     }
 
     dispatch(updateCurrentPage(1))
+  }
+
+  //Filtered Button
+  const filterHandler = () => {
+    setSearch('')
+    setAuthorId('')
+    setValue([0, maxCardsCountHard])
   }
 
   // for pagination
@@ -201,11 +209,11 @@ export const DecksPage = () => {
           onValueChange={sliderChangeHandler}
           step={1}
           min={0}
-          max={decks?.maxCardsCount || 52}
+          max={decks?.maxCardsCount || maxCardsCountHard}
           minStepsBetweenThumbs={1}
         />
-        <Button variant="secondary">
-          <img src={trashIcon} alt="" className={s.trashIcon} />
+        <Button variant="secondary" onClick={filterHandler}>
+          <img src={trashIcon} alt="trashIcon" className={s.trashIcon} />
           Clear Filter
         </Button>
       </div>
