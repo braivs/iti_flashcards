@@ -1,5 +1,7 @@
 import { useEffect, useState } from 'react'
 
+import { useNavigate } from 'react-router-dom'
+
 import s from './deck-page.module.scss'
 
 import trashIcon from '@/assets/icons/trashIcon.png'
@@ -33,6 +35,7 @@ export const DecksPage = () => {
     id: '',
     name: '',
   })
+  const navigate = useNavigate()
 
   const [isDeleteDialogOpen, setIsDeleteDialogOpen] = useState(false) // for delete dialog
 
@@ -118,6 +121,11 @@ export const DecksPage = () => {
 
     setOrderBy(sortString as OrderByType) // todo: maybe fix this later
   }, [sort])
+
+  const onViewDeck = (packId: string) => {
+    // window.alert(`Edit pack with id: ${packId}`)
+    navigate(`/cards/${packId}`)
+  }
 
   const columns: Column[] = [
     {
@@ -209,7 +217,7 @@ export const DecksPage = () => {
             decks.items.map(deck => {
               return (
                 <Table.Row key={deck.id}>
-                  <Table.Cell>{deck.name}</Table.Cell>
+                  <Table.Cell onDoubleClick={() => onViewDeck(deck.id)}>{deck.name}</Table.Cell>
                   <Table.Cell>{deck.cardsCount}</Table.Cell>
                   <Table.Cell>{deck.updated}</Table.Cell>
                   <Table.Cell>{deck.author.name}</Table.Cell>

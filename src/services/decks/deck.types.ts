@@ -34,6 +34,23 @@ export type DecksResponse = {
   pagination: PaginationType
 }
 
+export type DeckByIdResponse = {
+  author: {
+    id: string
+    name: string
+  }
+  id: string
+  userId: string
+  name: string
+  isPrivate: boolean
+  shots: number
+  cover: string
+  rating: number
+  created: string
+  updated: string
+  cardsCount: number
+}
+
 export type DeckParams = {
   name?: string
   authorId?: string
@@ -44,4 +61,57 @@ export type DeckParams = {
   itemsPerPage?: number
 }
 
-// const orderBy: DeckParams['orderBy'] = 'updated-desc'
+export type GetCardsInDeckParams = {
+  id: string
+  question?: string
+  answer?: string
+  orderBy?: string
+  currentPage?: number
+  itemsPerPage?: number
+}
+
+type CardType = {
+  answer: string
+  answerImg: string | null
+  answerVideo: string | null
+  created: string
+  deckId: string
+  grade: number
+  id: string
+  question: string
+  questionImg: string | null
+  questionVideo: string | null
+  shots: number
+  updated: string
+  userId: string
+}
+
+export type GetCardsInDeckResponse = {
+  items: Array<CardType>
+  pagination: PaginationType
+}
+
+export type CreateCardInDeckType = {
+  question: string
+  answer: string
+  questionImg?: string
+  answerImg?: string
+  questionVideo?: string
+  answerVideo?: string
+}
+
+export type CreateCardInDeckResponseType = {
+  id: string
+  deckId: string
+  userId: string
+  question: string
+  answer: string
+  shots: number
+  answerImg: string
+  questionImg: string
+  questionVideo: string
+  answerVideo: string
+  rating: number
+  created: string
+  updated: string
+}

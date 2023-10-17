@@ -8,6 +8,7 @@ import {
 
 import { Layout } from './layout'
 
+import { CardsPage } from '@/pages/cards-page/cards-page.tsx'
 import { CheckEmailPage } from '@/pages/check-email-page/check-email-page.tsx'
 import { CreateNewPasswordPage } from '@/pages/create-new-password/create-new-password-page.tsx'
 import { DecksPage } from '@/pages/decks-page/decks-page.tsx'
@@ -37,6 +38,10 @@ const publicRoutes: RouteObject[] = [
   {
     path: '/confirm-email/:token',
     element: <CreateNewPasswordPage />,
+  },
+  {
+    path: '/cards/:id',
+    element: <CardsPage />,
   },
 ]
 

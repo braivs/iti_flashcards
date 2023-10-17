@@ -1,7 +1,5 @@
 import { Dispatch, SetStateAction } from 'react'
 
-import s from './DialogAddPack.module.scss'
-
 import { Checkbox } from '@/components/ui/Checkbox'
 import sC from '@/components/ui/Dialogs/DialogsCommon.module.scss'
 import { DialogsCommon } from '@/components/ui/Dialogs/DialogsCommon.tsx'
@@ -17,7 +15,7 @@ export const DialogAddPack = (props: PropsType) => {
       actionButtonText={'Add New Pack'}
     >
       <div className={sC.DialogDescription}>
-        <div className={s.textFieldContainer}>
+        <div className={sC.textFieldContainer}>
           <Textfield
             label={'Name Pack'}
             onChange={e => props.onChangeNewPackName(e.currentTarget.value)}
