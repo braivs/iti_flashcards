@@ -1,32 +1,26 @@
 import { useState } from 'react'
 
-import { useParams } from 'react-router-dom'
+import { useNavigate, useParams } from 'react-router-dom'
 
 import sC from '../decks-page/deck-page.module.scss'
 
 import s from './cards-page.module.scss'
 
+import arrowLeft from '@/assets/icons/ArrowLeft.svg'
 import trashIcon from '@/assets/icons/trashIcon.png'
 import { Button } from '@/components/ui/Button'
-import { DialogAddNewCard } from '@/components/ui/Dialogs/DialogAddNewCard/DialogAddNewCard.tsx'
+import { DialogAddNewCard } from '@/components/ui/Dialogs/DialogAddNewCard.tsx'
 import { Column, Table } from '@/components/ui/Table'
 import { Typography } from '@/components/ui/Typography'
-import {
-  useCreateCardInDeckMutation,
-  useGetCardsInDeckQuery,
-  useGetDeckByIdQuery,
-} from '@/services/decks/decks.service.ts'
+import { useGetCardsInDeckQuery, useGetDeckByIdQuery } from '@/services/decks/decks.service.ts'
 
 export const CardsPage = () => {
   let { id } = useParams()
   const { data } = useGetDeckByIdQuery({ id: id ? id : '' })
   const { data: cards } = useGetCardsInDeckQuery({ id: id ? id : '' })
 
-  const [isAddNewCardDialogOpen, setIsAddNewCardDialogOpen] = useState(false)
-  const [question, setQuestion] = useState('')
-  const [answer, setAnswer] = useState('')
-
-  const [createDeck] = useCreateCardInDeckMutation()
+  const [isAddNewCardDialogOpen, setIsAddNewCardDialogOpen] = useState(false) // change for developing
+  const navigate = useNavigate()
 
   const columns: Column[] = [
     {
@@ -55,22 +49,12 @@ export const CardsPage = () => {
     },
   ]
 
-  const onAddNewCard = () => {
-    if (!question || !answer) return
-    createDeck({
-      deckId: id ? id : '',
-      data: {
-        question,
-        answer,
-      },
-    })
-    setIsAddNewCardDialogOpen(false)
+  const onOpenDialog = () => {
+    setIsAddNewCardDialogOpen(true)
   }
 
-  const onOpenDialog = () => {
-    setQuestion('') // todo: fix this, not works
-    setAnswer('')
-    setIsAddNewCardDialogOpen(true)
+  const onArrowLeft = () => {
+    navigate(`/`)
   }
 
   return (
@@ -78,12 +62,12 @@ export const CardsPage = () => {
       <DialogAddNewCard
         open={isAddNewCardDialogOpen}
         setOpen={setIsAddNewCardDialogOpen}
-        question={question}
-        onChangeQuestion={setQuestion}
-        answer={answer}
-        onChangeAnswer={setAnswer}
-        onAddNewCard={onAddNewCard}
+        deckId={id ? id : ''}
       />
+      <div className={s.arrowContainer} onClick={onArrowLeft}>
+        <img src={arrowLeft} alt="arrowLeft" />
+        <span className={s.text}>Back to Packs List</span>
+      </div>
       <div className={sC.topContainer}>
         <Typography variant={'H1'}>{data?.name}</Typography>
         {data?.cardsCount !== 0 && (
@@ -91,12 +75,12 @@ export const CardsPage = () => {
         )}
       </div>
       {data?.cardsCount === 0 ? (
-        <>
-          <Typography variant={'Subtitle_1'}>
+        <div className={s.emptyPackContainer}>
+          <Typography variant={'Subtitle_2'} className={s.Subtitle_2}>
             This pack is empty. Click add new card to fill this pack
           </Typography>
           <Button onClick={onOpenDialog}>Add New Card</Button>
-        </>
+        </div>
       ) : (
         <Table.Root className={sC.tableContainer}>
           <Table.Header columns={columns} />
@@ -128,5 +112,3 @@ export const CardsPage = () => {
     </div>
   )
 }
-
-//todo: add better error handling, maybe pass form inside

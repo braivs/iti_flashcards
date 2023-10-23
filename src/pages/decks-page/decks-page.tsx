@@ -5,10 +5,10 @@ import { useNavigate } from 'react-router-dom'
 import s from './deck-page.module.scss'
 
 import trashIcon from '@/assets/icons/trashIcon.png'
-import { OrderByType } from '@/common/types.ts'
+import { OrderByType, SelectedDeckType } from '@/common/types.ts'
 import { Button } from '@/components/ui/Button'
-import { DialogAddPack } from '@/components/ui/Dialogs/DialogAddPack/DialogAddPack.tsx'
-import { DialogRemovePack } from '@/components/ui/Dialogs/DialogRemovePack/DialogRemovePack.tsx'
+import { DialogAddPack } from '@/components/ui/Dialogs/DialogAddPack.tsx'
+import { DialogRemovePack } from '@/components/ui/Dialogs/DialogRemovePack.tsx'
 import { Pagination } from '@/components/ui/Pagination/Pagination.tsx'
 import { Slider } from '@/components/ui/Slider/slider.tsx'
 import { Column, Table } from '@/components/ui/Table'
@@ -20,11 +20,7 @@ import { useAppDispatch, useAppSelector } from '@/hooks.ts'
 import { maxCardsCountHard } from '@/pages/decks-page/maxCardsCount.tsx'
 import { useGetMeQuery } from '@/services/auth/auth.service.ts'
 import { Sort } from '@/services/common/types.ts'
-import {
-  useCreateDeckMutation,
-  useDeleteDeckMutation,
-  useGetDecksQuery,
-} from '@/services/decks/decks.service.ts'
+import { useGetDecksQuery } from '@/services/decks/decks.service.ts'
 import { setItemsPerPage, updateCurrentPage } from '@/services/decks/decks.slice.ts'
 
 export const DecksPage = () => {
@@ -41,14 +37,10 @@ export const DecksPage = () => {
   const [isDeleteDialogOpen, setIsDeleteDialogOpen] = useState(false) // for delete dialog
 
   // for add dialog
-  const [newPackName, setNewPackName] = useState('')
   const [isAddDialogOpen, setIsAddDialogOpen] = useState(false)
-  const [isPrivate, setIsPrivate] = useState(false)
   // ===
 
   const { data: me } = useGetMeQuery()
-  const [createDeck, { isLoading }] = useCreateDeckMutation()
-  const [deleteDeck] = useDeleteDeckMutation()
 
   const dispatch = useAppDispatch()
 
@@ -79,23 +71,6 @@ export const DecksPage = () => {
   const onSelectDeckForDel = (id: string, name: string) => {
     setIsDeleteDialogOpen(true)
     setSelectedDeck({ id, name })
-  }
-
-  const onDeleteDeck = () => {
-    deleteDeck({ id: selectedDeck.id })
-      .unwrap()
-      .catch(err => {
-        alert(err?.data?.message)
-      })
-    setIsDeleteDialogOpen(false)
-    setSelectedDeck({ id: '', name: '' })
-  }
-
-  const onAddDeck = () => {
-    if (!newPackName) return
-    dispatch(updateCurrentPage(1))
-    createDeck({ name: newPackName, isPrivate })
-    setIsAddDialogOpen(false)
   }
 
   //for tabSwitcher
@@ -171,23 +146,13 @@ export const DecksPage = () => {
       <DialogRemovePack
         open={isDeleteDialogOpen}
         setOpen={setIsDeleteDialogOpen}
-        packName={selectedDeck.name}
-        onDelete={onDeleteDeck}
+        selectedDeck={selectedDeck}
+        setSelectedDeck={setSelectedDeck}
       />
-      <DialogAddPack
-        open={isAddDialogOpen}
-        setOpen={setIsAddDialogOpen}
-        onAdd={onAddDeck}
-        onChangeNewPackName={setNewPackName}
-        newPackName={newPackName}
-        isPrivate={isPrivate}
-        setIsPrivate={setIsPrivate}
-      />
+      <DialogAddPack open={isAddDialogOpen} setOpen={setIsAddDialogOpen} />
       <div className={s.topContainer}>
         <Typography variant="Large">Packs list</Typography>
-        <Button onClick={() => setIsAddDialogOpen(true)} disabled={isLoading}>
-          Add New Pack
-        </Button>
+        <Button onClick={() => setIsAddDialogOpen(true)}>Add New Pack</Button>
       </div>
       <div className={s.middleContainer}>
         <div className={s.searchContainer}>
@@ -263,9 +228,4 @@ export const DecksPage = () => {
       </div>
     </div>
   )
-}
-
-type SelectedDeckType = {
-  id: string
-  name: string
 }

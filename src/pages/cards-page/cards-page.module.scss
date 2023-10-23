@@ -4,3 +4,22 @@
     overflow: hidden;
     max-width: 300px;
 }
+
+.emptyPackContainer {
+    text-align: center;
+
+    .Subtitle_2 {
+        margin-bottom: 30px;
+        font-weight: 400;
+        color: var(--color-dark-100);
+    }
+}
+
+.arrowContainer {
+    display: flex;
+    cursor: pointer;
+
+    .text {
+        margin-left: 5px;
+    }
+}
