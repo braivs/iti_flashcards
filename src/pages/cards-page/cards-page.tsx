@@ -8,8 +8,10 @@ import s from './cards-page.module.scss'
 
 import arrowLeft from '@/assets/icons/ArrowLeft.svg'
 import trashIcon from '@/assets/icons/trashIcon.png'
+import { SelectedCardType } from '@/common/types.ts'
 import { Button } from '@/components/ui/Button'
 import { DialogAddNewCard } from '@/components/ui/Dialogs/DialogAddNewCard.tsx'
+import { DialogRemoveCard } from '@/components/ui/Dialogs/DialogRemoveCard.tsx'
 import { Column, Table } from '@/components/ui/Table'
 import { Typography } from '@/components/ui/Typography'
 import { useGetCardsInDeckQuery, useGetDeckByIdQuery } from '@/services/decks/decks.service.ts'
@@ -19,7 +21,13 @@ export const CardsPage = () => {
   const { data } = useGetDeckByIdQuery({ id: id ? id : '' })
   const { data: cards } = useGetCardsInDeckQuery({ id: id ? id : '' })
 
-  const [isAddNewCardDialogOpen, setIsAddNewCardDialogOpen] = useState(false) // change for developing
+  const [isAddNewCardDialogOpen, setIsAddNewCardDialogOpen] = useState(false)
+  const [isDeleteDialogOpen, setIsDeleteDialogOpen] = useState(false) // for delete dialog
+  const [selectedCard, setSelectedCard] = useState<SelectedCardType>({
+    id: '',
+    question: '',
+  })
+
   const navigate = useNavigate()
 
   const columns: Column[] = [
@@ -57,8 +65,19 @@ export const CardsPage = () => {
     navigate(`/`)
   }
 
+  const onSelectCardForDel = (id: string, question: string) => {
+    setIsDeleteDialogOpen(true)
+    setSelectedCard({ id, question })
+  }
+
   return (
     <div className={sC.component}>
+      <DialogRemoveCard
+        open={isDeleteDialogOpen}
+        setOpen={setIsDeleteDialogOpen}
+        selectedCard={selectedCard}
+        setSelectedCard={setSelectedCard}
+      />
       <DialogAddNewCard
         open={isAddNewCardDialogOpen}
         setOpen={setIsAddNewCardDialogOpen}
@@ -99,7 +118,7 @@ export const CardsPage = () => {
                           src={trashIcon}
                           alt=""
                           className={sC.trashIcon}
-                          onClick={() => window.alert('onDelete')}
+                          onClick={() => onSelectCardForDel(data.id, data.question)}
                         />
                       </div>
                     </Table.Cell>

@@ -1,7 +1,7 @@
 import * as RDialog from '@radix-ui/react-dialog'
 
 import { SelectedDeckType } from '@/common/types.ts'
-import s from '@/components/ui/Dialogs/DialogsCommon.module.scss'
+import sC from '@/components/ui/Dialogs/DialogsCommon.module.scss'
 import { DialogsCommon } from '@/components/ui/Dialogs/DialogsCommon.tsx'
 import { useDeleteDeckMutation } from '@/services/decks/decks.service.ts'
 
@@ -26,7 +26,7 @@ export const DialogRemovePack = (props: PropsType) => {
       onButtonAction={onDeleteDeck}
       actionButtonText={'Delete pack'}
     >
-      <RDialog.Description className={s.DialogDescription}>
+      <RDialog.Description className={sC.DialogDescription}>
         Do you really want to remove <b>{props.selectedDeck.name}</b>?
         <br />
         All cards will be deleted.

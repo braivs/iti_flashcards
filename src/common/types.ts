@@ -5,3 +5,7 @@ export type SelectedDeckType = {
   id: string
   name: string
 }
+export type SelectedCardType = {
+  id: string
+  question: string
+}
