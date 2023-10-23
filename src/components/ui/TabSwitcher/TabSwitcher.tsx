@@ -14,7 +14,7 @@ export const TabSwitcher = (props: PropsType) => {
           </Typography>
         )}
       </div>
-      <Tabs.Root className={s.TabsRoot} defaultValue={props.defaultValue}>
+      <Tabs.Root className={s.TabsRoot} defaultValue={props.defaultValue} value={props.value}>
         <Tabs.List className={s.TabsList} aria-label="Manage your account">
           {props.values.map(v => {
             return (
@@ -46,5 +46,6 @@ type PropsType = {
   values: Array<TabSwitcherValuesType>
   isDisabled?: boolean
   defaultValue?: string
+  value?: string
   label?: string
 }

@@ -81,7 +81,7 @@ export const Header: FC<HeaderProps> = ({ className, ...rest }) => {
             </DropDownMenu>
           </div>
         ) : (
-          <Button className={s.button} variant="primary">
+          <Button className={s.button} variant="primary" onClick={() => navigate('/login')}>
             <Vector />
             Sign In
           </Button>

@@ -165,7 +165,8 @@ export const DecksPage = () => {
         <TabSwitcher
           onChangeCallback={onTabChange}
           values={tabSwitcherValues}
-          defaultValue={'AllCards'}
+          defaultValue={tabSwitcherValues[0].value as string}
+          value={tabSwitcherValues[authorId ? 0 : 1].value as string}
           label={'Show packs cards'}
         />
         <Slider
