@@ -21,12 +21,18 @@ import { maxCardsCountHard } from '@/pages/decks-page/maxCardsCount.tsx'
 import { useGetMeQuery } from '@/services/auth/auth.service.ts'
 import { Sort } from '@/services/common/types.ts'
 import { useGetDecksQuery } from '@/services/decks/decks.service.ts'
-import { setItemsPerPage, updateCurrentPage } from '@/services/decks/decks.slice.ts'
+import {
+  setAuthorId,
+  setCardsCounts,
+  setItemsPerPage,
+  setOrderBy,
+  setSearchByName,
+  updateCurrentPage,
+} from '@/services/decks/decks.slice.ts'
 
 export const DecksPage = () => {
-  const { selectValues, itemsPerPage, currentPage } = useAppSelector(state => state.decks)
-  const [authorId, setAuthorId] = useState('')
-  const [orderBy, setOrderBy] = useState<OrderByType | undefined>(undefined)
+  const { itemsPerPage, searchByName, cardsCounts, currentPage, authorId, orderBy } =
+    useAppSelector(state => state.decks)
   const [sort, setSort] = useState<Sort>(null) // for sorting cells in table
   const [selectedDeck, setSelectedDeck] = useState<SelectedDeckType>({
     id: '',
@@ -47,12 +53,11 @@ export const DecksPage = () => {
   const updateCurrentPageCallback = (page: number | string) => {
     dispatch(updateCurrentPage(+page))
   }
-  const [search, setSearch] = useState('')
 
   //for slider
-  const [value, setValue] = useState<number[]>([0, maxCardsCountHard])
+  // const [value, setValue] = useState<number[]>([0, maxCardsCountHard])
   const sliderChangeHandler = (newValue: number[]) => {
-    setValue(newValue)
+    dispatch(setCardsCounts(newValue))
   }
   const {
     currentData: decks,
@@ -60,9 +65,9 @@ export const DecksPage = () => {
     isError: decksIsError,
   } = useGetDecksQuery({
     itemsPerPage: +itemsPerPage,
-    name: search,
-    minCardsCount: value[0],
-    maxCardsCount: value[1],
+    name: searchByName,
+    minCardsCount: cardsCounts[0],
+    maxCardsCount: cardsCounts[1],
     currentPage,
     authorId,
     orderBy,
@@ -80,9 +85,9 @@ export const DecksPage = () => {
   ]
   const onTabChange = (value: string) => {
     if (value === 'MyCards') {
-      setAuthorId(me.id)
+      dispatch(setAuthorId(me.id))
     } else {
-      setAuthorId('')
+      dispatch(setAuthorId(''))
     }
 
     dispatch(updateCurrentPage(1))
@@ -90,19 +95,20 @@ export const DecksPage = () => {
 
   //Filtered Button
   const filterHandler = () => {
-    setSearch('')
-    setAuthorId('')
-    setValue([0, maxCardsCountHard])
+    dispatch(updateCurrentPage(1))
+    dispatch(setAuthorId(''))
+    dispatch(setCardsCounts([0, maxCardsCountHard]))
   }
 
   // for pagination
   //// select inside pagination
   const setItemsPerPageCallback = (value: string) => dispatch(setItemsPerPage(value))
+  const selectValues = ['5', '9', '20', '50', '100']
 
   useEffect(() => {
     const sortString: string | undefined = sort ? `${sort?.key}-${sort?.direction}` : undefined
 
-    setOrderBy(sortString as OrderByType) // todo: maybe fix this later
+    dispatch(setOrderBy(sortString as OrderByType)) // todo: maybe fix this later
   }, [sort])
 
   const onViewDeck = (packId: string) => {
@@ -157,8 +163,8 @@ export const DecksPage = () => {
       <div className={s.middleContainer}>
         <div className={s.searchContainer}>
           <Textfield
-            value={search}
-            onChange={e => setSearch(e.currentTarget.value)}
+            value={searchByName}
+            onChange={e => dispatch(setSearchByName(e.currentTarget.value))}
             placeholder={'Input search'}
           />
         </div>
@@ -170,7 +176,7 @@ export const DecksPage = () => {
           label={'Show packs cards'}
         />
         <Slider
-          value={value}
+          value={cardsCounts}
           defaultValue={[1]}
           onValueChange={sliderChangeHandler}
           step={1}

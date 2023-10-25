@@ -115,3 +115,5 @@ export type CreateCardInDeckResponseType = {
   created: string
   updated: string
 }
+
+//todo add Pick for single types
