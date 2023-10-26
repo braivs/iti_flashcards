@@ -40,7 +40,7 @@ const publicRoutes: RouteObject[] = [
     element: <CreateNewPasswordPage />,
   },
   {
-    path: '/cards/:id',
+    path: '/cards/:deckId',
     element: <CardsPage />,
   },
 ]

@@ -1,5 +1,8 @@
+import { omit } from 'remeda'
+
 import { baseApi } from '@/services/base-api.ts'
 import {
+  CardType,
   CreateCardInDeckResponseType,
   CreateCardInDeckType,
   Deck,
@@ -11,7 +14,7 @@ import {
 } from '@/services/decks/deck.types.ts'
 import { RootState } from '@/services/store.ts'
 
-const decksService = baseApi.injectEndpoints({
+export const decksService = baseApi.injectEndpoints({
   endpoints: builder => ({
     getDecks: builder.query<DecksResponse, DeckParams | void>({
       query: params => ({
@@ -40,6 +43,7 @@ const decksService = baseApi.injectEndpoints({
         method: 'POST',
         body: data,
       }),
+      //pessimistic update
       onQueryStarted: async (_, { getState, queryFulfilled, dispatch }) => {
         const state = getState() as RootState
         const { itemsPerPage, searchByName, cardsCounts, currentPage, authorId, orderBy } =
@@ -69,7 +73,7 @@ const decksService = baseApi.injectEndpoints({
           console.error(e)
         }
       },
-      invalidatesTags: ['Decks'],
+      invalidatesTags: ['Decks'], //todo: maybe del invalidate and same in other places
     }),
     deleteDeck: builder.mutation<Deck, { id: string }>({
       query: data => ({
@@ -77,6 +81,7 @@ const decksService = baseApi.injectEndpoints({
         method: 'DELETE',
       }),
 
+      //optimistic update
       onQueryStarted: async ({ id }, { getState, queryFulfilled, dispatch }) => {
         const state = getState() as RootState
         const { itemsPerPage, searchByName, cardsCounts, currentPage, authorId, orderBy } =
@@ -116,7 +121,24 @@ const decksService = baseApi.injectEndpoints({
         method: 'POST',
         body: data,
       }),
-      invalidatesTags: ['CardsIdDeck'],
+
+      onQueryStarted: async (_, { getState, queryFulfilled, dispatch }) => {
+        const result = await queryFulfilled
+        const state = getState() as RootState
+        const { id } = state.cards
+
+        try {
+          dispatch(
+            decksService.util.updateQueryData('getCardsInDeck', { id }, draft => {
+              draft?.items?.unshift(resultConvert(result.data))
+            })
+          )
+        } catch (e) {
+          console.error(e)
+        }
+      },
+      // invalidatesTags: ['CardsIdDeck'], // now works together with onQueryStarted
+      //todo: understand why it not works together
     }),
   }),
 })
@@ -129,3 +151,9 @@ export const {
   useGetCardsInDeckQuery,
   useCreateCardInDeckMutation,
 } = decksService
+
+const resultConvert = (card: CreateCardInDeckResponseType): CardType => {
+  return omit({ ...card, grade: 0 }, ['type', 'moreId', 'comments', 'rating'])
+}
+
+//todo: maybe separate to function onQueryStarted

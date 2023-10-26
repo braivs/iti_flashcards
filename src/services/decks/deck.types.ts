@@ -70,7 +70,16 @@ export type GetCardsInDeckParams = {
   itemsPerPage?: number
 }
 
-type CardType = {
+export type CreateCardInDeckType = {
+  question: string
+  answer: string
+  questionImg?: string
+  answerImg?: string
+  questionVideo?: string
+  answerVideo?: string
+}
+
+export type CardType = {
   answer: string
   answerImg: string | null
   answerVideo: string | null
@@ -91,29 +100,23 @@ export type GetCardsInDeckResponse = {
   pagination: PaginationType
 }
 
-export type CreateCardInDeckType = {
-  question: string
-  answer: string
-  questionImg?: string
-  answerImg?: string
-  questionVideo?: string
-  answerVideo?: string
-}
-
 export type CreateCardInDeckResponseType = {
-  id: string
-  deckId: string
-  userId: string
-  question: string
   answer: string
-  shots: number
-  answerImg: string
-  questionImg: string
-  questionVideo: string
-  answerVideo: string
-  rating: number
+  answerImg: string | null
+  answerVideo: string | null
+  comments: string | null
   created: string
+  deckId: string
+  id: string
+  moreId: string | null
+  question: string
+  questionImg: string | null
+  questionVideo: string | null
+  rating: number
+  shots: number
+  type: string | null
   updated: string
+  userId: string
 }
 
 //todo add Pick for single types

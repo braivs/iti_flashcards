@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 
 import { useNavigate, useParams } from 'react-router-dom'
 
@@ -14,12 +14,14 @@ import { DialogAddNewCard } from '@/components/ui/Dialogs/DialogAddNewCard.tsx'
 import { DialogRemoveCard } from '@/components/ui/Dialogs/DialogRemoveCard.tsx'
 import { Column, Table } from '@/components/ui/Table'
 import { Typography } from '@/components/ui/Typography'
+import { useAppDispatch } from '@/hooks.ts'
+import { setCardId } from '@/services/cards/cards.slice.ts'
 import { useGetCardsInDeckQuery, useGetDeckByIdQuery } from '@/services/decks/decks.service.ts'
 
 export const CardsPage = () => {
-  let { id } = useParams()
-  const { data } = useGetDeckByIdQuery({ id: id ? id : '' })
-  const { data: cards } = useGetCardsInDeckQuery({ id: id ? id : '' })
+  let { deckId } = useParams()
+  const { data } = useGetDeckByIdQuery({ id: deckId ? deckId : '' })
+  const { data: cards } = useGetCardsInDeckQuery({ id: deckId ? deckId : '' })
 
   const [isAddNewCardDialogOpen, setIsAddNewCardDialogOpen] = useState(false)
   const [isDeleteDialogOpen, setIsDeleteDialogOpen] = useState(false) // for delete dialog
@@ -29,6 +31,13 @@ export const CardsPage = () => {
   })
 
   const navigate = useNavigate()
+  const dispatch = useAppDispatch()
+
+  useEffect(() => {
+    if (deckId) {
+      dispatch(setCardId(deckId))
+    }
+  }, [deckId]) // for optimistic and pessimistic updates
 
   const columns: Column[] = [
     {
@@ -81,7 +90,7 @@ export const CardsPage = () => {
       <DialogAddNewCard
         open={isAddNewCardDialogOpen}
         setOpen={setIsAddNewCardDialogOpen}
-        deckId={id ? id : ''}
+        deckId={deckId ? deckId : ''}
       />
       <div className={s.arrowContainer} onClick={onArrowLeft}>
         <img src={arrowLeft} alt="arrowLeft" />

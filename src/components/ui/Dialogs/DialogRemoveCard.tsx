@@ -3,7 +3,7 @@ import * as RDialog from '@radix-ui/react-dialog'
 import { SelectedCardType } from '@/common/types.ts'
 import sC from '@/components/ui/Dialogs/DialogsCommon.module.scss'
 import { DialogsCommon } from '@/components/ui/Dialogs/DialogsCommon.tsx'
-import { useDeleteCardMutation } from '@/services/cards.service.ts'
+import { useDeleteCardMutation } from '@/services/cards/cards.service.ts'
 
 export const DialogRemoveCard = (props: PropsType) => {
   const [deleteCard] = useDeleteCardMutation()
