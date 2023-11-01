@@ -23,3 +23,4 @@ export const Play: FC<IconColorsPropsType> = ({ color = '#000', className }) => 
     </svg>
   )
 }
+export default class playIcon {}

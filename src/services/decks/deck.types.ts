@@ -120,3 +120,25 @@ export type CreateCardInDeckResponseType = {
 }
 
 //todo add Pick for single types
+export type LearnCardType = {
+  id: string
+  deckId: string
+  userId: string
+  question: string
+  answer: string
+  shots: number
+  answerImg: string
+  questionImg: string
+  questionVideo: string
+  answerVideo: string
+  rating: 0
+  created: string
+  updated: string
+}
+
+export type DeckLearnArgType = {
+  cardId: string
+  grade: number
+}
+
+// const orderBy: DeckParams['orderBy'] = 'updated-desc'

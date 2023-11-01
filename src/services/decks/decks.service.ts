@@ -11,6 +11,8 @@ import {
   DecksResponse,
   GetCardsInDeckParams,
   GetCardsInDeckResponse,
+  DeckLearnArgType,
+  LearnCardType,
 } from '@/services/decks/deck.types.ts'
 import { RootState } from '@/services/store.ts'
 
@@ -140,6 +142,21 @@ export const decksService = baseApi.injectEndpoints({
       // invalidatesTags: ['CardsIdDeck'], // now works together with onQueryStarted
       //todo: understand why it not works together
     }),
+    getCard: builder.query<LearnCardType, { deckId: string }>({
+      query: params => ({
+        url: `v1/decks/${params.deckId}/learn`,
+        method: 'GET',
+      }),
+      providesTags: ['Card'],
+    }),
+    postCard: builder.mutation<LearnCardType, DeckLearnArgType>({
+      query: body => ({
+        url: `v1/decks/${body.cardId}/learn`,
+        method: 'POST',
+        body,
+      }),
+      invalidatesTags: ['Card'],
+    }),
   }),
 })
 
@@ -150,6 +167,8 @@ export const {
   useGetDeckByIdQuery,
   useGetCardsInDeckQuery,
   useCreateCardInDeckMutation,
+  useGetCardQuery,
+  usePostCardMutation,
 } = decksService
 
 const resultConvert = (card: CreateCardInDeckResponseType): CardType => {

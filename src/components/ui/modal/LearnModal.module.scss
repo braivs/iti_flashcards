@@ -1,0 +1,280 @@
+////button,
+////fieldset,
+////input {
+////  all: unset;
+////}
+////
+////.DialogOverlay {
+////  background-color: var(--black-a9);
+////  position: fixed;
+////  inset: 0;
+////  animation: overlayShow 150ms cubic-bezier(0.16, 1, 0.3, 1);
+////}
+////
+////.DialogContent {
+////  background-color: white;
+////  border-radius: 6px;
+////  box-shadow: hsl(206 22% 7% / 35%) 0px 10px 38px -10px, hsl(206 22% 7% / 20%) 0px 10px 20px -15px;
+////  position: fixed;
+////  top: 50%;
+////  left: 50%;
+////  transform: translate(-50%, -50%);
+////  width: 90vw;
+////  max-width: 450px;
+////  max-height: 85vh;
+////  padding: 25px;
+////  animation: contentShow 150ms cubic-bezier(0.16, 1, 0.3, 1);
+////  color: #4c4c4c;
+////}
+////.DialogContent:focus {
+////  outline: none;
+////}
+////
+////.DialogTitle {
+////  margin: 0;
+////  font-weight: 500;
+////  color: var(--mauve-12);
+////  font-size: 17px;
+////}
+////
+////.DialogDescription {
+////  margin: 10px 0 20px;
+////  color: var(--mauve-11);
+////  font-size: 15px;
+////  line-height: 1.5;
+////}
+////
+////.Button {
+////  display: inline-flex;
+////  align-items: center;
+////  justify-content: center;
+////  border-radius: 4px;
+////  padding: 0 15px;
+////  font-size: 15px;
+////  line-height: 1;
+////  font-weight: 500;
+////  height: 35px;
+////}
+////.Button.violet {
+////  background-color: white;
+////  color: var(--violet-11);
+////  box-shadow: 0 2px 10px var(--black-a7);
+////}
+////.Button.violet:hover {
+////  background-color: var(--mauve-3);
+////}
+////.Button.violet:focus {
+////  box-shadow: 0 0 0 2px black;
+////}
+////.Button.green {
+////  background-color: var(--green-4);
+////  color: var(--green-11);
+////}
+////.Button.green:hover {
+////  background-color: var(--green-5);
+////}
+////.Button.green:focus {
+////  box-shadow: 0 0 0 2px var(--green-7);
+////}
+////
+////.IconButton {
+////  font-family: inherit;
+////  border-radius: 100%;
+////  height: 25px;
+////  width: 25px;
+////  display: inline-flex;
+////  align-items: center;
+////  justify-content: center;
+////  color: var(--violet-11);
+////  position: absolute;
+////  top: 10px;
+////  right: 10px;
+////}
+////.IconButton:hover {
+////  background-color: var(--violet-4);
+////}
+////.IconButton:focus {
+////  box-shadow: 0 0 0 2px var(--violet-7);
+////}
+////
+////.Fieldset {
+////  display: flex;
+////  gap: 20px;
+////  align-items: center;
+////  margin-bottom: 15px;
+////}
+////
+////.Label {
+////  font-size: 15px;
+////  color: var(--violet-11);
+////  width: 90px;
+////  text-align: right;
+////}
+////
+////.Input {
+////  width: 100%;
+////  flex: 1;
+////  display: inline-flex;
+////  align-items: center;
+////  justify-content: center;
+////  border-radius: 4px;
+////  padding: 0 10px;
+////  font-size: 15px;
+////  line-height: 1;
+////  color: var(--violet-11);
+////  box-shadow: 0 0 0 1px var(--violet-7);
+////  height: 35px;
+////}
+////.Input:focus {
+////  box-shadow: 0 0 0 2px var(--violet-8);
+////}
+////
+////@keyframes overlayShow {
+////  from {
+////    opacity: 0;
+////  }
+////  to {
+////    opacity: 1;
+////  }
+////}
+////
+////@keyframes contentShow {
+////  from {
+////    opacity: 0;
+////    transform: translate(-50%, -48%) scale(0.96);
+////  }
+////  to {
+////    opacity: 1;
+////    transform: translate(-50%, -50%) scale(1);
+////  }
+////}
+//
+//.wrapper {
+//  display: flex;
+//  justify-content: space-between;
+//  width: 100%;
+//  max-width: 1024px;
+//  margin: 0 auto;
+//}
+//.root {
+//  position: absolute;
+//  top: 200px;
+//}
+//.overlay {
+//  position: relative;
+//  //background-color: var(--color-dark-700);
+//  ////position: fixed;
+//  //inset: 10px;
+//  //animation: overlayShow 150ms cubic-bezier(0.16, 1, 0.3, 1);
+//}
+//.description {
+//  margin: 10px 0 20px;
+//  color: var(--mauve-11);
+//  font-size: 15px;
+//  line-height: 1.5;
+//}
+//
+
+//.closeButtonContainer {
+//  //position: relative;
+//}
+//.closeButtonIcon {
+//  //position: fixed;
+//  //top: 10%;
+//  //left: 23%;
+//  //z-index: 10;
+//  //cursor: pointer;
+//  //display: flex;
+//  //align-items: center;
+//}
+//.closeButtonContainer:hover {
+//  //cursor: pointer;
+//  //color: red;
+//}
+////.closeButtonIcon:hover {
+////  color: #1ea7fd;
+////}
+//
+//
+
+//
+//.content {
+//  //background-color: #313131;
+//    //background-color: white;
+//  //border-radius: 6px;
+//  //box-shadow: hsl(206 22% 7% / 35%) 0 10px 38px -10px, hsl(206 22% 7% / 20%) 0px 10px 20px -15px;
+//  //position: fixed;
+//  ////top: 30%;
+//  ////top: 25vh;
+//  //top: 200px;
+//  //left: 50%;
+//  //transform: translate(-50%, -30%);
+//  //width: 90vw;
+//  //max-width: 450px;
+//  //max-height: 85vh;
+//  //padding: 36px;
+//  //animation: contentShow 150ms cubic-bezier(0.16, 1, 0.3, 1);
+//  //color: #4c4c4c;
+//  //display: flex;
+//  //flex-direction: column;
+//}
+//
+//.content:focus {
+//  outline: none;
+//}
+.learnModalContainer {
+
+}
+.closeButtonContainer {
+  margin-bottom: 36px;
+}
+.cardWrapper {
+  margin: 0 auto;
+  max-width: 420px;
+  width: 420px;
+  padding: 33px 36px 48px 33px ;
+  border-radius: 6px;
+  box-shadow: hsl(206 22% 7% / 35%) 0 10px 38px -10px, hsl(206 22% 7% / 20%) 0px 10px 20px -15px;
+  animation: contentShow 150ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+.title {
+  color: var(--color-light-100);
+  margin: 0;
+  font-weight: 700;
+  text-align: center;
+  margin-bottom: 45px;
+}
+.questionWrapper {
+  margin-bottom: 41px;
+}
+.questionTitle {
+  font-weight: var(--font-weight-bold);
+}
+.questionSubtitle {
+  font-weight: var(--font-weight-regular);
+  display: inline-block;
+}
+
+
+
+.answerBlock {
+  color: var(--color-light-100);
+  margin-bottom: 12px;
+}
+.shots {
+  color: var(--color-dark-100);
+  display: inline-block;
+
+}
+.gradeWrapper {
+  margin-top: 13px;
+  margin-bottom: 26px;
+}
+
+
+//.openIcon {
+//  width: 16px;
+//  height: 16px;
+//
+//}
+

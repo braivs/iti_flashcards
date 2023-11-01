@@ -32,8 +32,9 @@
 
   .iconContainer {
     display: flex;
+    justify-content: space-evenly;
     .trashIcon {
-      cursor: pointer;
+      //cursor: pointer;
     }
   }
 }

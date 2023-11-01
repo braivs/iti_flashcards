@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router-dom'
 
 import s from './deck-page.module.scss'
 
+import { Play } from '@/assets/icons/Play.tsx'
 import trashIcon from '@/assets/icons/trashIcon.png'
 import { OrderByType, SelectedDeckType } from '@/common/types.ts'
 import { Button } from '@/components/ui/Button'
@@ -203,12 +204,26 @@ export const DecksPage = () => {
                   <Table.Cell>{deck.author.name}</Table.Cell>
                   <Table.Cell>
                     <div className={s.iconContainer}>
-                      <img
+                      {/*  <img
                         src={trashIcon}
                         alt=""
                         className={s.trashIcon}
                         onClick={() => onSelectDeckForDel(deck.id, deck.name)}
-                      />
+                      />*/}
+                      <Button
+                        variant={'link'}
+                        onClick={() => navigate(`learn/${deck.name}/${deck.id}`)}
+                      >
+                        <Play color={'white'} />
+                      </Button>
+                      <Button variant={'link'}>
+                        <img
+                          src={trashIcon}
+                          alt=""
+                          className={s.trashIcon}
+                          onClick={() => onSelectDeckForDel(deck.id, deck.name)}
+                        />
+                      </Button>
                     </div>
                   </Table.Cell>
                 </Table.Row>
