@@ -18,7 +18,6 @@ import { Typography } from '@/components/ui/Typography'
 import { useAppDispatch } from '@/hooks.ts'
 import { setCardId } from '@/services/cards/cards.slice.ts'
 import { useGetCardsInDeckQuery, useGetDeckByIdQuery } from '@/services/decks/decks.service.ts'
-import { Grade } from '@/components/ui/Rating/rating.tsx'
 
 export const CardsPage = () => {
   let { deckId } = useParams()
