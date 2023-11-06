@@ -79,6 +79,11 @@ export type CreateCardInDeckType = {
   answerVideo?: string
 }
 
+export type UpdateDeckType = {
+  cover: string
+  name: string
+  isPrivate: boolean
+}
 export type CardType = {
   answer: string
   answerImg: string | null

@@ -13,6 +13,7 @@ import {
   GetCardsInDeckResponse,
   DeckLearnArgType,
   LearnCardType,
+  UpdateDeckType,
 } from '@/services/decks/deck.types.ts'
 import { RootState } from '@/services/store.ts'
 
@@ -114,6 +115,16 @@ export const decksService = baseApi.injectEndpoints({
       },
       invalidatesTags: ['Decks'],
     }),
+    updateDeck: builder.mutation<DeckByIdResponse, { deckId: string; data: UpdateDeckType }>({
+      query: ({ deckId, data }) => {
+        return {
+          method: 'PATCH',
+          url: `v1/decks/${deckId}`,
+          body: data,
+        }
+      },
+      invalidatesTags: ['Decks'],
+    }),
     createCardInDeck: builder.mutation<
       CreateCardInDeckResponseType,
       { deckId: string; data: CreateCardInDeckType }
@@ -169,6 +180,7 @@ export const {
   useCreateCardInDeckMutation,
   useGetCardQuery,
   usePostCardMutation,
+  useUpdateDeckMutation,
 } = decksService
 
 const resultConvert = (card: CreateCardInDeckResponseType): CardType => {

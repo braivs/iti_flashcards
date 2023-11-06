@@ -4,12 +4,14 @@ import { useNavigate } from 'react-router-dom'
 
 import s from './deck-page.module.scss'
 
+import { Edit } from '@/assets/icons/Edit.tsx'
 import { Play } from '@/assets/icons/Play.tsx'
 import trashIcon from '@/assets/icons/trashIcon.png'
 import { OrderByType, SelectedDeckType } from '@/common/types.ts'
 import { Button } from '@/components/ui/Button'
 import { DialogAddPack } from '@/components/ui/Dialogs/DialogAddPack.tsx'
 import { DialogRemovePack } from '@/components/ui/Dialogs/DialogRemovePack.tsx'
+import { DialogUpdatePack } from '@/components/ui/Dialogs/DialogUpdatePack.tsx'
 import { Pagination } from '@/components/ui/Pagination/Pagination.tsx'
 import { Slider } from '@/components/ui/Slider/slider.tsx'
 import { Column, Table } from '@/components/ui/Table'
@@ -38,13 +40,16 @@ export const DecksPage = () => {
   const [selectedDeck, setSelectedDeck] = useState<SelectedDeckType>({
     id: '',
     name: '',
+    isPrivate: false,
   })
   const navigate = useNavigate()
+  const [isUpdateDialogOpen, setIsUpdateDialogOpen] = useState(false) // for update dialog
 
   const [isDeleteDialogOpen, setIsDeleteDialogOpen] = useState(false) // for delete dialog
 
   // for add dialog
   const [isAddDialogOpen, setIsAddDialogOpen] = useState(false)
+
   // ===
 
   const { data: me } = useGetMeQuery()
@@ -77,6 +82,10 @@ export const DecksPage = () => {
   const onSelectDeckForDel = (id: string, name: string) => {
     setIsDeleteDialogOpen(true)
     setSelectedDeck({ id, name })
+  }
+  const onSelectDeckForUpdate = (id: string, name: string, isPrivate: boolean) => {
+    setIsUpdateDialogOpen(true)
+    setSelectedDeck({ id, name, isPrivate })
   }
 
   //for tabSwitcher
@@ -157,6 +166,13 @@ export const DecksPage = () => {
         setSelectedDeck={setSelectedDeck}
       />
       <DialogAddPack open={isAddDialogOpen} setOpen={setIsAddDialogOpen} />
+      <DialogUpdatePack
+        deckId={selectedDeck.id ?? ''}
+        open={isUpdateDialogOpen}
+        setOpen={setIsUpdateDialogOpen}
+        selectedDeck={selectedDeck}
+        setSelectedDeck={setSelectedDeck}
+      />
       <div className={s.topContainer}>
         <Typography variant="Large">Packs list</Typography>
         <Button onClick={() => setIsAddDialogOpen(true)}>Add New Pack</Button>
@@ -215,6 +231,12 @@ export const DecksPage = () => {
                         onClick={() => navigate(`learn/${deck.name}/${deck.id}`)}
                       >
                         <Play color={'white'} />
+                      </Button>
+                      <Button
+                        variant={'link'}
+                        onClick={() => onSelectDeckForUpdate(deck.id, deck.name, deck.isPrivate)}
+                      >
+                        <Edit color={'white'} />
                       </Button>
                       <Button variant={'link'}>
                         <img
