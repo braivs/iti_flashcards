@@ -28,7 +28,7 @@ export const CardsPage = () => {
   const [isDeleteDialogOpen, setIsDeleteDialogOpen] = useState(false) // for delete dialog
   const [selectedCard, setSelectedCard] = useState<SelectedCardType>({
     id: '',
-    question: '',
+    question:  '',
   })
 
   const navigate = useNavigate()
