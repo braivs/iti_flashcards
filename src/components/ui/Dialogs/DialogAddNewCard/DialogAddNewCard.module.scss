@@ -1,0 +1,26 @@
+@use '../../../../common/mixins';
+
+.uploadContainer {
+    .cropImgPrev {
+        margin-top: 5px;
+    }
+}
+
+.imgContainer {
+    margin: 0 auto;
+    position: relative;
+    @include mixins.imgUploadSize;
+
+    .dummyImg {
+        //margin-top: 5px;
+        border: 1px solid white;
+        @include mixins.flex($justifyContent: center, $alignItems: center);
+        @include mixins.imgUploadSize;
+    }
+
+    .croppedImg {
+        //margin-top: 5px;
+        //@include mixins.imgUploadSize;
+    }
+
+}

@@ -2,6 +2,8 @@ import { useState } from 'react'
 
 import { Meta, StoryObj } from '@storybook/react'
 
+import sC from '../../../styles/common.module.scss'
+
 import { Select } from './Select.tsx'
 
 const meta = {
@@ -23,7 +25,11 @@ export const Default: Story = {
     const [value, setValue] = useState('Select-box')
     const arr: Array<string> = ['value 1', 'value 2', 'value 3']
 
-    return <Select {...args} options={arr} value={value} onChangeOption={setValue} />
+    return (
+      <div className={sC.storyContainer}>
+        <Select {...args} options={arr} value={value} onChangeOption={setValue} label={'label'} />
+      </div>
+    )
   },
 
   args: {
