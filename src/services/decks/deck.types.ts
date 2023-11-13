@@ -82,7 +82,7 @@ export type CreateCardInDeckType = {
 export type UpdateDeckType = {
   cover: string
   name: string
-  isPrivate: boolean
+  isPrivate?: boolean
 }
 export type CardType = {
   answer: string
@@ -124,6 +124,15 @@ export type CreateCardInDeckResponseType = {
   userId: string
 }
 
+export type UpdateCardType = {
+  questionImg?: string | null
+  answerImg?: string | null
+  question: string
+  answer: string
+  questionVideo?: string | null
+  answerVideo?: string | null
+}
+
 //todo add Pick for single types
 export type LearnCardType = {
   id: string
@@ -136,7 +145,7 @@ export type LearnCardType = {
   questionImg: string
   questionVideo: string
   answerVideo: string
-  rating: 0
+  rating: number
   created: string
   updated: string
 }

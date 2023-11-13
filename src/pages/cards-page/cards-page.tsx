@@ -7,11 +7,13 @@ import sC from '../decks-page/deck-page.module.scss'
 import s from './cards-page.module.scss'
 
 import arrowLeft from '@/assets/icons/ArrowLeft.svg'
+import { Edit } from '@/assets/icons/Edit.tsx'
 import trashIcon from '@/assets/icons/trashIcon.png'
-import { SelectedCardType } from '@/common/types.ts'
+import { SelectedCardType, SelectedCardUpdateType } from '@/common/types.ts'
 import { Button } from '@/components/ui/Button'
 import { DialogAddNewCard } from '@/components/ui/Dialogs/DialogAddNewCard/DialogAddNewCard.tsx'
 import { DialogRemoveCard } from '@/components/ui/Dialogs/DialogRemoveCard.tsx'
+import { DialogUpdateCard } from '@/components/ui/Dialogs/DialogUpdateCard.tsx'
 import { Grade } from '@/components/ui/Rating/rating.tsx'
 import { Column, Table } from '@/components/ui/Table'
 import { Typography } from '@/components/ui/Typography'
@@ -25,7 +27,15 @@ export const CardsPage = () => {
   const { data: cards } = useGetCardsInDeckQuery({ id: deckId ? deckId : '' })
 
   const [isAddNewCardDialogOpen, setIsAddNewCardDialogOpen] = useState(false)
+  const [isUpdateDialogOpen, setIsUpdateDialogOpen] = useState(false) // for Update dialog
+  const [selectedForUpdateCard, setSelectedForUpdateCard] = useState<SelectedCardUpdateType>({
+    id: '',
+    question: '',
+    answer: '',
+  })
+
   const [isDeleteDialogOpen, setIsDeleteDialogOpen] = useState(false) // for delete dialog
+  //const [isUpdateDialogOpen, setIsUpdateDialogOpen] = useState(false) // for Update dialog
   const [selectedCard, setSelectedCard] = useState<SelectedCardType>({
     id: '',
     question: '',
@@ -79,6 +89,10 @@ export const CardsPage = () => {
     setIsDeleteDialogOpen(true)
     setSelectedCard({ id, question })
   }
+  const onSelectCardForUpdate = (id: string, question: string, answer: string) => {
+    setIsUpdateDialogOpen(true)
+    setSelectedForUpdateCard({ id, question, answer })
+  }
 
   return (
     <div className={sC.component}>
@@ -87,6 +101,15 @@ export const CardsPage = () => {
         setOpen={setIsDeleteDialogOpen}
         selectedCard={selectedCard}
         setSelectedCard={setSelectedCard}
+      />
+      <DialogUpdateCard
+        open={isUpdateDialogOpen}
+        setOpen={setIsUpdateDialogOpen}
+        selectedCard={selectedForUpdateCard}
+        setSelectedCard={setSelectedForUpdateCard}
+        id={selectedForUpdateCard.id ?? ''}
+        answer={selectedForUpdateCard.answer}
+        question={selectedForUpdateCard.question}
       />
       <DialogAddNewCard
         open={isAddNewCardDialogOpen}
@@ -126,12 +149,20 @@ export const CardsPage = () => {
                     </Table.Cell>
                     <Table.Cell>
                       <div className={sC.iconContainer}>
-                        <img
-                          src={trashIcon}
-                          alt=""
-                          className={sC.trashIcon}
-                          onClick={() => onSelectCardForDel(data.id, data.question)}
-                        />
+                        <Button
+                          variant={'link'}
+                          onClick={() => onSelectCardForUpdate(data.id, data.question, data.answer)}
+                        >
+                          <Edit color={'white'} />
+                        </Button>
+                        <Button variant={'link'}>
+                          <img
+                            src={trashIcon}
+                            alt=""
+                            className={sC.trashIcon}
+                            onClick={() => onSelectCardForDel(data.id, data.question)}
+                          />
+                        </Button>
                       </div>
                     </Table.Cell>
                   </Table.Row>

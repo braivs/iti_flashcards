@@ -37,6 +37,7 @@ export const DecksPage = () => {
   const { itemsPerPage, searchByName, cardsCounts, currentPage, authorId, orderBy } =
     useAppSelector(state => state.decks)
   const [sort, setSort] = useState<Sort>(null) // for sorting cells in table
+
   const [selectedDeck, setSelectedDeck] = useState<SelectedDeckType>({
     id: '',
     name: '',
@@ -167,9 +168,12 @@ export const DecksPage = () => {
       />
       <DialogAddPack open={isAddDialogOpen} setOpen={setIsAddDialogOpen} />
       <DialogUpdatePack
+        name={selectedDeck.name}
         deckId={selectedDeck.id ?? ''}
         open={isUpdateDialogOpen}
         setOpen={setIsUpdateDialogOpen}
+        isPrivate={selectedDeck.isPrivate}
+        setIsPrivate={setSelectedDeck}
         selectedDeck={selectedDeck}
         setSelectedDeck={setSelectedDeck}
       />

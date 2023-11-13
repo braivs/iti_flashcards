@@ -10,3 +10,9 @@ export type SelectedCardType = {
   id: string
   question: string
 }
+
+export type SelectedCardUpdateType = {
+  id: string
+  question: string
+  answer: string
+}

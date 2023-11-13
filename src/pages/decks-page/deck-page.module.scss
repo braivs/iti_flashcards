@@ -5,13 +5,14 @@
   .topContainer,
   .middleContainer {
     display: flex;
-    justify-content: space-between;
     align-items: center;
+    justify-content: space-between;
     margin-bottom: 10px;
   }
 
   .middleContainer {
     flex-direction: row;
+
     .searchContainer {
       width: 100%;
       max-width: 299px;
@@ -32,7 +33,8 @@
 
   .iconContainer {
     display: flex;
-    justify-content: space-evenly;
+    justify-content: space-between;
+
     .trashIcon {
       //cursor: pointer;
     }

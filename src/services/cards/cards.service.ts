@@ -1,4 +1,5 @@
 import { baseApi } from '@/services/base-api.ts'
+import { LearnCardType, UpdateCardType } from '@/services/decks/deck.types.ts'
 import { decksService } from '@/services/decks/decks.service.ts'
 import { RootState } from '@/services/store.ts'
 const cardsService = baseApi.injectEndpoints({
@@ -26,7 +27,15 @@ const cardsService = baseApi.injectEndpoints({
       },
       invalidatesTags: ['CardsIdDeck'],
     }),
+    updateCard: builder.mutation<LearnCardType, { id: string; data: UpdateCardType }>({
+      query: ({ id, data }) => ({
+        url: `/v1/cards/${id}`,
+        method: 'PATCH',
+        body: data,
+      }),
+      invalidatesTags: ['CardsIdDeck'],
+    }),
   }),
 })
 
-export const { useDeleteCardMutation } = cardsService
+export const { useDeleteCardMutation, useUpdateCardMutation } = cardsService

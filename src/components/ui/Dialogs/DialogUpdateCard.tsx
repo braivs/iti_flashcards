@@ -1,23 +1,23 @@
-import { useRef, useState } from 'react'
+import { useRef } from 'react'
 
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useForm } from 'react-hook-form'
 import { z } from 'zod'
 
-import { SelectedDeckType } from '@/common/types.ts'
-import { Checkbox } from '@/components/ui/Checkbox'
+import { SelectedCardUpdateType } from '@/common/types.ts'
 import { ControlledTextField } from '@/components/ui/controlled/controlled-text-field'
 import sC from '@/components/ui/Dialogs/DialogsCommon.module.scss'
 import { DialogsCommon } from '@/components/ui/Dialogs/DialogsCommon.tsx'
-import { useAppDispatch } from '@/hooks.ts'
-import { useUpdateDeckMutation } from '@/services/decks/decks.service.ts'
-import { updateCurrentPage } from '@/services/decks/decks.slice.ts'
+import { useUpdateCardMutation } from '@/services/cards/cards.service.ts'
 
-export const DialogUpdatePack = (props: PropsType) => {
+export const DialogUpdateCard = (props: PropsType) => {
   const schema = z.object({
-    cover: z.string(),
-    name: z.string().min(3),
-    isPrivate: z.boolean(),
+    //questionImg: z.string(),
+    // answerImg: z.string(),
+    question: z.string().min(2),
+    answer: z.string().min(2),
+    // questionVideo: z.string(),
+    // answerVideo: z.string(),
   })
 
   type FormValues = z.input<typeof schema>
@@ -31,21 +31,21 @@ export const DialogUpdatePack = (props: PropsType) => {
     mode: 'onSubmit',
     resolver: zodResolver(schema),
     defaultValues: {
-      cover: '',
-      name: props.selectedDeck.name,
-      isPrivate: props.selectedDeck.isPrivate,
+      // questionImg: '',
+      // answerImg: '',
+      question: props.selectedCard.question,
+      answer: props.selectedCard.answer,
+      // questionVideo: '',
+      // answerVideo: '',
     },
   })
 
   const formRef = useRef<HTMLFormElement | null>(null)
 
-  const [isPrivate, setIsPrivate] = useState<boolean>(false)
-
-  const dispatch = useAppDispatch()
-  const [updateDeck] = useUpdateDeckMutation()
+  const [updateCard] = useUpdateCardMutation()
 
   const handleFormSubmitted = handleSubmit(values => {
-    onUpdateDeck(values.cover, values.name, isPrivate)
+    onUpdateCard(values.question, values.answer)
     reset()
     props.setOpen(false)
   })
@@ -57,19 +57,15 @@ export const DialogUpdatePack = (props: PropsType) => {
     formRef.current.submit()
   }
 
-  const onUpdateDeck = (cover: string, name: string, isPrivate: boolean) => {
-    if (!name || !props.deckId) return
-
-    dispatch(updateCurrentPage(1))
-    updateDeck({
-      deckId: props.deckId,
+  const onUpdateCard = (question: string, answer: string) => {
+    if (!question || !answer || !props.id) return
+    updateCard({
+      id: props.id,
       data: {
-        cover,
-        name,
-        isPrivate,
+        question,
+        answer,
       },
     })
-
     props.setOpen(false)
   }
   const onClose = () => {
@@ -79,7 +75,7 @@ export const DialogUpdatePack = (props: PropsType) => {
 
   return (
     <DialogsCommon
-      title={'Edite Pack'}
+      title={'Eddite Card'}
       open={props.open}
       setOpen={onClose}
       onButtonAction={onSubmitEmulation}
@@ -91,14 +87,23 @@ export const DialogUpdatePack = (props: PropsType) => {
           <div className={sC.textFieldContainer}>
             <div className={sC.element}>
               <ControlledTextField
-                name={'name'}
-                placeholder={props.name}
-                label={'Name Pack'}
+                name={'question'}
+                placeholder={props.question}
+                label={'Question'}
                 control={control}
               />
             </div>
           </div>
-          <Checkbox label={'Private pack'} checked={isPrivate} onValueChange={setIsPrivate} />
+          <div className={sC.textFieldContainer}>
+            <div className={sC.element}>
+              <ControlledTextField
+                name={'answer'}
+                placeholder={props.answer}
+                label={'Answer'}
+                control={control}
+              />
+            </div>
+          </div>
         </div>
       </form>
     </DialogsCommon>
@@ -106,12 +111,11 @@ export const DialogUpdatePack = (props: PropsType) => {
 }
 
 type PropsType = {
+  id: string
+  question: string
+  answer: string
   open: boolean
-  name: string
-  isPrivate?: boolean
-  setIsPrivate: (test: any) => void
   setOpen: (value: boolean) => void
-  selectedDeck: SelectedDeckType
-  setSelectedDeck: (value: SelectedDeckType) => void
-  deckId: string
+  selectedCard: SelectedCardUpdateType
+  setSelectedCard: (value: SelectedCardUpdateType) => void
 }
