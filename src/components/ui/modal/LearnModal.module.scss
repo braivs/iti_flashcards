@@ -228,6 +228,29 @@
 .closeButtonContainer {
   margin-bottom: 36px;
 }
+.closeButtonText {
+  color: var(--color-light-100);
+  text-decoration: none;
+  font-weight: var(--font-weight-regular);
+}
+.closeButtonText:hover {
+  color: var(--color-accent-300);
+  .closeButtonIcon {
+    fill: var(--color-accent-300);
+  }
+}
+.closeButtonText:active {
+  color: var(--color-accent-500);
+  .closeButtonIcon {
+    fill: var(--color-accent-500);
+  }
+}
+
+.closeButtonIcon {
+    width: 16px;
+    height: 16px;
+}
+
 .cardWrapper {
   margin: 0 auto;
   max-width: 420px;
@@ -244,37 +267,67 @@
   text-align: center;
   margin-bottom: 45px;
 }
+
 .questionWrapper {
-  margin-bottom: 41px;
-}
-.questionTitle {
-  font-weight: var(--font-weight-bold);
-}
-.questionSubtitle {
-  font-weight: var(--font-weight-regular);
-  display: inline-block;
+  .marginBlock {
+    margin-bottom: 19px;
+  }
+  //margin-bottom: 19px;
+  .questionTitle {
+    font-weight: var(--font-weight-bold);
+    display: inline-block;
+    //padding-bottom: 18px;
+    .questionSubtitle {
+      font-weight: var(--font-weight-regular);
+      display: inline-block;
+    }
+  }
+  .questionImg {
+    width: 100%;
+    height: 120px;
+  }
 }
 
 
-
-.answerBlock {
-  color: var(--color-light-100);
-  margin-bottom: 12px;
+.countWrapper{
+  .shotsText {
+    color: var(--color-dark-100);
+    margin-bottom: 41px;
+    .shotsCount {
+      font-weight: var(--font-weight-bold);
+      display: inline-block;
+    }
+  }
+  .bond {
+    margin-bottom: 11px;
+  }
+  .subBond {
+    margin-bottom: 35px;
+  }
 }
-.shots {
-  color: var(--color-dark-100);
-  display: inline-block;
 
+
+.answerWrapper {
+  .answerTitle {
+    color: var(--color-light-100);
+    margin-bottom: 12px;
+    .answerSubtitle {
+      font-weight: var(--font-weight-regular);
+      display: inline-block;
+    }
+  }
+  .answerMargin {
+    margin-bottom: 18px;
+  }
+  .answerImg {
+    width: 100%;
+    height: 120px;
+    margin-bottom: 30px;
+  }
 }
+
 .gradeWrapper {
   margin-top: 13px;
   margin-bottom: 26px;
 }
-
-
-//.openIcon {
-//  width: 16px;
-//  height: 16px;
-//
-//}
 

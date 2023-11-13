@@ -44,22 +44,6 @@ export const LearnModal: FC<LearnModalType> = ({
   imgAnswer,
   imgQuestion,
 }) => {
-  const classNames = {
-    content: clsx(s.content),
-    overlay: clsx(s.overlay, s.wrapper),
-    shots: clsx(s.shots),
-    questionWrapper: clsx(s.questionWrapper),
-    ansverBlock: s.answerBlock,
-    iconSettings: s.openIcon,
-    closeButtonContainer: s.closeButtonContainer,
-    closeButton: s.closeButtonIcon,
-    learnModalContainer: s.learnModalContainer,
-    cardWrapper: s.cardWrapper,
-    cardTitle: s.title,
-    questionSubtitle: s.questionSubtitle,
-    gradeWrapper: s.gradeWrapper,
-  }
-
   const [hiddenRaiting, setHiddenRaiting] = useState(false)
 
   const [value, setValue] = useState(answerRaiting[0].value)
@@ -74,12 +58,26 @@ export const LearnModal: FC<LearnModalType> = ({
     setHiddenRaiting(true)
   }
 
+  const classNames = {
+    closeButtonContainer: s.closeButtonContainer,
+    closeButton: s.closeButtonText,
+    learnModalContainer: s.learnModalContainer,
+    cardWrapper: s.cardWrapper,
+    cardTitle: s.title,
+    gradeWrapper: s.gradeWrapper,
+    questionWrapper: clsx(s.questionWrapper),
+    questionTitle: clsx(s.questionTitle, imgQuestion && s.marginBlock),
+    questionImg: clsx(s.questionImg, imgQuestion && s.marginBlock),
+    shotsText: clsx(s.shotsText, imgQuestion && s.bond, hiddenRaiting && s.subBond),
+    answerTitle: clsx(s.answerTitle, imgAnswer && s.answerMargin),
+  }
+
   return (
     <div className={classNames.learnModalContainer}>
       <div className={classNames.closeButtonContainer}>
         <Button variant={'link'} className={classNames.closeButton} onClick={() => navigate('/')}>
-          <ArrowBack color={'white'} className={classNames.iconSettings} />
-          Back to Pack List
+          <ArrowBack color={'white'} className={s.closeButtonIcon} />
+          <Typography variant={'Body_2'}>Back to Pack List</Typography>
         </Button>
       </div>
 
@@ -87,35 +85,38 @@ export const LearnModal: FC<LearnModalType> = ({
         <Typography variant={'Large'} className={classNames.cardTitle}>
           {`Learn "${title}"`}{' '}
         </Typography>
+        {/*Question wrapper*/}
         <div className={classNames.questionWrapper}>
-          <Typography variant={'Subtitle_1'} style={{ display: 'inline-block' }}>
+          <Typography variant={'Subtitle_1'} className={classNames.questionTitle}>
             Question:{' '}
-            <Typography variant={'Body_1'} className={classNames.questionSubtitle}>
+            <Typography variant={'Body_1'} className={s.questionSubtitle}>
               {question}
             </Typography>
           </Typography>
           {imgQuestion && (
-            <img src={imgQuestion} alt="imgQuestion" style={{ width: '100', height: '100px' }} />
+            <img src={imgQuestion} alt="imgQuestion" className={classNames.questionImg} />
           )}
-          <Typography variant={'Body_2'} className={classNames.shots}>
+        </div>
+        {/*Count wrapper*/}
+        <div className={s.countWrapper}>
+          <Typography variant={'Body_2'} className={classNames.shotsText}>
             Количество попыток ответов на вопрос:{' '}
-            <Typography variant={'Subtitle_2'} className={classNames.shots}>
+            <Typography variant={'Subtitle_2'} className={s.shotsCount}>
               {shots}
             </Typography>
           </Typography>
         </div>
+        {/*Answer wrapper*/}
         {hiddenRaiting && (
-          <div>
-            <Typography
-              variant={'Subtitle_1'}
-              className={classNames.ansverBlock}
-            >{`Answer: ${answer}`}</Typography>
-            {imgAnswer && (
-              <img src={imgAnswer} alt="imgAnswer" style={{ width: '100px', height: '100px' }} />
-            )}
-            <Typography variant={'Subtitle_1'} className={classNames.ansverBlock}>
-              Rate yourself:
+          <div className={s.answerWrapper}>
+            <Typography variant={'Subtitle_1'} className={classNames.answerTitle}>
+              {`Answer: `}
+              <Typography variant={'Body_1'} className={s.answerSubtitle}>
+                {answer}
+              </Typography>
             </Typography>
+            {imgAnswer && <img src={imgAnswer} alt="imgAnswer" className={s.answerImg} />}
+            <Typography variant={'Subtitle_1'}>Rate yourself:</Typography>
             <div className={classNames.gradeWrapper}>
               <RadioGroup
                 options={answerRaiting}

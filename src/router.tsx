@@ -12,7 +12,7 @@ import { CardsPage } from '@/pages/cards-page/cards-page.tsx'
 import { CheckEmailPage } from '@/pages/check-email-page/check-email-page.tsx'
 import { CreateNewPasswordPage } from '@/pages/create-new-password/create-new-password-page.tsx'
 import { DecksPage } from '@/pages/decks-page/decks-page.tsx'
-// import { LearnModalPage } from '@/pages/learnModalPage.tsx'
+import { ErrorPage } from '@/pages/error-page/errorPage.tsx'
 import { LearnModalPage } from '@/pages/learn-modal-page/learnModalPage.tsx'
 import { PersonalInformationPage } from '@/pages/personal-information/personal-information-page.tsx'
 import { RecoverPasswordPage } from '@/pages/recover-password-page/recover-password-page.tsx'
@@ -60,6 +60,10 @@ const privateRoutes: RouteObject[] = [
     path: '/learn/:deckTitle/:deckId',
     element: <LearnModalPage />,
   },
+  {
+    path: '/error',
+    element: <ErrorPage />,
+  },
 ]
 
 const router = createBrowserRouter([
@@ -87,9 +91,10 @@ export const Router = () => {
 }
 
 function PrivateRoutes() {
-  const { data: me, isLoading: isMeLoading } = useGetMeQuery()
+  const { isLoading: isMeLoading, isError } = useGetMeQuery()
 
-  const isAuthenticated = me && me?.success !== false
+  //const isAuthenticated = me && me?.success !== false
+  const isAuthenticated = !isError
 
   if (isMeLoading) return <div>Loading...</div>
 

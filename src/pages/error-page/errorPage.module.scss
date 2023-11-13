@@ -1,0 +1,13 @@
+.errorWrapper {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin-top: 127px;
+  .errorImg {
+    margin-bottom: 42px;
+  }
+  .errorTitle {
+    margin-bottom: 34px;
+  }
+}
