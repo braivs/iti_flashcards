@@ -34,9 +34,10 @@ export const decksService = baseApi.injectEndpoints({
       }),
     }),
     getCardsInDeck: builder.query<GetCardsInDeckResponse, GetCardsInDeckParams>({
-      query: params => ({
-        url: `v1/decks/${params.id}/cards`,
-        method: 'GET', // todo: add params
+      query: ({ id, ...params }) => ({
+        url: `v1/decks/${id}/cards`,
+        method: 'GET',
+        params: { ...params },
       }),
       providesTags: ['CardsIdDeck'],
     }),

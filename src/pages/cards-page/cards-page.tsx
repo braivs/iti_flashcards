@@ -9,7 +9,7 @@ import s from './cards-page.module.scss'
 import arrowLeft from '@/assets/icons/ArrowLeft.svg'
 import { Edit } from '@/assets/icons/Edit.tsx'
 import trashIcon from '@/assets/icons/trashIcon.png'
-import { SelectedCardType, SelectedCardUpdateType } from '@/common/types.ts'
+import { CardsSortType, SelectedCardType, SelectedCardUpdateType } from '@/common/types.ts'
 import { Button } from '@/components/ui/Button'
 import { DialogAddNewCard } from '@/components/ui/Dialogs/DialogAddNewCard/DialogAddNewCard.tsx'
 import { DialogRemoveCard } from '@/components/ui/Dialogs/DialogRemoveCard.tsx'
@@ -19,12 +19,15 @@ import { Column, Table } from '@/components/ui/Table'
 import { Typography } from '@/components/ui/Typography'
 import { useAppDispatch } from '@/hooks.ts'
 import { setCardId } from '@/services/cards/cards.slice.ts'
+import { Sort } from '@/services/common/types.ts'
 import { useGetCardsInDeckQuery, useGetDeckByIdQuery } from '@/services/decks/decks.service.ts'
 
 export const CardsPage = () => {
+  const [orderBy, setOrderBy] = useState<undefined | CardsSortType>(undefined)
+
   let { deckId } = useParams()
   const { data } = useGetDeckByIdQuery({ id: deckId ? deckId : '' })
-  const { data: cards } = useGetCardsInDeckQuery({ id: deckId ? deckId : '' })
+  const { data: cards } = useGetCardsInDeckQuery({ id: deckId ? deckId : '', orderBy })
 
   const [isAddNewCardDialogOpen, setIsAddNewCardDialogOpen] = useState(false)
   const [isUpdateDialogOpen, setIsUpdateDialogOpen] = useState(false) // for Update dialog
@@ -33,13 +36,12 @@ export const CardsPage = () => {
     question: '',
     answer: '',
   })
-
   const [isDeleteDialogOpen, setIsDeleteDialogOpen] = useState(false) // for delete dialog
-  //const [isUpdateDialogOpen, setIsUpdateDialogOpen] = useState(false) // for Update dialog
   const [selectedCard, setSelectedCard] = useState<SelectedCardType>({
     id: '',
     question: '',
   })
+  const [sort, setSort] = useState<Sort>(null) // for sorting cells in table
 
   const navigate = useNavigate()
   const dispatch = useAppDispatch()
@@ -50,15 +52,21 @@ export const CardsPage = () => {
     }
   }, [deckId]) // for optimistic and pessimistic updates
 
+  useEffect(() => {
+    const sortString: string | undefined = sort ? `${sort?.key}-${sort?.direction}` : undefined // todo: remove duplicate with deck-page
+
+    setOrderBy(sortString as CardsSortType)
+  }, [sort]) //todo: maybe refactor, to avoid useEffect
+
   const columns: Column[] = [
     {
-      key: 'Question',
-      title: 'question',
+      key: 'question',
+      title: 'Question',
       sortable: true,
     },
     {
-      key: 'Answer',
-      title: 'answer',
+      key: 'answer',
+      title: 'Answer',
       sortable: true,
     },
     {
@@ -135,7 +143,7 @@ export const CardsPage = () => {
         </div>
       ) : (
         <Table.Root className={sC.tableContainer}>
-          <Table.Header columns={columns} />
+          <Table.Header columns={columns} onSort={setSort} sort={sort} />
           <Table.Body>
             {cards &&
               cards.items.map(data => {

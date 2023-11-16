@@ -29,7 +29,7 @@ export const DialogAddNewCard = (props: PropsType) => {
   const [crop, setCrop] = useState<Point>({ x: 0, y: 0 }) // for img upload
   const [zoom, setZoom] = useState(minSliderValue) // for img upload
   const [cropArea, setCropArea] = useState<null | CropType>(null) // for img upload
-  const [imgName, setImgName] = useState('')
+  // const [imgName, setImgName] = useState('')
   const [cropImg, setCropImg] = useState<string | null>(null)
   const [sliderValue, setSliderValue] = useState<number[]>([minSliderValue])
 
@@ -53,7 +53,7 @@ export const DialogAddNewCard = (props: PropsType) => {
       question: '',
     },
   })
-  const [createDeck] = useCreateCardInDeckMutation()
+  const [createCardInDeck] = useCreateCardInDeckMutation()
 
   const formRef = useRef<HTMLFormElement | null>(null)
 
@@ -72,7 +72,7 @@ export const DialogAddNewCard = (props: PropsType) => {
 
   const onAddNewCard = (question: string, answer: string) => {
     if (!question || !answer || !props.deckId) return
-    createDeck({
+    createCardInDeck({
       deckId: props.deckId,
       data: {
         question,
@@ -147,7 +147,7 @@ export const DialogAddNewCard = (props: PropsType) => {
     if (e.target.files && e.target.files.length > 0) {
       const file = e.target.files[0]
 
-      setImgName(file.name)
+      // setImgName(file.name)
       const reader = new FileReader()
 
       reader.addEventListener(

@@ -36,6 +36,9 @@ import {
 export const DecksPage = () => {
   const { itemsPerPage, searchByName, cardsCounts, currentPage, authorId, orderBy } =
     useAppSelector(state => state.decks)
+
+  console.log('orderBy ', orderBy)
+
   const [sort, setSort] = useState<Sort>(null) // for sorting cells in table
 
   const [selectedDeck, setSelectedDeck] = useState<SelectedDeckType>({
@@ -117,7 +120,7 @@ export const DecksPage = () => {
   const selectValues = ['5', '9', '20', '50', '100']
 
   useEffect(() => {
-    const sortString: string | undefined = sort ? `${sort?.key}-${sort?.direction}` : undefined
+    const sortString: string | undefined = sort ? `${sort?.key}-${sort?.direction}` : undefined //todo: remove duplicate with cards-page
 
     dispatch(setOrderBy(sortString as OrderByType)) // todo: maybe fix this later
   }, [sort])
@@ -224,12 +227,6 @@ export const DecksPage = () => {
                   <Table.Cell>{deck.author.name}</Table.Cell>
                   <Table.Cell>
                     <div className={s.iconContainer}>
-                      {/*  <img
-                        src={trashIcon}
-                        alt=""
-                        className={s.trashIcon}
-                        onClick={() => onSelectDeckForDel(deck.id, deck.name)}
-                      />*/}
                       <Button
                         variant={'link'}
                         onClick={() => navigate(`learn/${deck.name}/${deck.id}`)}
