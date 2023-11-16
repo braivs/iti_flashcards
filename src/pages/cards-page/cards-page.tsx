@@ -126,7 +126,7 @@ export const CardsPage = () => {
           <Button onClick={() => setIsAddNewCardDialogOpen(true)}>Add New Card</Button>
         )}
       </div>
-      {data?.cardsCount === 0 ? (
+      {cards && cards.items.length === 0 ? (
         <div className={s.emptyPackContainer}>
           <Typography variant={'Subtitle_2'} className={s.Subtitle_2}>
             This pack is empty. Click add new card to fill this pack
