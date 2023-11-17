@@ -2,7 +2,7 @@ import { useState } from 'react'
 
 import { Meta, StoryObj } from '@storybook/react'
 
-import sC from '../../../styles/common.module.scss'
+import sC from '../../../common/commonStyles/common.module.scss'
 
 import { Pagination } from '@/components/ui/Pagination/Pagination.tsx'
 

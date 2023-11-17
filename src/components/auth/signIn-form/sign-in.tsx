@@ -7,10 +7,10 @@ import { z } from 'zod'
 import { Card } from '../../ui/Card'
 import { Typography } from '../../ui/Typography'
 
+import sC from '@/common/commonStyles/formStyles.module.scss'
 import { Button } from '@/components/ui/Button'
 import { ControlledCheckbox } from '@/components/ui/controlled/controlled-checkbox/controlled-checkbox.tsx'
 import { ControlledTextField } from '@/components/ui/controlled/controlled-text-field'
-import sC from '@/styles/formStyles.module.scss'
 
 const schema = z.object({
   email: z.string().email(),

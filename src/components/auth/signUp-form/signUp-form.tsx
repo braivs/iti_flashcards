@@ -12,9 +12,9 @@ import { Button } from '../../ui/Button/button.tsx'
 import { Card } from '../../ui/Card'
 import { Typography } from '../../ui/Typography'
 
+import sC from '@/common/commonStyles/formStyles.module.scss'
 import { ControlledTextField } from '@/components/ui/controlled/controlled-text-field'
 import { useSignUpMutation } from '@/services/auth/auth.service.ts'
-import sC from '@/styles/formStyles.module.scss'
 
 const schema = z
   .object({

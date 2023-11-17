@@ -1,0 +1,6 @@
+Hi. This is common files with questions. Maybe I (Braivs) or somebody else will solve this later :)
+
+-decks.service.ts: invalidatesTags: ['CardsIdDeck'] now works together with onQueryStarted
+-How to separate onQueryStarted to function?
+-Do we need invalidatesTags together with onQueryStarted?
+-cards-page: Is is possible to store deckId without useEffect?

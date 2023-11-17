@@ -11,7 +11,7 @@ import sC from '@/components/ui/Dialogs/DialogsCommon.module.scss'
 import { DialogsCommon } from '@/components/ui/Dialogs/DialogsCommon.tsx'
 import { useAppDispatch } from '@/hooks.ts'
 import { useUpdateDeckMutation } from '@/services/decks/decks.service.ts'
-import { updateCurrentPage } from '@/services/decks/decks.slice.ts'
+import { updateDecksCurrentPage } from '@/services/decks/decks.slice.ts'
 
 export const DialogUpdatePack = (props: PropsType) => {
   const schema = z.object({
@@ -60,7 +60,7 @@ export const DialogUpdatePack = (props: PropsType) => {
   const onUpdateDeck = (cover: string, name: string, isPrivate: boolean) => {
     if (!name || !props.deckId) return
 
-    dispatch(updateCurrentPage(1))
+    dispatch(updateDecksCurrentPage(1))
     updateDeck({
       deckId: props.deckId,
       data: {

@@ -2,7 +2,7 @@ import { useState } from 'react'
 
 import { Meta, StoryObj } from '@storybook/react'
 
-import sC from '../../../styles/common.module.scss'
+import sC from '../../../common/commonStyles/common.module.scss'
 
 import { Slider } from '@/components/ui/Slider/slider.tsx'
 import { SliderSingle } from '@/components/ui/SliderSingle/SliderSingle.tsx'
@@ -44,3 +44,5 @@ export const SliderExample: Story = {
     minStepsBetweenThumbs: 1,
   },
 }
+
+//todo: fix this story

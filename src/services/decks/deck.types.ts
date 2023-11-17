@@ -1,4 +1,4 @@
-import { OrderByType } from '@/common/types.ts'
+import { DecksOrderByType } from '@/common/types.ts'
 
 export type Author = {
   id: string
@@ -54,7 +54,7 @@ export type DeckByIdResponse = {
 export type DeckParams = {
   name?: string
   authorId?: string
-  orderBy?: OrderByType
+  orderBy?: DecksOrderByType
   minCardsCount?: number
   maxCardsCount?: number
   currentPage?: number

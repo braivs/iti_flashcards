@@ -1,7 +1,8 @@
 export type Direction = 'asc' | 'desc'
 export type DecksSortType = 'name' | 'cardsCount' | 'updated' | 'created'
 export type CardsSortType = 'answer' | 'question' | 'updated' | 'grade'
-export type OrderByType = `${DecksSortType}-${Direction}`
+export type DecksOrderByType = `${DecksSortType}-${Direction}`
+export type CardsOrderByType = `${CardsSortType}-${Direction}`
 export type SelectedDeckType = {
   id: string
   name: string

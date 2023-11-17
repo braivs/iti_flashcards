@@ -2,12 +2,14 @@ import { useEffect, useState } from 'react'
 
 import { useNavigate } from 'react-router-dom'
 
-import s from './deck-page.module.scss'
+import s from '../../common/commonStyles/tables.module.scss'
 
 import { Edit } from '@/assets/icons/Edit.tsx'
 import { Play } from '@/assets/icons/Play.tsx'
 import trashIcon from '@/assets/icons/trashIcon.png'
-import { OrderByType, SelectedDeckType } from '@/common/types.ts'
+import sC from '@/common/commonStyles/common.module.scss'
+import { DecksOrderByType, SelectedDeckType } from '@/common/types.ts'
+import { paginationSelectValues } from '@/common/values.ts'
 import { Button } from '@/components/ui/Button'
 import { DialogAddPack } from '@/components/ui/Dialogs/DialogAddPack.tsx'
 import { DialogRemovePack } from '@/components/ui/Dialogs/DialogRemovePack.tsx'
@@ -27,17 +29,15 @@ import { useGetDecksQuery } from '@/services/decks/decks.service.ts'
 import {
   setAuthorId,
   setCardsCounts,
-  setItemsPerPage,
-  setOrderBy,
+  setDecksItemsPerPage,
+  setDecksOrderBy,
   setSearchByName,
-  updateCurrentPage,
+  updateDecksCurrentPage,
 } from '@/services/decks/decks.slice.ts'
 
 export const DecksPage = () => {
   const { itemsPerPage, searchByName, cardsCounts, currentPage, authorId, orderBy } =
     useAppSelector(state => state.decks)
-
-  console.log('orderBy ', orderBy)
 
   const [sort, setSort] = useState<Sort>(null) // for sorting cells in table
 
@@ -60,8 +60,8 @@ export const DecksPage = () => {
 
   const dispatch = useAppDispatch()
 
-  const updateCurrentPageCallback = (page: number | string) => {
-    dispatch(updateCurrentPage(+page))
+  const updateDecksCurrentPageCallback = (page: number | string) => {
+    dispatch(updateDecksCurrentPage(+page))
   }
 
   //for slider
@@ -104,25 +104,24 @@ export const DecksPage = () => {
       dispatch(setAuthorId(''))
     }
 
-    dispatch(updateCurrentPage(1))
+    dispatch(updateDecksCurrentPage(1))
   }
 
   //Filtered Button
   const filterHandler = () => {
-    dispatch(updateCurrentPage(1))
+    dispatch(updateDecksCurrentPage(1))
     dispatch(setAuthorId(''))
     dispatch(setCardsCounts([0, maxCardsCountHard]))
   }
 
   // for pagination
   //// select inside pagination
-  const setItemsPerPageCallback = (value: string) => dispatch(setItemsPerPage(value))
-  const selectValues = ['5', '9', '20', '50', '100']
+  const setDecksItemsPerPageCallback = (value: string) => dispatch(setDecksItemsPerPage(value))
 
   useEffect(() => {
     const sortString: string | undefined = sort ? `${sort?.key}-${sort?.direction}` : undefined //todo: remove duplicate with cards-page
 
-    dispatch(setOrderBy(sortString as OrderByType)) // todo: maybe fix this later
+    dispatch(setDecksOrderBy(sortString as DecksOrderByType)) // todo: maybe fix this later
   }, [sort])
 
   const onViewDeck = (packId: string) => {
@@ -255,23 +254,20 @@ export const DecksPage = () => {
         </Table.Body>
       </Table.Root>
 
-      <div className={s.paginationContainer}>
-        <div>
-          <Pagination
-            onPageChange={updateCurrentPageCallback}
-            totalCount={decks?.pagination.totalItems ?? 0}
-            currentPage={currentPage}
-            pageSize={+itemsPerPage}
-            siblingCount={2}
-            selectSettings={{
-              value: itemsPerPage,
-              onChangeOption: setItemsPerPageCallback,
-              arr: selectValues,
-            }}
-          />
-        </div>
+      <div className={sC.paginationContainer}>
+        <Pagination
+          onPageChange={updateDecksCurrentPageCallback}
+          totalCount={decks?.pagination.totalItems ?? 0}
+          currentPage={currentPage}
+          pageSize={+itemsPerPage}
+          siblingCount={2}
+          selectSettings={{
+            value: itemsPerPage,
+            onChangeOption: setDecksItemsPerPageCallback,
+            arr: paginationSelectValues,
+          }}
+        />
       </div>
-      <div></div>
     </div>
   )
 }

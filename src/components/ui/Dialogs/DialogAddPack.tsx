@@ -10,7 +10,7 @@ import sC from '@/components/ui/Dialogs/DialogsCommon.module.scss'
 import { DialogsCommon } from '@/components/ui/Dialogs/DialogsCommon.tsx'
 import { useAppDispatch } from '@/hooks.ts'
 import { useCreateDeckMutation } from '@/services/decks/decks.service.ts'
-import { updateCurrentPage } from '@/services/decks/decks.slice.ts'
+import { updateDecksCurrentPage } from '@/services/decks/decks.slice.ts'
 
 export const DialogAddPack = (props: PropsType) => {
   const schema = z.object({
@@ -54,7 +54,7 @@ export const DialogAddPack = (props: PropsType) => {
 
   const onAddDeck = (packName: string) => {
     if (!packName) return
-    dispatch(updateCurrentPage(1))
+    dispatch(updateDecksCurrentPage(1))
     createDeck({ name: packName, isPrivate })
     props.setOpen(false)
   }
