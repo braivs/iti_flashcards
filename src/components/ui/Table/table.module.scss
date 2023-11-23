@@ -6,11 +6,9 @@
 
 .headCell {
   padding: 6px 24px;
-
   font-size: var(--font-size-s);
   font-weight: var(--font-weight-medium);
   line-height: var(--line-height-m);
-
   background-color: var(--color-dark-500);
 
   > span {
@@ -37,6 +35,11 @@
 
   background-color: var(--color-bg-table);
   border-bottom: 1px solid var(--color-dark-500);
+
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+  max-width: 250px;
 }
 
 .chevronDown {

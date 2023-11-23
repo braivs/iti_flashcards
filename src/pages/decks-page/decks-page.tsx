@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react'
 
 import { useNavigate } from 'react-router-dom'
 
-import s from '../../common/commonStyles/tables.module.scss'
+import sT from '../../common/commonStyles/tables.module.scss'
 
 import { Edit } from '@/assets/icons/Edit.tsx'
 import { Play } from '@/assets/icons/Play.tsx'
@@ -156,7 +156,7 @@ export const DecksPage = () => {
   const isEqualToMeId = (deckAuthorId: string): boolean => deckAuthorId === me.id
 
   const cursorByAuthorId = (deckAauthorId: string) =>
-    isEqualToMeId(deckAauthorId) ? '' : s.cursorAuto
+    isEqualToMeId(deckAauthorId) ? '' : sT.cursorAuto
 
   const colorByAuthorId = (deckAauthorId: string): 'white' | 'grey' =>
     isEqualToMeId(deckAauthorId) ? 'white' : 'grey'
@@ -166,7 +166,7 @@ export const DecksPage = () => {
   if (decksIsError) return <div>Error</div>
 
   return (
-    <div className={s.component}>
+    <div className={sT.component}>
       <DialogRemovePack
         open={isDeleteDialogOpen}
         setOpen={setIsDeleteDialogOpen}
@@ -184,12 +184,12 @@ export const DecksPage = () => {
         selectedDeck={selectedDeck}
         setSelectedDeck={setSelectedDeck}
       />
-      <div className={s.topContainer}>
+      <div className={sT.topContainer}>
         <Typography variant="Large">Packs list</Typography>
         <Button onClick={() => setIsAddDialogOpen(true)}>Add New Pack</Button>
       </div>
-      <div className={s.middleContainer}>
-        <div className={s.searchContainer}>
+      <div className={sT.middleContainer}>
+        <div className={sT.searchContainer}>
           <Textfield
             value={searchByName}
             onChange={e => dispatch(setSearchByName(e.currentTarget.value))}
@@ -213,64 +213,66 @@ export const DecksPage = () => {
           minStepsBetweenThumbs={1}
         />
         <Button variant="secondary" onClick={filterHandler}>
-          <img src={trashIcon} alt="trashIcon" className={s.trashIcon} />
+          <img src={trashIcon} alt="trashIcon" className={sT.trashIcon} />
           Clear Filter
         </Button>
       </div>
 
-      <Table.Root className={s.tableContainer}>
-        <Table.Header columns={columns} onSort={setSort} sort={sort} />
-        <Table.Body>
-          {decks?.items &&
-            decks.items.map(deck => {
-              return (
-                <Table.Row key={deck.id}>
-                  <Table.Cell onDoubleClick={() => onViewDeck(deck.id)}>{deck.name}</Table.Cell>
-                  <Table.Cell>{deck.cardsCount}</Table.Cell>
-                  <Table.Cell>{deck.updated}</Table.Cell>
-                  <Table.Cell>{deck.author.name}</Table.Cell>
-                  <Table.Cell>
-                    <div className={s.iconContainer}>
-                      <Button
-                        variant={'link'}
-                        onClick={
-                          deck.cardsCount > 0
-                            ? () => navigate(`learn/${deck.name}/${deck.id}`)
-                            : () => {}
-                        }
-                        className={deck.cardsCount > 0 ? '' : s.cursorAuto}
-                      >
-                        <Play color={deck.cardsCount > 0 ? 'white' : 'grey'} />
-                      </Button>
-                      <Button
-                        variant={'link'}
-                        className={cursorByAuthorId(deck.author.id)}
-                        onClick={
-                          isEqualToMeId(deck.author.id)
-                            ? () => onSelectDeckForUpdate(deck.id, deck.name, deck.isPrivate)
-                            : () => {}
-                        }
-                      >
-                        <Edit color={colorByAuthorId(deck.author.id)} />
-                      </Button>
-                      <Button
-                        variant={'link'}
-                        onClick={
-                          isEqualToMeId(deck.author.id)
-                            ? () => onSelectDeckForDel(deck.id, deck.name)
-                            : () => {}
-                        }
-                        className={cursorByAuthorId(deck.author.id)}
-                      >
-                        <TrashHollow color={colorByAuthorId(deck.author.id)} />
-                      </Button>
-                    </div>
-                  </Table.Cell>
-                </Table.Row>
-              )
-            })}
-        </Table.Body>
-      </Table.Root>
+      <div className={sT.container}>
+        <Table.Root className={sT.tableContainer}>
+          <Table.Header columns={columns} onSort={setSort} sort={sort} />
+          <Table.Body>
+            {decks?.items &&
+              decks.items.map(deck => {
+                return (
+                  <Table.Row key={deck.id}>
+                    <Table.Cell onDoubleClick={() => onViewDeck(deck.id)}>{deck.name}</Table.Cell>
+                    <Table.Cell>{deck.cardsCount}</Table.Cell>
+                    <Table.Cell>{deck.updated}</Table.Cell>
+                    <Table.Cell>{deck.author.name}</Table.Cell>
+                    <Table.Cell>
+                      <div className={sT.iconContainer}>
+                        <Button
+                          variant={'link'}
+                          onClick={
+                            deck.cardsCount > 0
+                              ? () => navigate(`learn/${deck.name}/${deck.id}`)
+                              : () => {}
+                          }
+                          className={deck.cardsCount > 0 ? '' : sT.cursorAuto}
+                        >
+                          <Play color={deck.cardsCount > 0 ? 'white' : 'grey'} />
+                        </Button>
+                        <Button
+                          variant={'link'}
+                          className={cursorByAuthorId(deck.author.id)}
+                          onClick={
+                            isEqualToMeId(deck.author.id)
+                              ? () => onSelectDeckForUpdate(deck.id, deck.name, deck.isPrivate)
+                              : () => {}
+                          }
+                        >
+                          <Edit color={colorByAuthorId(deck.author.id)} />
+                        </Button>
+                        <Button
+                          variant={'link'}
+                          onClick={
+                            isEqualToMeId(deck.author.id)
+                              ? () => onSelectDeckForDel(deck.id, deck.name)
+                              : () => {}
+                          }
+                          className={cursorByAuthorId(deck.author.id)}
+                        >
+                          <TrashHollow color={colorByAuthorId(deck.author.id)} />
+                        </Button>
+                      </div>
+                    </Table.Cell>
+                  </Table.Row>
+                )
+              })}
+          </Table.Body>
+        </Table.Root>
+      </div>
 
       <div className={sC.paginationContainer}>
         <Pagination

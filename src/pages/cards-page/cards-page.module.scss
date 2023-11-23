@@ -1,8 +1,5 @@
 .cell {
-    text-overflow: ellipsis;
-    white-space: nowrap;
-    overflow: hidden;
-    max-width: 300px;
+
 }
 
 .emptyPackContainer {
@@ -22,4 +19,9 @@
     .text {
         margin-left: 5px;
     }
+}
+
+.container {
+    width: 100%;
+    overflow-x: auto;
 }

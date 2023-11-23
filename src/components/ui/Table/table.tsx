@@ -2,8 +2,6 @@ import { ComponentProps, FC } from 'react'
 
 import { clsx } from 'clsx'
 
-// import { ChevronUp } from '../../../assets/icons'
-
 import s from './table.module.scss'
 
 import ChevronUp from '@/assets/icons/chevron-up.tsx'

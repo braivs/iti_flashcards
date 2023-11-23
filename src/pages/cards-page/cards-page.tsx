@@ -180,50 +180,52 @@ export const CardsPage = () => {
         </div>
       ) : (
         <>
-          <Table.Root className={sT.tableContainer}>
-            <Table.Header columns={columns} onSort={setSort} sort={sort} />
-            <Table.Body>
-              {cards &&
-                cards.items.map(data => {
-                  return (
-                    <Table.Row key={data.id}>
-                      <Table.Cell className={s.cell}>{data.question}</Table.Cell>
-                      <Table.Cell className={s.cell}>{data.answer}</Table.Cell>
-                      <Table.Cell>{data.updated}</Table.Cell>
-                      <Table.Cell>
-                        <Grade value={data.grade} />
-                      </Table.Cell>
-                      <Table.Cell>
-                        <div className={sT.iconContainer}>
-                          <Button
-                            variant={'link'}
-                            onClick={
-                              !isEditBlocked
-                                ? () => onSelectCardForUpdate(data.id, data.question, data.answer)
-                                : () => {}
-                            }
-                            className={cursorByEdit()}
-                          >
-                            <Edit color={colorByEdit()} />
-                          </Button>
-                          <Button
-                            variant={'link'}
-                            onClick={
-                              !isEditBlocked
-                                ? () => onSelectCardForDel(data.id, data.question)
-                                : () => {}
-                            }
-                            className={cursorByEdit()}
-                          >
-                            <TrashHollow color={colorByEdit()} />
-                          </Button>
-                        </div>
-                      </Table.Cell>
-                    </Table.Row>
-                  )
-                })}
-            </Table.Body>
-          </Table.Root>
+          <div className={sT.container}>
+            <Table.Root className={sT.tableContainer}>
+              <Table.Header columns={columns} onSort={setSort} sort={sort} />
+              <Table.Body>
+                {cards &&
+                  cards.items.map(data => {
+                    return (
+                      <Table.Row key={data.id}>
+                        <Table.Cell>{data.question}</Table.Cell>
+                        <Table.Cell>{data.answer}</Table.Cell>
+                        <Table.Cell>{data.updated}</Table.Cell>
+                        <Table.Cell>
+                          <Grade value={data.grade} />
+                        </Table.Cell>
+                        <Table.Cell>
+                          <div className={sT.iconContainer}>
+                            <Button
+                              variant={'link'}
+                              onClick={
+                                !isEditBlocked
+                                  ? () => onSelectCardForUpdate(data.id, data.question, data.answer)
+                                  : () => {}
+                              }
+                              className={cursorByEdit()}
+                            >
+                              <Edit color={colorByEdit()} />
+                            </Button>
+                            <Button
+                              variant={'link'}
+                              onClick={
+                                !isEditBlocked
+                                  ? () => onSelectCardForDel(data.id, data.question)
+                                  : () => {}
+                              }
+                              className={cursorByEdit()}
+                            >
+                              <TrashHollow color={colorByEdit()} />
+                            </Button>
+                          </div>
+                        </Table.Cell>
+                      </Table.Row>
+                    )
+                  })}
+              </Table.Body>
+            </Table.Root>
+          </div>
 
           <div className={sC.paginationContainer}>
             <Pagination
