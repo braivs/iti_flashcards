@@ -211,6 +211,7 @@ export const DecksPage = () => {
           min={0}
           max={decks?.maxCardsCount || maxCardsCountHard}
           minStepsBetweenThumbs={1}
+          className={s.slider}
         />
         <Button variant="secondary" onClick={filterHandler}>
           <img src={trashIcon} alt="trashIcon" className={sT.trashIcon} />

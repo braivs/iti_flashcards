@@ -14,11 +14,13 @@
 }
 
 .value {
+  display: flex;
   align-items: center;
   justify-content: center;
 
   width: 36px;
   height: 36px;
+  margin-right: 15px;
   padding: 5px;
 
   text-align: center;
@@ -28,9 +30,12 @@
 
 .root {
   position: relative;
+
   display: flex;
   align-items: center;
+
   width: 100%;
+  margin: 5px;
 }
 
 .track {
@@ -41,7 +46,7 @@
 
   opacity: 0.5;
   background-color: var(--color-accent-500);
-  border-radius: 2px;
+  border-radius: 12px;
 }
 
 .range {

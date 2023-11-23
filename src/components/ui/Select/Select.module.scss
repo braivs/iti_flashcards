@@ -9,7 +9,6 @@
 
 .trigger {
   cursor: pointer;
-
 }
 
 .content {
@@ -59,13 +58,14 @@
 }
 
 .item[data-highlighted] {
+  cursor: pointer;
   color: var(--color-accent-300);
   background: var(--color-accent-900);
   outline: none;
-  cursor: pointer;
 }
 
 .triggerGrey,
 .contentGrey {
+  justify-content: space-around;
   background-color: var(--color-dark-700);
 }

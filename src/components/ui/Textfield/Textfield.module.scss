@@ -13,6 +13,7 @@
 
 .inputWrapper {
   position: relative;
+  display: flex;
   width: 100%;
 }
 
@@ -46,8 +47,8 @@
   //  border-color: var(--color-light-100);
   //}
   &:focus-visible {
-    border-color: var(--color-light-100);
     color: var(--color-light-100);
+    border-color: var(--color-light-100);
   }
 
   //&:focus-within {
