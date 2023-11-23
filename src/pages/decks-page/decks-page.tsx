@@ -6,6 +6,7 @@ import s from '../../common/commonStyles/tables.module.scss'
 
 import { Edit } from '@/assets/icons/Edit.tsx'
 import { Play } from '@/assets/icons/Play.tsx'
+import { TrashHollow } from '@/assets/icons/TrashHollow.tsx'
 import trashIcon from '@/assets/icons/trashIcon.png'
 import sC from '@/common/commonStyles/common.module.scss'
 import { DecksOrderByType, SelectedDeckType } from '@/common/types.ts'
@@ -47,14 +48,10 @@ export const DecksPage = () => {
     isPrivate: false,
   })
   const navigate = useNavigate()
+
   const [isUpdateDialogOpen, setIsUpdateDialogOpen] = useState(false) // for update dialog
-
   const [isDeleteDialogOpen, setIsDeleteDialogOpen] = useState(false) // for delete dialog
-
-  // for add dialog
-  const [isAddDialogOpen, setIsAddDialogOpen] = useState(false)
-
-  // ===
+  const [isAddDialogOpen, setIsAddDialogOpen] = useState(false) // for add dialog
 
   const { data: me } = useGetMeQuery()
 
@@ -156,6 +153,14 @@ export const DecksPage = () => {
     },
   ]
 
+  const isEqualToMeId = (deckAuthorId: string): boolean => deckAuthorId === me.id
+
+  const cursorByAuthorId = (deckAauthorId: string) =>
+    isEqualToMeId(deckAauthorId) ? '' : s.cursorAuto
+
+  const colorByAuthorId = (deckAauthorId: string): 'white' | 'grey' =>
+    isEqualToMeId(deckAauthorId) ? 'white' : 'grey'
+
   // logging
   if (decksLoading) return <div>Loading...</div>
   if (decksIsError) return <div>Error</div>
@@ -228,23 +233,36 @@ export const DecksPage = () => {
                     <div className={s.iconContainer}>
                       <Button
                         variant={'link'}
-                        onClick={() => navigate(`learn/${deck.name}/${deck.id}`)}
+                        onClick={
+                          deck.cardsCount > 0
+                            ? () => navigate(`learn/${deck.name}/${deck.id}`)
+                            : () => {}
+                        }
+                        className={deck.cardsCount > 0 ? '' : s.cursorAuto}
                       >
-                        <Play color={'white'} />
+                        <Play color={deck.cardsCount > 0 ? 'white' : 'grey'} />
                       </Button>
                       <Button
                         variant={'link'}
-                        onClick={() => onSelectDeckForUpdate(deck.id, deck.name, deck.isPrivate)}
+                        className={cursorByAuthorId(deck.author.id)}
+                        onClick={
+                          isEqualToMeId(deck.author.id)
+                            ? () => onSelectDeckForUpdate(deck.id, deck.name, deck.isPrivate)
+                            : () => {}
+                        }
                       >
-                        <Edit color={'white'} />
+                        <Edit color={colorByAuthorId(deck.author.id)} />
                       </Button>
-                      <Button variant={'link'}>
-                        <img
-                          src={trashIcon}
-                          alt=""
-                          className={s.trashIcon}
-                          onClick={() => onSelectDeckForDel(deck.id, deck.name)}
-                        />
+                      <Button
+                        variant={'link'}
+                        onClick={
+                          isEqualToMeId(deck.author.id)
+                            ? () => onSelectDeckForDel(deck.id, deck.name)
+                            : () => {}
+                        }
+                        className={cursorByAuthorId(deck.author.id)}
+                      >
+                        <TrashHollow color={colorByAuthorId(deck.author.id)} />
                       </Button>
                     </div>
                   </Table.Cell>

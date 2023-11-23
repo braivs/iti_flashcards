@@ -6,7 +6,7 @@ import s from './cards-page.module.scss'
 
 import arrowLeft from '@/assets/icons/ArrowLeft.svg'
 import { Edit } from '@/assets/icons/Edit.tsx'
-import trashIcon from '@/assets/icons/trashIcon.png'
+import { TrashHollow } from '@/assets/icons/TrashHollow.tsx'
 import sC from '@/common/commonStyles/common.module.scss'
 import sT from '@/common/commonStyles/tables.module.scss'
 import { CardsOrderByType, SelectedCardType, SelectedCardUpdateType } from '@/common/types.ts'
@@ -20,6 +20,7 @@ import { Grade } from '@/components/ui/Rating/rating.tsx'
 import { Column, Table } from '@/components/ui/Table'
 import { Typography } from '@/components/ui/Typography'
 import { useAppDispatch, useAppSelector } from '@/hooks.ts'
+import { useGetMeQuery } from '@/services/auth/auth.service.ts'
 import {
   setCardId,
   setCardsItemsPerPage,
@@ -40,6 +41,7 @@ export const CardsPage = () => {
     currentPage,
     orderBy,
   })
+  const { data: me } = useGetMeQuery()
 
   const [isAddNewCardDialogOpen, setIsAddNewCardDialogOpen] = useState(false)
   const [isUpdateDialogOpen, setIsUpdateDialogOpen] = useState(false) // for Update dialog
@@ -54,6 +56,7 @@ export const CardsPage = () => {
     question: '',
   })
   const [sort, setSort] = useState<Sort>(null) // for sorting cells in table
+  const [isEditBlocked, setIsEditBlocked] = useState(false)
 
   const navigate = useNavigate()
   const dispatch = useAppDispatch()
@@ -69,6 +72,10 @@ export const CardsPage = () => {
 
     dispatch(setCardsOrderBy(sortString as CardsOrderByType)) // todo: maybe fix this later also
   }, [sort]) //todo: maybe refactor, to avoid useEffect
+
+  useEffect(() => {
+    setIsEditBlocked(data?.userId !== me.id)
+  }, [data?.userId, me.id])
 
   const columns: Column[] = [
     {
@@ -117,9 +124,11 @@ export const CardsPage = () => {
     dispatch(updateCardsCurrentPage(+page))
   }
 
-  // for pagination
-  //// select inside pagination
-  const setCardsItemsPerPageCallback = (value: string) => dispatch(setCardsItemsPerPage(value))
+  const setCardsItemsPerPageCallback = (value: string) => dispatch(setCardsItemsPerPage(value)) // for pagination
+
+  // for elements blocking if alien deck
+  const cursorByEdit = () => (!isEditBlocked ? '' : sT.cursorAuto)
+  const colorByEdit = (): 'white' | 'grey' => (!isEditBlocked ? 'white' : 'grey')
 
   return (
     <div className={sT.component}>
@@ -150,15 +159,24 @@ export const CardsPage = () => {
       <div className={sT.topContainer}>
         <Typography variant={'H1'}>{data?.name}</Typography>
         {data?.cardsCount !== 0 && (
-          <Button onClick={() => setIsAddNewCardDialogOpen(true)}>Add New Card</Button>
+          <Button disabled={isEditBlocked} onClick={() => setIsAddNewCardDialogOpen(true)}>
+            Add New Card
+          </Button>
         )}
       </div>
       {cards && cards.items.length === 0 ? (
         <div className={s.emptyPackContainer}>
           <Typography variant={'Subtitle_2'} className={s.Subtitle_2}>
-            This pack is empty. Click add new card to fill this pack
+            This pack is empty.
+            {!isEditBlocked ? (
+              <span> Click add new card to fill this pack</span>
+            ) : (
+              <span> You can&apos;t create cards in a deck that you don&apos;t own.</span>
+            )}
           </Typography>
-          <Button onClick={onOpenDialog}>Add New Card</Button>
+          <Button onClick={onOpenDialog} disabled={isEditBlocked}>
+            Add New Card
+          </Button>
         </div>
       ) : (
         <>
@@ -179,19 +197,25 @@ export const CardsPage = () => {
                         <div className={sT.iconContainer}>
                           <Button
                             variant={'link'}
-                            onClick={() =>
-                              onSelectCardForUpdate(data.id, data.question, data.answer)
+                            onClick={
+                              !isEditBlocked
+                                ? () => onSelectCardForUpdate(data.id, data.question, data.answer)
+                                : () => {}
                             }
+                            className={cursorByEdit()}
                           >
-                            <Edit color={'white'} />
+                            <Edit color={colorByEdit()} />
                           </Button>
-                          <Button variant={'link'}>
-                            <img
-                              src={trashIcon}
-                              alt=""
-                              className={sT.trashIcon}
-                              onClick={() => onSelectCardForDel(data.id, data.question)}
-                            />
+                          <Button
+                            variant={'link'}
+                            onClick={
+                              !isEditBlocked
+                                ? () => onSelectCardForDel(data.id, data.question)
+                                : () => {}
+                            }
+                            className={cursorByEdit()}
+                          >
+                            <TrashHollow color={colorByEdit()} />
                           </Button>
                         </div>
                       </Table.Cell>
