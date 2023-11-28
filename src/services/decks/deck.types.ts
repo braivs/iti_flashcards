@@ -35,10 +35,7 @@ export type DecksResponse = {
 }
 
 export type DeckByIdResponse = {
-  author: {
-    id: string
-    name: string
-  }
+  author: Author
   id: string
   userId: string
   name: string
@@ -85,19 +82,19 @@ export type UpdateDeckType = {
   isPrivate?: boolean
 }
 export type CardType = {
+  id: string
+  deckId: string
+  userId: string
   answer: string
   answerImg: string | null
   answerVideo: string | null
   created: string
-  deckId: string
   grade: number
-  id: string
   question: string
   questionImg: string | null
   questionVideo: string | null
   shots: number
   updated: string
-  userId: string
 }
 
 export type GetCardsInDeckResponse = {
@@ -105,23 +102,11 @@ export type GetCardsInDeckResponse = {
   pagination: PaginationType
 }
 
-export type CreateCardInDeckResponseType = {
-  answer: string
-  answerImg: string | null
-  answerVideo: string | null
+export type CreateCardInDeckResponseType = Omit<CardType, 'grade'> & {
   comments: string | null
-  created: string
-  deckId: string
-  id: string
   moreId: string | null
-  question: string
-  questionImg: string | null
-  questionVideo: string | null
   rating: number
-  shots: number
   type: string | null
-  updated: string
-  userId: string
 }
 
 export type UpdateCardType = {
@@ -133,21 +118,8 @@ export type UpdateCardType = {
   answerVideo?: string | null
 }
 
-//todo add Pick for single types
-export type LearnCardType = {
-  id: string
-  deckId: string
-  userId: string
-  question: string
-  answer: string
-  shots: number
-  answerImg: string
-  questionImg: string
-  questionVideo: string
-  answerVideo: string
+export type LearnCardType = Omit<CardType, 'grade'> & {
   rating: number
-  created: string
-  updated: string
 }
 
 export type DeckLearnArgType = {

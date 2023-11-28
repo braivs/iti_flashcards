@@ -96,5 +96,3 @@ type PropsType = {
   open: boolean
   setOpen: Dispatch<SetStateAction<boolean>>
 }
-
-//todo: maybe reduce code duplication with DialogAddNewCard

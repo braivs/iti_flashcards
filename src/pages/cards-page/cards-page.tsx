@@ -9,6 +9,7 @@ import { Edit } from '@/assets/icons/Edit.tsx'
 import { TrashHollow } from '@/assets/icons/TrashHollow.tsx'
 import sC from '@/common/commonStyles/common.module.scss'
 import sT from '@/common/commonStyles/tables.module.scss'
+import { sortStringCallback } from '@/common/services.ts'
 import { CardsOrderByType, SelectedCardType, SelectedCardUpdateType } from '@/common/types.ts'
 import { paginationSelectValues } from '@/common/values.ts'
 import { Button } from '@/components/ui/Button'
@@ -68,10 +69,10 @@ export const CardsPage = () => {
   }, [deckId]) // for optimistic and pessimistic updates
 
   useEffect(() => {
-    const sortString: string | undefined = sort ? `${sort?.key}-${sort?.direction}` : undefined // todo: remove duplicate with deck-page
+    const sortString: string | undefined = sortStringCallback(sort)
 
-    dispatch(setCardsOrderBy(sortString as CardsOrderByType)) // todo: maybe fix this later also
-  }, [sort]) //todo: maybe refactor, to avoid useEffect
+    dispatch(setCardsOrderBy(sortString as CardsOrderByType))
+  }, [sort]) //todo: maybe refactor, to avoid useEffect 'finish refactor'
 
   useEffect(() => {
     setIsEditBlocked(data?.userId !== me.id)

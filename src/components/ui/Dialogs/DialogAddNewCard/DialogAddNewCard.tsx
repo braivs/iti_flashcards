@@ -248,11 +248,11 @@ export const DialogAddNewCard = (props: PropsType) => {
               {inputImg && (
                 <>
                   <SliderSingle
-                    defaultValue={minSliderValue}
+                    defaultValue={[minSliderValue]}
                     min={minSliderValue}
                     max={maxSliderValue}
                     step={sliderStep}
-                    value={sliderValue[0]}
+                    value={[sliderValue[0]]}
                     onValueChange={sliderChangeHandler}
                   />
                 </>

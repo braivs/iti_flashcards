@@ -9,6 +9,7 @@ import { Play } from '@/assets/icons/Play.tsx'
 import { TrashHollow } from '@/assets/icons/TrashHollow.tsx'
 import trashIcon from '@/assets/icons/trashIcon.png'
 import sC from '@/common/commonStyles/common.module.scss'
+import { sortStringCallback } from '@/common/services.ts'
 import { DecksOrderByType, SelectedDeckType } from '@/common/types.ts'
 import { paginationSelectValues } from '@/common/values.ts'
 import { Button } from '@/components/ui/Button'
@@ -116,9 +117,9 @@ export const DecksPage = () => {
   const setDecksItemsPerPageCallback = (value: string) => dispatch(setDecksItemsPerPage(value))
 
   useEffect(() => {
-    const sortString: string | undefined = sort ? `${sort?.key}-${sort?.direction}` : undefined //todo: remove duplicate with cards-page
+    const sortString: string | undefined = sortStringCallback(sort)
 
-    dispatch(setDecksOrderBy(sortString as DecksOrderByType)) // todo: maybe fix this later
+    dispatch(setDecksOrderBy(sortString as DecksOrderByType))
   }, [sort])
 
   const onViewDeck = (packId: string) => {
