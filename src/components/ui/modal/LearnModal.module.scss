@@ -280,6 +280,8 @@
     .questionSubtitle {
       font-weight: var(--font-weight-regular);
       display: inline-block;
+      word-wrap: break-word;
+      word-break: break-all;
     }
   }
   .questionImg {
@@ -314,6 +316,8 @@
     .answerSubtitle {
       font-weight: var(--font-weight-regular);
       display: inline-block;
+      word-wrap: break-word;
+      word-break: break-all;
     }
   }
   .answerMargin {
