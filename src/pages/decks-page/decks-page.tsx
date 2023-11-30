@@ -168,23 +168,27 @@ export const DecksPage = () => {
 
   return (
     <div className={sT.component}>
-      <DialogRemovePack
-        open={isDeleteDialogOpen}
-        setOpen={setIsDeleteDialogOpen}
-        selectedDeck={selectedDeck}
-        setSelectedDeck={setSelectedDeck}
-      />
+      {isDeleteDialogOpen && (
+        <DialogRemovePack
+          open={isDeleteDialogOpen}
+          setOpen={setIsDeleteDialogOpen}
+          selectedDeck={selectedDeck}
+          setSelectedDeck={setSelectedDeck}
+        />
+      )}
       <DialogAddPack open={isAddDialogOpen} setOpen={setIsAddDialogOpen} />
-      <DialogUpdatePack
-        name={selectedDeck.name}
-        deckId={selectedDeck.id ?? ''}
-        open={isUpdateDialogOpen}
-        setOpen={setIsUpdateDialogOpen}
-        isPrivate={selectedDeck.isPrivate}
-        setIsPrivate={setSelectedDeck}
-        selectedDeck={selectedDeck}
-        setSelectedDeck={setSelectedDeck}
-      />
+      {isUpdateDialogOpen && selectedDeck && (
+        <DialogUpdatePack
+          name={selectedDeck.name}
+          deckId={selectedDeck.id ?? ''}
+          open={isUpdateDialogOpen}
+          setOpen={setIsUpdateDialogOpen}
+          isPrivate={selectedDeck.isPrivate}
+          setIsPrivate={setSelectedDeck}
+          selectedDeck={selectedDeck}
+          setSelectedDeck={setSelectedDeck}
+        />
+      )}
       <div className={sT.topContainer}>
         <Typography variant="Large">Packs list</Typography>
         <Button onClick={() => setIsAddDialogOpen(true)}>Add New Pack</Button>

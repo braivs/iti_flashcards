@@ -21,7 +21,6 @@ export const DialogUpdatePack = (props: PropsType) => {
   })
 
   type FormValues = z.input<typeof schema>
-
   const {
     handleSubmit,
     control,
@@ -90,12 +89,7 @@ export const DialogUpdatePack = (props: PropsType) => {
         <div className={sC.DialogDescription}>
           <div className={sC.textFieldContainer}>
             <div className={sC.element}>
-              <ControlledTextField
-                name={'name'}
-                placeholder={props.name}
-                label={'Name Pack'}
-                control={control}
-              />
+              <ControlledTextField name={'name'} label={'Name Pack'} control={control} />
             </div>
           </div>
           <Checkbox label={'Private pack'} checked={isPrivate} onValueChange={setIsPrivate} />

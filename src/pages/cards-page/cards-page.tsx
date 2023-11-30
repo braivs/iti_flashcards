@@ -133,21 +133,26 @@ export const CardsPage = () => {
 
   return (
     <div className={sT.component}>
-      <DialogRemoveCard
-        open={isDeleteDialogOpen}
-        setOpen={setIsDeleteDialogOpen}
-        selectedCard={selectedCard}
-        setSelectedCard={setSelectedCard}
-      />
-      <DialogUpdateCard
-        open={isUpdateDialogOpen}
-        setOpen={setIsUpdateDialogOpen}
-        selectedCard={selectedForUpdateCard}
-        setSelectedCard={setSelectedForUpdateCard}
-        id={selectedForUpdateCard.id ?? ''}
-        answer={selectedForUpdateCard.answer}
-        question={selectedForUpdateCard.question}
-      />
+      {isDeleteDialogOpen && (
+        <DialogRemoveCard
+          open={isDeleteDialogOpen}
+          setOpen={setIsDeleteDialogOpen}
+          selectedCard={selectedCard}
+          setSelectedCard={setSelectedCard}
+        />
+      )}
+      {isUpdateDialogOpen && selectedForUpdateCard && (
+        <DialogUpdateCard
+          open={isUpdateDialogOpen}
+          setOpen={setIsUpdateDialogOpen}
+          selectedCard={selectedForUpdateCard}
+          setSelectedCard={setSelectedForUpdateCard}
+          id={selectedForUpdateCard.id ?? ''}
+          answer={selectedForUpdateCard.answer}
+          question={selectedForUpdateCard.question}
+        />
+      )}
+
       <DialogAddNewCard
         open={isAddNewCardDialogOpen}
         setOpen={setIsAddNewCardDialogOpen}
