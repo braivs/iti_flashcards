@@ -14,8 +14,8 @@ export const DialogUpdateCard = (props: PropsType) => {
   const schema = z.object({
     //questionImg: z.string(),
     // answerImg: z.string(),
-    question: z.string().min(2),
-    answer: z.string().min(2),
+    question: z.string().min(2).max(500),
+    answer: z.string().min(2).max(500),
     // questionVideo: z.string(),
     // answerVideo: z.string(),
   })

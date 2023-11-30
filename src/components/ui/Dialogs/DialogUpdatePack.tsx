@@ -16,7 +16,7 @@ import { updateDecksCurrentPage } from '@/services/decks/decks.slice.ts'
 export const DialogUpdatePack = (props: PropsType) => {
   const schema = z.object({
     cover: z.string(),
-    name: z.string().min(3),
+    name: z.string().min(3).max(30),
     isPrivate: z.boolean(),
   })
 

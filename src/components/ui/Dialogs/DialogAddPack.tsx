@@ -14,7 +14,7 @@ import { updateDecksCurrentPage } from '@/services/decks/decks.slice.ts'
 
 export const DialogAddPack = (props: PropsType) => {
   const schema = z.object({
-    packName: z.string().min(3),
+    packName: z.string().min(3).max(30),
   })
 
   type FormValues = z.input<typeof schema>
@@ -42,7 +42,6 @@ export const DialogAddPack = (props: PropsType) => {
   const handleFormSubmitted = handleSubmit(values => {
     onAddDeck(values.packName)
     reset()
-    props.setOpen(false)
   })
 
   // on submit form emulation
@@ -52,10 +51,11 @@ export const DialogAddPack = (props: PropsType) => {
     formRef.current.submit()
   }
 
-  const onAddDeck = (packName: string) => {
+  function onAddDeck(packName: string) {
     if (!packName) return
     dispatch(updateDecksCurrentPage(1))
     createDeck({ name: packName, isPrivate })
+
     props.setOpen(false)
   }
 

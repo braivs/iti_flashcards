@@ -34,8 +34,8 @@ export const DialogAddNewCard = (props: PropsType) => {
   const [sliderValue, setSliderValue] = useState<number[]>([minSliderValue])
 
   const schema = z.object({
-    answer: z.string().min(3),
-    question: z.string().min(3),
+    answer: z.string().min(3).max(500),
+    question: z.string().min(3).max(500),
   })
 
   type FormValues = z.input<typeof schema>

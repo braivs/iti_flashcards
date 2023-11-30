@@ -18,5 +18,12 @@ export const ControlledTextField = <TFieldValues extends FieldValues>(
     control: props.control,
   })
 
-  return <Textfield {...props} {...field} errorMessage={error?.message} id={props.name} />
+  return (
+    <Textfield
+      {...props}
+      {...field}
+      errorMessage={error?.message || props.errorMessage}
+      id={props.name}
+    />
+  )
 }
