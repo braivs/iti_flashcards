@@ -5,8 +5,8 @@ import { Header } from '@/components/ui/Header/header.tsx'
 export const Layout = () => {
   return (
     <>
-      <Header />
       <Outlet />
+      <Header />
     </>
   )
 }
