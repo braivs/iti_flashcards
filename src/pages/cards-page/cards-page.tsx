@@ -9,7 +9,6 @@ import { Edit } from '@/assets/icons/Edit.tsx'
 import { TrashHollow } from '@/assets/icons/TrashHollow.tsx'
 import sC from '@/common/commonStyles/common.module.scss'
 import sT from '@/common/commonStyles/tables.module.scss'
-import { sortStringCallback } from '@/common/services.ts'
 import { CardsOrderByType, SelectedCardType, SelectedCardUpdateType } from '@/common/types.ts'
 import { paginationSelectValues } from '@/common/values.ts'
 import { Button } from '@/components/ui/Button'
@@ -22,6 +21,7 @@ import { Column, Table } from '@/components/ui/Table'
 import { Typography } from '@/components/ui/Typography'
 import { useAppDispatch, useAppSelector } from '@/hooks.ts'
 import { useGetMeQuery } from '@/services/auth/auth.service.ts'
+import { sortStringCallback } from '@/common/services.ts'
 import {
   setCardId,
   setCardsItemsPerPage,
@@ -188,17 +188,19 @@ export const CardsPage = () => {
         <>
           <div className={sT.container}>
             <Table.Root className={sT.tableContainer}>
-              <Table.Header columns={columns} onSort={setSort} sort={sort} />
+              <Table.Header columns={columns} onSort={setSort} sort={sort}/>
               <Table.Body>
                 {cards &&
                   cards.items.map(data => {
                     return (
                       <Table.Row key={data.id}>
-                        <Table.Cell>{data.question}</Table.Cell>
-                        <Table.Cell>{data.answer}</Table.Cell>
+                        <Table.Cell>{data.questionImg && <img src={data.questionImg} alt={'questionImg'}
+                                                              className={sT.imgInCell}/>} <br/> {data.question}</Table.Cell>
+                        <Table.Cell>{data.answerImg && <img src={data.answerImg} alt={'answerImg'}
+                                                            className={sT.imgInCell}/>} <br/> {data.answer}</Table.Cell>
                         <Table.Cell>{data.updated}</Table.Cell>
                         <Table.Cell>
-                          <Grade value={data.grade} />
+                          <Grade value={data.grade}/>
                         </Table.Cell>
                         <Table.Cell>
                           <div className={sT.iconContainer}>

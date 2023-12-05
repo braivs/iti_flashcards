@@ -1,21 +1,20 @@
-import { omit } from 'remeda'
+import {omit} from 'remeda'
 
-import { baseApi } from '@/services/base-api.ts'
+import {baseApi} from '@/services/base-api.ts'
 import {
   CardType,
   CreateCardInDeckResponseType,
-  CreateCardInDeckType,
   Deck,
   DeckByIdResponse,
+  DeckLearnArgType,
   DeckParams,
   DecksResponse,
   GetCardsInDeckParams,
   GetCardsInDeckResponse,
-  DeckLearnArgType,
   LearnCardType,
   UpdateDeckType,
 } from '@/services/decks/deck.types.ts'
-import { RootState } from '@/services/store.ts'
+import {RootState} from '@/services/store.ts'
 
 export const decksService = baseApi.injectEndpoints({
   endpoints: builder => ({
@@ -128,12 +127,12 @@ export const decksService = baseApi.injectEndpoints({
     }),
     createCardInDeck: builder.mutation<
       CreateCardInDeckResponseType,
-      { deckId: string; data: CreateCardInDeckType }
+      { deckId: string; formData?: FormData }
     >({
-      query: ({ deckId, data }) => ({
+      query: ({ deckId, formData }) => ({
         url: `v1/decks/${deckId}/cards`,
         method: 'POST',
-        body: data,
+        body: formData ?? {},
       }),
 
       onQueryStarted: async (_, { getState, queryFulfilled, dispatch }) => {
