@@ -1,5 +1,5 @@
 import { clsx } from 'clsx'
-import { useLocation, useNavigate } from 'react-router-dom'
+import { useLocation } from 'react-router-dom'
 
 import { Typography } from '../../ui/Typography'
 
@@ -10,8 +10,6 @@ import { Button } from '@/components/ui/Button'
 import { Card } from '@/components/ui/Card'
 
 export const CheckEmailForm = () => {
-  const navigate = useNavigate()
-
   const formClassNames = {
     header: clsx(s.header),
     information: clsx(s.information),
@@ -32,12 +30,7 @@ export const CheckEmailForm = () => {
         We’ve sent an Email with instructions to
         <Typography variant={'Body_2'}>{email} </Typography>
       </Typography>
-      <Button
-        variant="primary"
-        fullWidth={true}
-        className={s.loginLink}
-        onClick={() => navigate('/login')}
-      >
+      <Button variant="primary" fullWidth={true} className={s.loginLink} as={'a'} href={'/login'}>
         Back to Sign In
       </Button>
     </Card>

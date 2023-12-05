@@ -74,19 +74,12 @@ const router = createBrowserRouter([
         element: <PrivateRoutes />,
         children: privateRoutes,
       },
-      {
-        element: <Layout />,
-        children: publicRoutes,
-      },
+      ...publicRoutes,
     ],
   },
 ])
 
 export const Router = () => {
-  const { isLoading: isMeLoading } = useGetMeQuery()
-
-  if (isMeLoading) return <div>Loading...</div>
-
   return <RouterProvider router={router} />
 }
 
@@ -94,7 +87,6 @@ function PrivateRoutes() {
   const { data: me, isLoading: isMeLoading } = useGetMeQuery()
 
   const isAuthenticated = me && me?.success !== false
-  // const isAuthenticated = !isError
 
   if (isMeLoading) return <div>Loading...</div>
 

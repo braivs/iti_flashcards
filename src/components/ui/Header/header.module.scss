@@ -5,17 +5,17 @@
   left: 0;
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  justify-content: center;
   width: 100%;
   padding: 12px 24px;
   background-color: var(--color-dark-700);
   border-bottom: 1px solid var(--color-dark-500);
   .wrapper {
     display: flex;
+    align-items: center;
     justify-content: space-between;
     width: 100%;
     max-width: 1024px;
-    margin: 0 auto;
     .containerNameAva {
       display: flex;
       align-items: center;
@@ -42,7 +42,7 @@
 .dropDownMenuSeparator {
   background-color: var(--color-dark-500);
   height: 1px;
-  margin: 12px 0;
+  //margin: 12px 0;
 }
 .icons {
   width: 16px;

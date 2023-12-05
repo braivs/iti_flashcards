@@ -3,6 +3,7 @@
   outline: none;
   //border-radius: 6px;
   cursor: pointer;
+  padding: 12px;
 }
 .dropDownMenuItem[data-highlighted] {
   background-color: var(--color-accent-900);

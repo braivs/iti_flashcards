@@ -18,6 +18,10 @@
     color: var(--color-light-100);
     text-decoration-line: none;
   }
+  .right:hover {
+    color: var(--color-accent-100);
+    transition: 1s;
+  }
 
   .colorLight {
     color: var(--color-light-900);
@@ -47,6 +51,9 @@
   .signUp {
     margin-top: 11px;
     color: var(--color-accent-500);
+  }
+  .signUp:hover {
+    color: var(--color-accent-100);
   }
 
   .card {

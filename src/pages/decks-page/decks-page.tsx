@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 
-import { useNavigate } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 
 import sT from '../../common/commonStyles/tables.module.scss'
 
@@ -135,7 +135,7 @@ export const DecksPage = () => {
     },
     {
       key: 'cardsCount',
-      title: 'cardsCount',
+      title: 'Cards',
       sortable: true,
     },
     {
@@ -196,9 +196,10 @@ export const DecksPage = () => {
       <div className={sT.middleContainer}>
         <div className={sT.searchContainer}>
           <Textfield
+            type={'search'}
             value={searchByName}
             onChange={e => dispatch(setSearchByName(e.currentTarget.value))}
-            placeholder={'Input search'}
+            placeholder={'Search...'}
           />
         </div>
         <TabSwitcher
@@ -234,19 +235,11 @@ export const DecksPage = () => {
                   <Table.Row key={deck.id}>
                     <Table.Cell onDoubleClick={() => onViewDeck(deck.id)}>{deck.name}</Table.Cell>
                     <Table.Cell>{deck.cardsCount}</Table.Cell>
-                    <Table.Cell>{deck.updated}</Table.Cell>
+                    <Table.Cell>{formatDate(deck.updated)}</Table.Cell>
                     <Table.Cell>{deck.author.name}</Table.Cell>
                     <Table.Cell>
                       <div className={sT.iconContainer}>
-                        <Button
-                          variant={'link'}
-                          onClick={
-                            deck.cardsCount > 0
-                              ? () => navigate(`learn/${deck.name}/${deck.id}`)
-                              : () => {}
-                          }
-                          className={deck.cardsCount > 0 ? '' : sT.cursorAuto}
-                        >
+                        <Button as={Link} variant={'link'} to={`learn/${deck.name}/${deck.id}`}>
                           <Play color={deck.cardsCount > 0 ? 'white' : 'grey'} />
                         </Button>
                         <Button
@@ -296,4 +289,10 @@ export const DecksPage = () => {
       </div>
     </div>
   )
+}
+
+function formatDate(date: string | number | undefined) {
+  if (!date) return null
+
+  return new Date(date).toLocaleString('ru-RU')
 }

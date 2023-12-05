@@ -1,8 +1,8 @@
-import { ComponentProps, FC, useEffect, useState } from 'react'
+import { ComponentProps, FC } from 'react'
 
 import * as DropdownMenu from '@radix-ui/react-dropdown-menu'
 import { clsx } from 'clsx'
-import { useNavigate } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 
 import s from './header.module.scss'
 
@@ -23,14 +23,7 @@ export type HeaderProps = ComponentProps<'header'>
 
 export const Header: FC<HeaderProps> = ({ className, ...rest }) => {
   const { data: me } = useGetMeQuery()
-
-  const [isLoggedIn, setIsLoggedIn] = useState(false)
-  const navigate = useNavigate()
-
-  useEffect(() => {
-    if (me && me?.success === false) setIsLoggedIn(false)
-    else setIsLoggedIn(true)
-  }, [me])
+  const isLoggedIn = me && me.success !== false
 
   const classNames = {
     header: clsx(s.header, className),
@@ -38,10 +31,10 @@ export const Header: FC<HeaderProps> = ({ className, ...rest }) => {
 
   const [logout] = useLogoutMutation()
 
-  const onClickHandler = (e: any) => {
-    e.preventDefault()
-    navigate('/personal-information')
-  }
+  // const onClickHandler = (e: any) => {
+  //   e.preventDefault()
+  //   navigate('/personal-information')
+  // }
 
   return (
     <header className={classNames.header} {...rest}>
@@ -65,23 +58,29 @@ export const Header: FC<HeaderProps> = ({ className, ...rest }) => {
                 </Typography>
               </DropdownItemWithAvatar>
               <DropdownMenu.Separator className={s.dropDownMenuSeparator} />
-              <DropdownItemWithIcon
-                icon={<Person color={'var(--color-light-100)'} className={s.icons} />}
-                className={s.dropDownMenuItem}
-                title={'My Profile'}
-                onClick={onClickHandler}
-                onSelect={() => {}}
-              />
+              <Link to={'/personal-information'}>
+                <DropdownItemWithIcon
+                  icon={<Person color={'var(--color-light-100)'} className={s.icons} />}
+                  className={s.dropDownMenuItem}
+                  title={'My Profile'}
+                  // onClick={onClickHandler}
+                  onClick={() => {}}
+                  onSelect={() => {}}
+                />
+              </Link>
+
               <DropdownMenu.Separator className={s.dropDownMenuSeparator} />
+              {/*<Link to={'/login'}>*/}
               <DropdownItemWithIcon
                 icon={<Logout color={'var(--color-light-100)'} className={s.icons} />}
                 title={'Sign Out'}
                 onClick={() => logout()}
               />
+              {/*</Link>*/}
             </DropDownMenu>
           </div>
         ) : (
-          <Button className={s.button} variant="primary" onClick={() => navigate('/login')}>
+          <Button className={s.button} as={'a'} href={'/login'} variant="primary">
             <Vector />
             Sign In
           </Button>

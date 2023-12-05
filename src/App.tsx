@@ -1,18 +1,18 @@
-import { Provider } from 'react-redux'
-
 import s from './App.module.scss'
 
 import { Router } from '@/router.tsx'
-import { store } from '@/services/store.ts'
+import { useGetMeQuery } from '@/services/auth/auth.service.ts'
 
 export function App() {
+  const { isLoading: isMeLoading } = useGetMeQuery()
+
+  if (isMeLoading) return <div>Loading...</div>
+
   return (
     <div className={s.app}>
-      <Provider store={store}>
-        <div className={s.container}>
-          <Router />
-        </div>
-      </Provider>
+      <div className={s.container}>
+        <Router />
+      </div>
     </div>
   )
 }

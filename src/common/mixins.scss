@@ -1,11 +1,11 @@
 @mixin flex($justifyContent: stretch, $alignItems: stretch, $flexDirection: row) {
-    display: flex;
-    justify-content: $justifyContent;
-    align-items: $alignItems;
-    flex-direction: $flexDirection;
+  display: flex;
+  justify-content: $justifyContent;
+  align-items: $alignItems;
+  flex-direction: $flexDirection;
 }
 
 @mixin imgUploadSize() {
-    width: 484px;
-    height: 119px;
+  width: 484px;
+  height: 119px;
 }
