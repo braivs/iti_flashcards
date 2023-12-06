@@ -10,29 +10,28 @@ export const SliderSingle = (props: PropsType) => {
       <span className={s.value}>{props.value}</span>
       <SliderPrimitive.Root
         className={s.root}
-        defaultValue={props.defaultValue}
+        defaultValue={[props.defaultValue]}
         min={props.min}
         max={props.max}
         step={props.step}
         onValueChange={props.onValueChange}
-        value={props.value}
+        value={[props.value]}
       >
         <SliderPrimitive.Track className={s.track}>
           <SliderPrimitive.Range className={s.range} />
         </SliderPrimitive.Track>
         <SliderPrimitive.Thumb className={s.thumb} />
       </SliderPrimitive.Root>
-      <span className={s.value}>{props?.value?.[1]}</span>
     </div>
   )
 }
 
 type PropsType = {
-  defaultValue: number[]
+  defaultValue: number
   min: number
   max: number
   step: number
-  value: number[]
+  value: number
   onValueChange: (newValue: number[]) => void
   minStepsBetweenThumbs?: number
 }
