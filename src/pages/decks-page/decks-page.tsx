@@ -1,33 +1,26 @@
-import { useEffect, useState } from 'react'
-
-import { Link, useNavigate } from 'react-router-dom'
+import {useEffect, useState} from 'react'
 
 import sT from '../../common/commonStyles/tables.module.scss'
-
-import { Edit } from '@/assets/icons/Edit.tsx'
-import { Play } from '@/assets/icons/Play.tsx'
-import { TrashHollow } from '@/assets/icons/TrashHollow.tsx'
 import trashIcon from '@/assets/icons/trashIcon.png'
 import sC from '@/common/commonStyles/common.module.scss'
-import { sortStringCallback } from '@/common/services.ts'
-import { DecksOrderByType, SelectedDeckType } from '@/common/types.ts'
-import { paginationSelectValues } from '@/common/values.ts'
-import { Button } from '@/components/ui/Button'
-import { DialogAddPack } from '@/components/ui/Dialogs/DialogAddPack.tsx'
-import { DialogRemovePack } from '@/components/ui/Dialogs/DialogRemovePack.tsx'
-import { DialogUpdatePack } from '@/components/ui/Dialogs/DialogUpdatePack.tsx'
-import { Pagination } from '@/components/ui/Pagination/Pagination.tsx'
-import { Slider } from '@/components/ui/Slider/slider.tsx'
-import { Column, Table } from '@/components/ui/Table'
-import { TabSwitcher } from '@/components/ui/TabSwitcher'
-import { TabSwitcherValuesType } from '@/components/ui/TabSwitcher/TabSwitcher.tsx'
-import { Textfield } from '@/components/ui/Textfield'
-import { Typography } from '@/components/ui/Typography'
-import { useAppDispatch, useAppSelector } from '@/hooks.ts'
-import { maxCardsCountHard } from '@/pages/decks-page/maxCardsCount.tsx'
-import { useGetMeQuery } from '@/services/auth/auth.service.ts'
-import { Sort } from '@/services/common/types.ts'
-import { useGetDecksQuery } from '@/services/decks/decks.service.ts'
+import {sortStringCallback} from '@/common/functions.ts'
+import {DecksOrderByType, SelectedDeckType} from '@/common/types.ts'
+import {paginationSelectValues} from '@/common/values.ts'
+import {Button} from '@/components/ui/Button'
+import {DialogAddPack} from '@/components/ui/Dialogs/DialogAddPack.tsx'
+import {DialogRemovePack} from '@/components/ui/Dialogs/DialogRemovePack.tsx'
+import {DialogUpdatePack} from '@/components/ui/Dialogs/DialogUpdatePack.tsx'
+import {Pagination} from '@/components/ui/Pagination/Pagination.tsx'
+import {Slider} from '@/components/ui/Slider/slider.tsx'
+import {TabSwitcher} from '@/components/ui/TabSwitcher'
+import {TabSwitcherValuesType} from '@/components/ui/TabSwitcher/TabSwitcher.tsx'
+import {Textfield} from '@/components/ui/Textfield'
+import {Typography} from '@/components/ui/Typography'
+import {useAppDispatch, useAppSelector} from '@/hooks.ts'
+import {maxCardsCountHard} from '@/pages/decks-page/maxCardsCount.tsx'
+import {useGetMeQuery} from '@/services/auth/auth.service.ts'
+import {Sort} from '@/services/common/types.ts'
+import {useGetDecksQuery} from '@/services/decks/decks.service.ts'
 import {
   setAuthorId,
   setCardsCounts,
@@ -36,9 +29,10 @@ import {
   setSearchByName,
   updateDecksCurrentPage,
 } from '@/services/decks/decks.slice.ts'
+import {DecksTable} from "@/pages/decks-page/DecksTable.tsx"
 
 export const DecksPage = () => {
-  const { itemsPerPage, searchByName, cardsCounts, currentPage, authorId, orderBy } =
+  const {itemsPerPage, searchByName, cardsCounts, currentPage, authorId, orderBy} =
     useAppSelector(state => state.decks)
 
   const [sort, setSort] = useState<Sort>(null) // for sorting cells in table
@@ -48,13 +42,11 @@ export const DecksPage = () => {
     name: '',
     isPrivate: false,
   })
-  const navigate = useNavigate()
-
   const [isUpdateDialogOpen, setIsUpdateDialogOpen] = useState(false) // for update dialog
   const [isDeleteDialogOpen, setIsDeleteDialogOpen] = useState(false) // for delete dialog
   const [isAddDialogOpen, setIsAddDialogOpen] = useState(false) // for add dialog
 
-  const { data: me } = useGetMeQuery()
+  const {data: me} = useGetMeQuery()
 
   const dispatch = useAppDispatch()
 
@@ -63,7 +55,6 @@ export const DecksPage = () => {
   }
 
   //for slider
-  // const [value, setValue] = useState<number[]>([0, maxCardsCountHard])
   const sliderChangeHandler = (newValue: number[]) => {
     dispatch(setCardsCounts(newValue))
   }
@@ -81,19 +72,10 @@ export const DecksPage = () => {
     orderBy,
   })
 
-  const onSelectDeckForDel = (id: string, name: string) => {
-    setIsDeleteDialogOpen(true)
-    setSelectedDeck({ id, name })
-  }
-  const onSelectDeckForUpdate = (id: string, name: string, isPrivate: boolean) => {
-    setIsUpdateDialogOpen(true)
-    setSelectedDeck({ id, name, isPrivate })
-  }
-
   //for tabSwitcher
   const tabSwitcherValues: Array<TabSwitcherValuesType> = [
-    { index: 1, value: 'MyCards', text: 'My Cards' },
-    { index: 2, value: 'AllCards', text: 'All Cards' },
+    {index: 1, value: 'MyCards', text: 'My Cards'},
+    {index: 2, value: 'AllCards', text: 'All Cards'},
   ]
   const onTabChange = (value: string) => {
     if (value === 'MyCards') {
@@ -122,45 +104,14 @@ export const DecksPage = () => {
     dispatch(setDecksOrderBy(sortString as DecksOrderByType))
   }, [sort])
 
-  const onViewDeck = (packId: string) => {
-    // window.alert(`Edit pack with id: ${packId}`)
-    navigate(`/cards/${packId}`)
+  const onSelectDeckForDel = (id: string, name: string) => {
+    setIsDeleteDialogOpen(true)
+    setSelectedDeck({id, name})
   }
-
-  const columns: Column[] = [
-    {
-      key: 'name',
-      title: 'Name',
-      sortable: true,
-    },
-    {
-      key: 'cardsCount',
-      title: 'Cards',
-      sortable: true,
-    },
-    {
-      key: 'updated',
-      title: 'Last Updated',
-      sortable: true,
-    },
-    {
-      key: 'created',
-      title: 'Created by',
-      sortable: true,
-    },
-    {
-      key: 'options',
-      title: '',
-    },
-  ]
-
-  const isEqualToMeId = (deckAuthorId: string): boolean => deckAuthorId === me.id
-
-  const cursorByAuthorId = (deckAauthorId: string) =>
-    isEqualToMeId(deckAauthorId) ? '' : sT.cursorAuto
-
-  const colorByAuthorId = (deckAauthorId: string): 'white' | 'grey' =>
-    isEqualToMeId(deckAauthorId) ? 'white' : 'grey'
+  const onSelectDeckForUpdate = (id: string, name: string, isPrivate: boolean) => {
+    setIsUpdateDialogOpen(true)
+    setSelectedDeck({id, name, isPrivate})
+  }
 
   // logging
   if (decksLoading) return <div>Loading...</div>
@@ -176,7 +127,7 @@ export const DecksPage = () => {
           setSelectedDeck={setSelectedDeck}
         />
       )}
-      <DialogAddPack open={isAddDialogOpen} setOpen={setIsAddDialogOpen} />
+      <DialogAddPack open={isAddDialogOpen} setOpen={setIsAddDialogOpen}/>
       {isUpdateDialogOpen && selectedDeck && (
         <DialogUpdatePack
           name={selectedDeck.name}
@@ -220,57 +171,18 @@ export const DecksPage = () => {
           className={sT.slider}
         />
         <Button variant="secondary" onClick={filterHandler}>
-          <img src={trashIcon} alt="trashIcon" className={sT.trashIcon} />
+          <img src={trashIcon} alt="trashIcon" className={sT.trashIcon}/>
           Clear Filter
         </Button>
       </div>
 
       <div className={sT.container}>
-        <Table.Root className={sT.tableContainer}>
-          <Table.Header columns={columns} onSort={setSort} sort={sort} />
-          <Table.Body>
-            {decks?.items &&
-              decks.items.map(deck => {
-                return (
-                  <Table.Row key={deck.id}>
-                    <Table.Cell onDoubleClick={() => onViewDeck(deck.id)}>{deck.name}</Table.Cell>
-                    <Table.Cell>{deck.cardsCount}</Table.Cell>
-                    <Table.Cell>{formatDate(deck.updated)}</Table.Cell>
-                    <Table.Cell>{deck.author.name}</Table.Cell>
-                    <Table.Cell>
-                      <div className={sT.iconContainer}>
-                        <Button as={Link} variant={'link'} to={`learn/${deck.name}/${deck.id}`}>
-                          <Play color={deck.cardsCount > 0 ? 'white' : 'grey'} />
-                        </Button>
-                        <Button
-                          variant={'link'}
-                          className={cursorByAuthorId(deck.author.id)}
-                          onClick={
-                            isEqualToMeId(deck.author.id)
-                              ? () => onSelectDeckForUpdate(deck.id, deck.name, deck.isPrivate)
-                              : () => {}
-                          }
-                        >
-                          <Edit color={colorByAuthorId(deck.author.id)} />
-                        </Button>
-                        <Button
-                          variant={'link'}
-                          onClick={
-                            isEqualToMeId(deck.author.id)
-                              ? () => onSelectDeckForDel(deck.id, deck.name)
-                              : () => {}
-                          }
-                          className={cursorByAuthorId(deck.author.id)}
-                        >
-                          <TrashHollow color={colorByAuthorId(deck.author.id)} />
-                        </Button>
-                      </div>
-                    </Table.Cell>
-                  </Table.Row>
-                )
-              })}
-          </Table.Body>
-        </Table.Root>
+        <DecksTable
+          items={decks?.items}
+          onSelectDeckForUpdate={onSelectDeckForUpdate}
+          onSelectDeckForDel={onSelectDeckForDel}
+          sort={sort}
+          setSort={setSort}/>
       </div>
 
       <div className={sC.paginationContainer}>
@@ -289,10 +201,4 @@ export const DecksPage = () => {
       </div>
     </div>
   )
-}
-
-function formatDate(date: string | number | undefined) {
-  if (!date) return null
-
-  return new Date(date).toLocaleString('ru-RU')
 }

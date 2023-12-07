@@ -1,6 +1,6 @@
 import { IconColorsPropsType } from '@/assets/icons/IconColorPropsType.ts'
 
-export const TrashHollow = ({ color = '#000', className }: IconColorsPropsType) => {
+export const TrashHollow = ({ color = 'white', className }: IconColorsPropsType) => {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"

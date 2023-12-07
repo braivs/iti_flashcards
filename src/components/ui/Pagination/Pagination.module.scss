@@ -52,6 +52,11 @@
     display: flex;
     align-items: center;
 
+    .selectContainer {
+      width: 50px;
+      align-items: center;
+    }
+
     .label1,
     .label2 {
       display: inline-block;
@@ -73,6 +78,7 @@
 
     .label2 {
       margin-left: 5px;
+      width: 190px;
     }
   }
 }

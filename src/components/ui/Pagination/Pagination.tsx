@@ -91,13 +91,15 @@ export const Pagination = (props: PropsType) => {
       </div>
       <div className={s.selectBlock}>
         <span className={s.label1}>Show</span>
-        <Select
-          options={props.selectSettings.arr}
-          value={props.selectSettings.value}
-          onChangeOption={props.selectSettings.onChangeOption}
-          isGreyColor={true}
-        />
-        <span className={s.label2}>Cards per Page</span>
+        <div className={s.selectContainer}>
+          <Select
+            options={props.selectSettings.arr}
+            value={props.selectSettings.value}
+            onChangeOption={props.selectSettings.onChangeOption}
+            isGreyColor={true}
+          />
+        </div>
+        <span className={s.label2}>cards per page</span>
       </div>
     </div>
   )

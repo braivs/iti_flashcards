@@ -2,7 +2,7 @@ import { FC } from 'react'
 
 import { IconColorsPropsType } from '@/assets/icons/IconColorPropsType.ts'
 
-export const Play: FC<IconColorsPropsType> = ({ color = '#000', className }) => {
+export const Play: FC<IconColorsPropsType> = ({ color = 'white', className }) => {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"

@@ -4,7 +4,7 @@ import {baseApi} from '@/services/base-api.ts'
 import {
   CardType,
   CreateCardInDeckResponseType,
-  Deck,
+  DeckType,
   DeckByIdResponse,
   DeckLearnArgType,
   DeckParams,
@@ -40,7 +40,7 @@ export const decksService = baseApi.injectEndpoints({
       }),
       providesTags: ['CardsIdDeck'],
     }),
-    createDeck: builder.mutation<Deck, { name: string; isPrivate: boolean }>({
+    createDeck: builder.mutation<DeckType, { name: string; isPrivate: boolean }>({
       query: data => ({
         url: `v1/decks`,
         method: 'POST',
@@ -78,7 +78,7 @@ export const decksService = baseApi.injectEndpoints({
       },
       invalidatesTags: ['Decks'], //todo: maybe del invalidate and same in other places
     }),
-    deleteDeck: builder.mutation<Deck, { id: string }>({
+    deleteDeck: builder.mutation<DeckType, { id: string }>({
       query: data => ({
         url: `v1/decks/${data.id}`,
         method: 'DELETE',

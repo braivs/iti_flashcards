@@ -7,10 +7,6 @@
   width: 100%;
 }
 
-.trigger {
-  cursor: pointer;
-}
-
 .content {
   width: var(--radix-select-trigger-width);
   max-height: var(--radix-select-content-available-height);
@@ -30,9 +26,13 @@
 }
 
 .trigger {
+  cursor: pointer;
+  align-items: center;
   justify-content: space-between;
   background-color: var(--color-dark-900);
   border-radius: 2px;
+  padding: 1px 6px;
+  box-sizing: border-box;
 
   &:focus {
     border: 1px solid var(--color-info-700);
@@ -55,6 +55,7 @@
 
 .item {
   padding: 1px 6px;
+  align-items: center;
 }
 
 .item[data-highlighted] {
