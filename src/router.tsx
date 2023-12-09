@@ -12,6 +12,7 @@ import { CardsPage } from '@/pages/cards-page/cards-page.tsx'
 import { CheckEmailPage } from '@/pages/check-email-page/check-email-page.tsx'
 import { CreateNewPasswordPage } from '@/pages/create-new-password/create-new-password-page.tsx'
 import { DecksPage } from '@/pages/decks-page/decks-page.tsx'
+import { ErrorCleanCardPage } from '@/pages/error-clean-card-page/error-clean-card-page.tsx'
 import { ErrorPage } from '@/pages/error-page/errorPage.tsx'
 import { LearnModalPage } from '@/pages/learn-modal-page/learnModalPage.tsx'
 import { PersonalInformationPage } from '@/pages/personal-information/personal-information-page.tsx'
@@ -61,8 +62,16 @@ const privateRoutes: RouteObject[] = [
     element: <LearnModalPage />,
   },
   {
+    path: '/learn/:deckTitle/:deckId/:test',
+    element: <LearnModalPage />,
+  },
+  {
     path: '/error',
     element: <ErrorPage />,
+  },
+  {
+    path: '/error-clean-pack',
+    element: <ErrorCleanCardPage />,
   },
 ]
 

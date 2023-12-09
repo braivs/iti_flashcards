@@ -1,6 +1,9 @@
+import { useEffect } from 'react'
+
 import { zodResolver } from '@hookform/resolvers/zod'
 import { clsx } from 'clsx'
 import { useForm } from 'react-hook-form'
+import { ToastContainer } from 'react-toastify'
 import { z } from 'zod'
 
 import { Card } from '../../ui/Card'
@@ -23,6 +26,7 @@ export const SignIn = (props: PropsType) => {
   const {
     handleSubmit,
     control,
+    setError,
     formState: { errors },
   } = useForm<FormValues>({
     mode: 'onSubmit',
@@ -34,11 +38,19 @@ export const SignIn = (props: PropsType) => {
     },
   })
 
+  useEffect(() => {
+    if (props.error !== undefined) {
+      setError('email', { message: props.error, type: 'custom' })
+      setError('password', { message: props.error, type: 'custom' })
+    }
+  }, [props.error])
+
   const handleFormSubmitted = handleSubmit(props.onSubmit)
 
   return (
     <form onSubmit={handleFormSubmitted}>
       <div className={sC.outerContainer}>
+        <ToastContainer position={'top-center'} />
         <Card className={sC.card}>
           <Typography variant={'H1'} className={sC.center}>
             Sign In
@@ -48,7 +60,7 @@ export const SignIn = (props: PropsType) => {
               <ControlledTextField
                 name={'email'}
                 errorMessage={errors.email?.message}
-                label={'email'}
+                label={'Email'}
                 control={control}
               />
             </div>
@@ -97,4 +109,5 @@ type FormType = z.infer<typeof schema>
 
 type PropsType = {
   onSubmit: (data: FormType) => void
+  error?: string | undefined
 }

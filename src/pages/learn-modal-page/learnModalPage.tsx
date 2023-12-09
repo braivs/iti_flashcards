@@ -1,4 +1,4 @@
-import { Navigate, useNavigate, useParams } from 'react-router-dom'
+import { Navigate, useLocation, useNavigate, useParams } from 'react-router-dom'
 
 import s from './learnModalPage.module.scss'
 
@@ -8,8 +8,19 @@ import { useGetCardQuery, usePostCardMutation } from '@/services/decks/decks.ser
 export const LearnModalPage = () => {
   const params = useParams<'deckTitle' | 'deckId'>()
   const navigate = useNavigate()
+  const location = useLocation()
 
   const [sendGrade, { isLoading: isPostCardLoading, data }] = usePostCardMutation()
+
+  const pathArray = location.pathname.split('/')
+  let deckId1, title
+
+  if (pathArray.length > 4) {
+    deckId1 = pathArray[pathArray.length - 1]
+
+    pathArray.pop()
+    title = decodeURI(pathArray.slice(2).join(''))
+  }
 
   const {
     data: dataGet,
@@ -18,7 +29,7 @@ export const LearnModalPage = () => {
     error,
     isError,
   } = useGetCardQuery({
-    deckId: params.deckId ? params.deckId : '',
+    deckId: deckId1 || (params.deckId ? params.deckId : ''),
   })
 
   if (isLoading || isFetching || isPostCardLoading) {
@@ -28,7 +39,7 @@ export const LearnModalPage = () => {
 
   if (isError) {
     // return <ErrorPage errorMessage={error?.data?.message} />
-    return <Navigate to={'/error'} />
+    return <Navigate to={'/error-clean-pack'} />
   }
 
   const cardData = data || dataGet
@@ -38,7 +49,7 @@ export const LearnModalPage = () => {
       {cardData && (
         <LearnModal
           id={cardData.id}
-          title={params.deckTitle ? params.deckTitle : 'Title'}
+          title={title || (params.deckTitle ? params.deckTitle : 'Title')}
           question={cardData.question}
           answer={cardData.answer}
           shots={cardData.shots}

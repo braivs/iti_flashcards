@@ -4,7 +4,7 @@ import { DevTool } from '@hookform/devtools'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { clsx } from 'clsx'
 import { useForm } from 'react-hook-form'
-import { useNavigate } from 'react-router-dom'
+import { toast, ToastContainer } from 'react-toastify'
 import { omit } from 'remeda'
 import { z } from 'zod'
 
@@ -31,7 +31,20 @@ type FormValues = z.input<typeof schema>
 
 export const SignUpForm = () => {
   const [signUp, { error }] = useSignUpMutation()
-  const navigate = useNavigate()
+
+  // console.log(error)
+
+  const signUpHandler = (data: FormValues) => {
+    signUp(omit(data, ['confirm']))
+      .unwrap()
+      .catch(e => {
+        const notify = () =>
+          toast.error(e.data.errorMessages[0], { theme: 'colored', autoClose: 2000 })
+
+        setError('email', { message: e.data.errorMessages[0] })
+        notify()
+      })
+  }
 
   const {
     handleSubmit,
@@ -42,7 +55,7 @@ export const SignUpForm = () => {
     resolver: zodResolver(schema),
   })
 
-  const handleFormSubmitted = handleSubmit(data => signUp(omit(data, ['confirm'])))
+  const handleFormSubmitted = handleSubmit(data => signUpHandler(data))
 
   useEffect(() => {
     if (
@@ -72,6 +85,7 @@ export const SignUpForm = () => {
           <Typography variant={'H1'} className={sC.center}>
             Sign Up
           </Typography>
+          <ToastContainer position={'top-center'} />
           <div className={sC.values}>
             <div className={sC.element}>
               <ControlledTextField
@@ -92,10 +106,10 @@ export const SignUpForm = () => {
             </div>
             <div className={sC.element}>
               <ControlledTextField
-                name={'password'}
-                label={'Password'}
+                name={'confirm'}
+                label={'Confirm Password'}
                 type={'password'}
-                errorMessage={errors.password?.message}
+                errorMessage={errors.confirm?.message}
                 control={control}
               />
             </div>
@@ -106,11 +120,7 @@ export const SignUpForm = () => {
           <Typography variant={'Body_2'} className={clsx(sC.center, sC.colorLight)}>
             Already have an account?
           </Typography>
-          <Button
-            variant="link"
-            className={clsx(sC.center, sC.signUp)}
-            onClick={() => navigate('/login')}
-          >
+          <Button variant="link" className={clsx(sC.center, sC.signUp)} as={'a'} href={'/login'}>
             Sign In
           </Button>
         </Card>

@@ -76,7 +76,7 @@ export const Textfield = forwardRef<HTMLInputElement, TextfieldPropsType>((props
             disabled={disabled}
             type={'button'}
           >
-            {showPassword ? <InvisibilityOff /> : <Eye disabled={disabled} />}
+            {showPassword ? <Eye disabled={disabled} /> : <InvisibilityOff />}
           </button>
         )}
         {isShowIconSearch && (
