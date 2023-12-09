@@ -1,5 +1,4 @@
 import {CropType} from "@/components/ui/Dialogs/DialogAddNewCard/extra/CropTypes.ts"
-import {ChangeEvent} from "react"
 
 export const fromBase64 = (url: string) => {
   //todo: fix fileName
@@ -62,21 +61,3 @@ export const onCrop = async (
   }
 }
 
-export const onFileChange = async (e: ChangeEvent<HTMLInputElement>, setImgCallback: (img: string) => void) => {
-  if (e.target.files && e.target.files.length > 0) {
-    const file = e.target.files[0]
-
-    const reader = new FileReader()
-
-    reader.addEventListener(
-      'load',
-      () => {
-        setImgCallback(reader.result as string)
-      },
-      false
-    )
-    if (file) {
-      reader.readAsDataURL(file)
-    }
-  }
-}

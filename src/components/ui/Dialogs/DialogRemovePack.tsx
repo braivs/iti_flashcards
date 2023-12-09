@@ -1,8 +1,8 @@
 import * as RDialog from '@radix-ui/react-dialog'
 
 import { SelectedDeckType } from '@/common/types.ts'
-import sC from '@/components/ui/Dialogs/DialogsCommon.module.scss'
-import { DialogsCommon } from '@/components/ui/Dialogs/DialogsCommon.tsx'
+import sC from '@/components/ui/Dialogs/DialogsCommon/DialogsCommon.module.scss'
+import { DialogsCommon } from '@/components/ui/Dialogs/DialogsCommon/DialogsCommon.tsx'
 import { useDeleteDeckMutation } from '@/services/decks/decks.service.ts'
 
 export const DialogRemovePack = (props: PropsType) => {

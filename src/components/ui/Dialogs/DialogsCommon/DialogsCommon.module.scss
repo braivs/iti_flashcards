@@ -1,7 +1,7 @@
-@import '../../../../node_modules/@radix-ui/colors/black-alpha.css';
-@import '../../../../node_modules/@radix-ui/colors/green.css';
-@import '../../../../node_modules/@radix-ui/colors/mauve.css';
-@import '../../../../node_modules/@radix-ui/colors/violet.css';
+@import '../../../../../node_modules/@radix-ui/colors/black-alpha.css';
+@import '../../../../../node_modules/@radix-ui/colors/green.css';
+@import '../../../../../node_modules/@radix-ui/colors/mauve.css';
+@import '../../../../../node_modules/@radix-ui/colors/violet.css';
 
 /* reset */
 button,
@@ -57,8 +57,10 @@ input {
 }
 
 .DialogDescription {
-  margin: 0;
-  padding: 18px 24px;
+  margin: 0 auto;
+  padding: 18px 0;
+  max-width: 484px;
+  width: 100%;
 
   font-size: 16px;
   line-height: 1.5;
@@ -67,7 +69,7 @@ input {
 
 .dialogElement {
   margin-bottom: 24px;
-  padding-right: 25px;
+  width: 100%;
 }
 
 .buttonContainer {
@@ -189,7 +191,6 @@ input {
 
 .textFieldContainer {
   margin-bottom: 24px;
-  padding-right: 24px;
 }
 
 .element {

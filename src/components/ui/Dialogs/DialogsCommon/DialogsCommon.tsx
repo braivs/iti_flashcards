@@ -4,7 +4,7 @@ import * as RDialog from '@radix-ui/react-dialog'
 
 import closeIcon from '@/assets/icons/close.png'
 import { Button } from '@/components/ui/Button'
-import s from '@/components/ui/Dialogs/DialogsCommon.module.scss'
+import s from '@/components/ui/Dialogs/DialogsCommon/DialogsCommon.module.scss'
 
 export const DialogsCommon = (props: PropsType) => {
   const { isButtonDisable = false } = props

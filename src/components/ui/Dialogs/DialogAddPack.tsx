@@ -1,16 +1,17 @@
-import { Dispatch, SetStateAction, useRef, useState } from 'react'
+import {Dispatch, SetStateAction, useRef, useState} from 'react'
 
-import { zodResolver } from '@hookform/resolvers/zod'
-import { useForm } from 'react-hook-form'
-import { z } from 'zod'
+import {zodResolver} from '@hookform/resolvers/zod'
+import {useForm} from 'react-hook-form'
+import {z} from 'zod'
 
-import { Checkbox } from '@/components/ui/Checkbox'
-import { ControlledTextField } from '@/components/ui/controlled/controlled-text-field'
-import sC from '@/components/ui/Dialogs/DialogsCommon.module.scss'
-import { DialogsCommon } from '@/components/ui/Dialogs/DialogsCommon.tsx'
-import { useAppDispatch } from '@/hooks.ts'
-import { useCreateDeckMutation } from '@/services/decks/decks.service.ts'
-import { updateDecksCurrentPage } from '@/services/decks/decks.slice.ts'
+import {Checkbox} from '@/components/ui/Checkbox'
+import {ControlledTextField} from '@/components/ui/controlled/controlled-text-field'
+import sC from '@/components/ui/Dialogs/DialogsCommon/DialogsCommon.module.scss'
+import {DialogsCommon} from '@/components/ui/Dialogs/DialogsCommon/DialogsCommon.tsx'
+import {useAppDispatch} from '@/hooks.ts'
+import {useCreateDeckMutation} from '@/services/decks/decks.service.ts'
+import {updateDecksCurrentPage} from '@/services/decks/decks.slice.ts'
+import {DialogAddPackImgUpload} from "@/components/ui/Dialogs/DialogAddPackImgUpload.tsx"
 
 export const DialogAddPack = (props: PropsType) => {
   const schema = z.object({
@@ -23,7 +24,7 @@ export const DialogAddPack = (props: PropsType) => {
     handleSubmit,
     control,
     reset,
-    formState: { errors },
+    formState: {errors},
   } = useForm<FormValues>({
     mode: 'onSubmit',
     resolver: zodResolver(schema),
@@ -35,6 +36,8 @@ export const DialogAddPack = (props: PropsType) => {
   const formRef = useRef<HTMLFormElement | null>(null)
   // this is temporary here
   const [isPrivate, setIsPrivate] = useState(false)
+  const [cropImg, setCropImg] = useState<string | undefined>(undefined)
+
 
   const dispatch = useAppDispatch()
   const [createDeck] = useCreateDeckMutation()
@@ -54,7 +57,7 @@ export const DialogAddPack = (props: PropsType) => {
   function onAddDeck(packName: string) {
     if (!packName) return
     dispatch(updateDecksCurrentPage(1))
-    createDeck({ name: packName, isPrivate })
+    createDeck({name: packName, isPrivate})
 
     props.setOpen(false)
   }
@@ -73,21 +76,23 @@ export const DialogAddPack = (props: PropsType) => {
       actionButtonText={'Add New Pack'}
       isButtonDisable={Object.keys(errors).length > 0}
     >
-      <form ref={formRef}>
-        <div className={sC.DialogDescription}>
-          <div className={sC.textFieldContainer}>
-            <div className={sC.element}>
-              <ControlledTextField
-                name={'packName'}
-                placeholder={'type a pack name'}
-                label={'Name Pack'}
-                control={control}
-              />
-            </div>
-          </div>
-          <Checkbox label={'Private pack'} checked={isPrivate} onValueChange={setIsPrivate} />
+      <div className={sC.DialogDescription}>
+        <div className={sC.dialogElement}><DialogAddPackImgUpload cropImg={cropImg} setCropImg={setCropImg}/></div>
+        <div className={sC.dialogElement}>
+          <form ref={formRef}>
+            <ControlledTextField
+              name={'packName'}
+              placeholder={'type a pack name'}
+              label={'Name Pack'}
+              control={control}
+            />
+          </form>
         </div>
-      </form>
+        <div className={sC.dialogElement}>
+          <Checkbox label={'Private pack'} checked={isPrivate} onValueChange={setIsPrivate}/>
+        </div>
+
+      </div>
     </DialogsCommon>
   )
 }

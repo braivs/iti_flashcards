@@ -4,8 +4,8 @@ import {zodResolver} from '@hookform/resolvers/zod'
 import {useForm} from 'react-hook-form'
 import {z} from 'zod'
 import {ControlledTextField} from '@/components/ui/controlled/controlled-text-field'
-import sC from '@/components/ui/Dialogs/DialogsCommon.module.scss'
-import {DialogsCommon} from '@/components/ui/Dialogs/DialogsCommon.tsx'
+import sC from '@/components/ui/Dialogs/DialogsCommon/DialogsCommon.module.scss'
+import {DialogsCommon} from '@/components/ui/Dialogs/DialogsCommon/DialogsCommon.tsx'
 import {Select} from '@/components/ui/Select'
 import {useCreateCardInDeckMutation} from '@/services/decks/decks.service.ts'
 import {fromBase64} from "@/components/ui/Dialogs/DialogAddNewCard/extra/cropFunctions.ts"
@@ -108,35 +108,34 @@ export const DialogAddNewCard = (props: PropsType) => {
             value={value}
           />
         </div>
-
-            <form ref={formRef}>
-              <div className={sC.textFieldContainer}>
-                <div className={sC.element}>
-                  <ControlledTextField
-                    name={'question'}
-                    placeholder={'type a question'}
-                    label={'Question'}
-                    control={control}
-                  />
-                </div>
-              </div>
-              <div className={sC.textFieldContainer}>
-                <div className={sC.element}>
-                  <ControlledTextField
-                    name={'answer'}
-                    placeholder={'type an answer'}
-                    label={'Answer'}
-                    control={control}
-                  />
-                </div>
-              </div>
-            </form>
+        <form ref={formRef}>
+          <div className={sC.textFieldContainer}>
+            <div className={sC.element}>
+              <ControlledTextField
+                name={'question'}
+                placeholder={'type a question'}
+                label={'Question'}
+                control={control}
+              />
+            </div>
+          </div>
+          <div className={sC.textFieldContainer}>
+            <div className={sC.element}>
+              <ControlledTextField
+                name={'answer'}
+                placeholder={'type an answer'}
+                label={'Answer'}
+                control={control}
+              />
+            </div>
+          </div>
+        </form>
         {value === 'Picture' && <DialogImgUpload
-          cropQuestionImg={cropQuestionImg}
-          cropAnswerImg={cropAnswerImg}
-          setCropQuestionImg={setCropQuestionImg}
-          setCropAnswerImg={setCropAnswerImg}
-        /> }
+            cropQuestionImg={cropQuestionImg}
+            cropAnswerImg={cropAnswerImg}
+            setCropQuestionImg={setCropQuestionImg}
+            setCropAnswerImg={setCropAnswerImg}
+        />}
 
       </div>
     </DialogsCommon>
