@@ -12,16 +12,13 @@
 
   .middleContainer {
     display: flex;
-    flex-direction: row;
+    flex-flow: row wrap;
+    gap: 15px;
     align-items: center;
 
     .searchContainer {
       width: 100%;
       max-width: 299px;
-    }
-
-    .slider {
-      margin-left: -9px;
     }
   }
 
@@ -39,14 +36,14 @@
   }
 
   .container {
-    width: 100%;
     overflow-x: auto;
+    width: 100%;
   }
 
   .iconContainer {
     display: flex;
-    justify-content: center;
     gap: 10px;
+    justify-content: center;
 
     .trashIcon {
       //cursor: pointer;
