@@ -6,8 +6,8 @@ import { z } from 'zod'
 
 import { SelectedCardUpdateType } from '@/common/types.ts'
 import { ControlledTextField } from '@/components/ui/controlled/controlled-text-field'
-import sC from '@/components/ui/Dialogs/DialogsCommon/DialogsCommon.module.scss'
-import { DialogsCommon } from '@/components/ui/Dialogs/DialogsCommon/DialogsCommon.tsx'
+import sC from '@/components/ui/Dialogs/DialogsParrent/DialogsParrent.module.scss'
+import { DialogsParrent } from '@/components/ui/Dialogs/DialogsParrent/DialogsParrent.tsx'
 import { useUpdateCardMutation } from '@/services/cards/cards.service.ts'
 
 export const DialogUpdateCard = (props: PropsType) => {
@@ -74,7 +74,7 @@ export const DialogUpdateCard = (props: PropsType) => {
   }
 
   return (
-    <DialogsCommon
+    <DialogsParrent
       title={'Eddite Card'}
       open={props.open}
       setOpen={onClose}
@@ -96,7 +96,7 @@ export const DialogUpdateCard = (props: PropsType) => {
           </div>
         </div>
       </form>
-    </DialogsCommon>
+    </DialogsParrent>
   )
 }
 

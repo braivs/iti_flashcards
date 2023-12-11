@@ -1,16 +1,19 @@
-import sC from "@/components/ui/Dialogs/sharedData/sharedStylesDialogs.module.scss"
+import sC from "@/components/ui/Dialogs/DialogsCommon/DialogsCommon.module.scss"
 import Cropper, {Area, Point} from "react-easy-crop"
 import {
   canvaHeight,
   canvaWidth,
   maxSliderValue,
   minSliderValue, sliderStep
-} from "@/components/ui/Dialogs/sharedData/sharedDataDialogs.ts"
+} from "@/components/ui/Dialogs/DialogsCommon/DialogsCommonData.ts"
 import {SliderSingle} from "@/components/ui/SliderSingle/SliderSingle.tsx"
 import {Button} from "@/components/ui/Button"
 import {ChangeEvent} from "react"
+import s from "@/components/ui/Dialogs/DialogAddNewCard/DialogAddNewCard.module.scss"
+import imgUpload from "@/assets/icons/imgUpload.svg"
+import sT from "@/common/commonStyles/tables.module.scss"
 
-export const ComboFileCropperSliderApprove = (props: PropsType) => {
+export const ComboFileCropperSliderApprove = (props: ComboFileCropperSliderApprovePropsType) => {
   return (
     <>
       {(!props.file.cropImg || props.file.isEditPicture) &&
@@ -48,7 +51,24 @@ export const ComboFileCropperSliderApprove = (props: PropsType) => {
   )
 }
 
-type PropsType = {
+export const ComboCropImgDummyChangeCover = (props: ComboCropImgDummyChangeCoverType) => {
+  return (
+    <>
+      {!props.cropImg
+        ? <div className={sC.dummyImg}>{props.cropSuggestionText}</div>
+        : <div className={sC.imgContainer}><img className={s.croppedImg} src={props.cropImg} alt="cropImg"/></div>
+      }
+      <Button variant="secondary" onClick={() => {
+        props.setIsEditPicture(true)
+      }} className={s.button}>
+        <img src={imgUpload} alt="trashIcon" className={sT.trashIcon}/>
+        Change cover
+      </Button>
+    </>
+  )
+}
+
+type ComboFileCropperSliderApprovePropsType = {
   file: {
     cropImg: string | undefined
     isEditPicture: boolean
@@ -67,5 +87,11 @@ type PropsType = {
     sliderChangeHandler: (newValue: number[]) => void
   }
   onApprove: () => void
+  cropSuggestionText: string
+}
+
+type ComboCropImgDummyChangeCoverType = {
+  cropImg: string | undefined
+  setIsEditPicture: (value: boolean) => void
   cropSuggestionText: string
 }

@@ -4,8 +4,8 @@ import {zodResolver} from '@hookform/resolvers/zod'
 import {useForm} from 'react-hook-form'
 import {z} from 'zod'
 import {ControlledTextField} from '@/components/ui/controlled/controlled-text-field'
-import sC from '@/components/ui/Dialogs/DialogsCommon/DialogsCommon.module.scss'
-import {DialogsCommon} from '@/components/ui/Dialogs/DialogsCommon/DialogsCommon.tsx'
+import sC from '@/components/ui/Dialogs/DialogsParrent/DialogsParrent.module.scss'
+import {DialogsParrent} from '@/components/ui/Dialogs/DialogsParrent/DialogsParrent.tsx'
 import {Select} from '@/components/ui/Select'
 import {useCreateCardInDeckMutation} from '@/services/decks/decks.service.ts'
 import {fromBase64} from "@/components/ui/Dialogs/DialogAddNewCard/extra/cropFunctions.ts"
@@ -55,7 +55,6 @@ export const DialogAddNewCard = (props: PropsType) => {
     formRef.current.submit()
   }
 
-
   const onAddNewCard = async (question: string, answer: string) => {
     if (!question || !answer || !props.deckId) return
     const formData = new FormData()
@@ -89,7 +88,7 @@ export const DialogAddNewCard = (props: PropsType) => {
   }
 
   return (
-    <DialogsCommon
+    <DialogsParrent
       title={'Add New Card'}
       open={props.open}
       setOpen={onClose}
@@ -138,7 +137,7 @@ export const DialogAddNewCard = (props: PropsType) => {
         />}
 
       </div>
-    </DialogsCommon>
+    </DialogsParrent>
   )
 }
 

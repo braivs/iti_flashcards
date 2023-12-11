@@ -1,198 +1,24 @@
-@import '../../../../../node_modules/@radix-ui/colors/black-alpha.css';
-@import '../../../../../node_modules/@radix-ui/colors/green.css';
-@import '../../../../../node_modules/@radix-ui/colors/mauve.css';
-@import '../../../../../node_modules/@radix-ui/colors/violet.css';
+@use '../../../../common/mixins';
 
-/* reset */
-button,
-fieldset,
-input {
-  all: unset;
-}
+.imgContainer {
+    margin: 0 auto;
+    position: relative;
+    @include mixins.imgUploadSize;
 
-.DialogOverlay {
-  position: fixed;
-  inset: 0;
-  background-color: var(--black-a9);
-  animation: overlayShow 150ms cubic-bezier(0.16, 1, 0.3, 1);
-}
-
-.DialogContent {
-  position: fixed;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-
-  width: 100%;
-  max-width: 542px;
-
-  background-color: var(--color-dark-700);
-  border: 1px solid var(--color-dark-500);
-  border-radius: 2px;
-  box-shadow:
-    hsl(206deg 22% 7% / 35%) 0 10px 38px -10px,
-    hsl(206deg 22% 7% / 20%) 0 10px 20px -15px;
-
-  animation: contentShow 150ms cubic-bezier(0.16, 1, 0.3, 1);
-}
-
-.DialogContent:focus {
-  outline: none;
-}
-
-.DialogTitle {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-
-  height: 60px;
-  margin: 0;
-  padding: 0 24px;
-
-  font-size: 17px;
-  font-weight: 500;
-  color: var(--color-light-100);
-
-  border-bottom: 1px solid var(--color-dark-500);
-}
-
-.DialogDescription {
-  margin: 0 auto;
-  padding: 18px 0;
-  max-width: 484px;
-  width: 100%;
-
-  font-size: 16px;
-  line-height: 1.5;
-  color: var(--color-light-100);
-}
-
-.dialogElement {
-  margin-bottom: 24px;
-  width: 100%;
-}
-
-.buttonContainer {
-  display: flex;
-  justify-content: space-between;
-  margin-top: 25px;
-  padding: 0 24px 36px;
-}
-
-.Button {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-
-  height: 35px;
-  padding: 0 15px;
-
-  font-size: 15px;
-  font-weight: 500;
-  line-height: 1;
-
-  border-radius: 4px;
-}
-
-.buttonCancel {
-  background-color: var(--color-dark-300) !important;
-  box-shadow: 0 4px 4px 0 rgb(77 86 96 / 13%) !important;
-}
-
-.ButtonViolet {
-  color: var(--violet-11);
-  background-color: white;
-  box-shadow: 0 2px 10px var(--black-a7);
-}
-
-.ButtonViolet:hover {
-  background-color: var(--mauve-3);
-}
-
-.ButtonViolet:focus {
-  box-shadow: 0 0 0 2px black;
-}
-
-.IconButton {
-  cursor: pointer;
-
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-
-  width: 25px;
-  height: 25px;
-
-  font-family: inherit;
-  color: var(--violet-11);
-
-  border-radius: 100%;
-}
-
-.Fieldset {
-  display: flex;
-  gap: 20px;
-  align-items: center;
-  margin-bottom: 15px;
-}
-
-.Label {
-  width: 90px;
-  font-size: 15px;
-  color: var(--violet-11);
-  text-align: right;
-}
-
-.Input {
-  display: inline-flex;
-  flex: 1;
-  align-items: center;
-  justify-content: center;
-
-  width: 100%;
-  height: 35px;
-  padding: 0 10px;
-
-  font-size: 15px;
-  line-height: 1;
-  color: var(--violet-11);
-
-  border-radius: 4px;
-  box-shadow: 0 0 0 1px var(--violet-7);
-}
-
-.Input:focus {
-  box-shadow: 0 0 0 2px var(--violet-8);
-}
-
-:global {
-  @keyframes overlayShow {
-    from {
-      opacity: 0;
+    .croppedImg {
+        @include mixins.imgUploadSize;
     }
 
-    to {
-      opacity: 1;
+    .dummyImg {
+        border: 1px solid white;
+        @include mixins.flex($justifyContent: center, $alignItems: center);
+        @include mixins.imgUploadSize;
     }
-  }
-
-  @keyframes contentShow {
-    from {
-      transform: translate(-50%, -48%) scale(0.96);
-      opacity: 0;
-    }
-
-    to {
-      transform: translate(-50%, -50%) scale(1);
-      opacity: 1;
-    }
-  }
 }
 
-.textFieldContainer {
-  margin-bottom: 24px;
-}
-
-.element {
-  height: 58px;
+.dummyImg {
+    border: 1px solid white;
+    @include mixins.flex($justifyContent: center, $alignItems: center);
+    @include mixins.imgUploadSize;
+    margin-top: 24px;
 }

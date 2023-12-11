@@ -4,7 +4,6 @@ import { Meta, StoryObj } from '@storybook/react'
 
 import sC from '../../../common/commonStyles/common.module.scss'
 
-// import { Slider } from '@/components/ui/Slider/slider.tsx'
 import { SliderSingle } from '@/components/ui/SliderSingle/SliderSingle.tsx'
 
 export default {
@@ -17,16 +16,16 @@ type Story = StoryObj<typeof SliderSingle>
 
 export const SliderExample: Story = {
   render: args => {
-    const [value, setValue] = useState([1, 12])
+    const [value, setValue] = useState([4, 15])
 
     return (
       <div className={sC.storyContainer}>
         <SliderSingle
           {...args}
-          value={value}
+          value={value[0]}
           onValueChange={setValue}
           step={1}
-          defaultValue={value}
+          defaultValue={value[0]}
           min={1}
           max={12}
           minStepsBetweenThumbs={1}
@@ -35,8 +34,8 @@ export const SliderExample: Story = {
     )
   },
   args: {
-    defaultValue: [1],
-    value: [1, 10],
+    defaultValue: 0,
+    value: 0,
     onValueChange: () => {},
     step: 1,
     min: 1,

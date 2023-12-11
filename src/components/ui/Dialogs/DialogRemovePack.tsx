@@ -1,8 +1,8 @@
 import * as RDialog from '@radix-ui/react-dialog'
 
 import { SelectedDeckType } from '@/common/types.ts'
-import sC from '@/components/ui/Dialogs/DialogsCommon/DialogsCommon.module.scss'
-import { DialogsCommon } from '@/components/ui/Dialogs/DialogsCommon/DialogsCommon.tsx'
+import sC from '@/components/ui/Dialogs/DialogsParrent/DialogsParrent.module.scss'
+import { DialogsParrent } from '@/components/ui/Dialogs/DialogsParrent/DialogsParrent.tsx'
 import { useDeleteDeckMutation } from '@/services/decks/decks.service.ts'
 
 export const DialogRemovePack = (props: PropsType) => {
@@ -19,7 +19,7 @@ export const DialogRemovePack = (props: PropsType) => {
   }
 
   return (
-    <DialogsCommon
+    <DialogsParrent
       title={'Delete Pack'}
       open={props.open}
       setOpen={props.setOpen}
@@ -31,7 +31,7 @@ export const DialogRemovePack = (props: PropsType) => {
         <br />
         All cards will be deleted.
       </RDialog.Description>
-    </DialogsCommon>
+    </DialogsParrent>
   )
 }
 
