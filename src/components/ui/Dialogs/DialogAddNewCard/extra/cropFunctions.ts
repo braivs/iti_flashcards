@@ -1,4 +1,4 @@
-import {CropType} from "@/components/ui/Dialogs/DialogAddNewCard/extra/CropTypes.ts"
+import { CropType } from '@/components/ui/Dialogs/DialogAddNewCard/extra/CropTypes.ts'
 
 export const fromBase64 = (url: string) => {
   //todo: fix fileName
@@ -9,7 +9,7 @@ export const fromBase64 = (url: string) => {
   return fetch(url)
     .then(res => res.blob())
     .then(blob => {
-      return new File([blob], `fileName.${ext}`, {type: `image/${ext}`})
+      return new File([blob], `fileName.${ext}`, { type: `image/${ext}` })
     })
 }
 
@@ -24,7 +24,12 @@ export const createImage = (url: string): Promise<CanvasImageSource> =>
     image.src = url
   })
 
-export const getCroppedImg = async (imageSrc: string, crop: CropType, canvaWidth: number, canvaHeight: number): Promise<string> => {
+export const getCroppedImg = async (
+  imageSrc: string,
+  crop: CropType,
+  canvaWidth: number,
+  canvaHeight: number
+): Promise<string> => {
   const image = await createImage(imageSrc)
   const canvas = document.createElement('canvas')
   const ctx = canvas.getContext('2d')
@@ -33,17 +38,7 @@ export const getCroppedImg = async (imageSrc: string, crop: CropType, canvaWidth
   canvas.height = canvaHeight
 
   ctx &&
-  ctx.drawImage(
-    image,
-    crop.x,
-    crop.y,
-    crop.width,
-    crop.height,
-    0,
-    0,
-    canvas.width,
-    canvas.height
-  )
+    ctx.drawImage(image, crop.x, crop.y, crop.width, crop.height, 0, 0, canvas.width, canvas.height)
 
   return canvas.toDataURL('image/jpeg')
 }
@@ -53,11 +48,11 @@ export const onCrop = async (
   inputImg: undefined | string,
   canvaWidth: number,
   canvaHeight: number,
-  cropCallback: (img: string) => void) => {
+  cropCallback: (img: string) => void
+) => {
   if (cropArea && inputImg) {
     const img = await getCroppedImg(inputImg, cropArea, canvaWidth, canvaHeight)
 
     cropCallback(img)
   }
 }
-

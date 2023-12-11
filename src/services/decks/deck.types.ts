@@ -118,10 +118,6 @@ export type UpdateCardType = {
   answerVideo?: string | null
 }
 
-export type LearnCardType = Omit<CardType, 'grade'> & {
-  rating: number
-}
-
 export type DeckLearnArgType = {
   cardId: string
   grade: number

@@ -1,45 +1,45 @@
-import {useEffect, useState} from 'react'
+import { useEffect, useState } from 'react'
 
-import {useNavigate, useParams} from 'react-router-dom'
+import { useNavigate, useParams } from 'react-router-dom'
 
 import s from './cards-page.module.scss'
 
 import arrowLeft from '@/assets/icons/ArrowLeft.svg'
 import sC from '@/common/commonStyles/common.module.scss'
 import sT from '@/common/commonStyles/tables.module.scss'
-import {CardsOrderByType, SelectedCardType, SelectedCardUpdateType} from '@/common/types.ts'
-import {paginationSelectValues} from '@/common/values.ts'
-import {Button} from '@/components/ui/Button'
-import {DialogAddNewCard} from '@/components/ui/Dialogs/DialogAddNewCard/DialogAddNewCard.tsx'
-import {DialogRemoveCard} from '@/components/ui/Dialogs/DialogRemoveCard.tsx'
-import {DialogUpdateCard} from '@/components/ui/Dialogs/DialogUpdateCard.tsx'
-import {Pagination} from '@/components/ui/Pagination'
-import {Typography} from '@/components/ui/Typography'
-import {useAppDispatch, useAppSelector} from '@/hooks.ts'
-import {useGetMeQuery} from '@/services/auth/auth.service.ts'
-import {sortStringCallback} from '@/common/functions.ts'
+import { CardsOrderByType, SelectedCardType, SelectedCardUpdateType } from '@/common/types.ts'
+import { paginationSelectValues } from '@/common/values.ts'
+import { Button } from '@/components/ui/Button'
+import { DialogAddNewCard } from '@/components/ui/Dialogs/DialogAddNewCard/DialogAddNewCard.tsx'
+import { DialogRemoveCard } from '@/components/ui/Dialogs/DialogRemoveCard.tsx'
+import { DialogUpdateCard } from '@/components/ui/Dialogs/DialogUpdateCard.tsx'
+import { Pagination } from '@/components/ui/Pagination'
+import { Typography } from '@/components/ui/Typography'
+import { useAppDispatch, useAppSelector } from '@/hooks.ts'
+import { useGetMeQuery } from '@/services/auth/auth.service.ts'
+import { sortStringCallback } from '@/common/functions.ts'
 import {
   setCardId,
   setCardsItemsPerPage,
   setCardsOrderBy,
   updateCardsCurrentPage,
 } from '@/services/cards/cards.slice.ts'
-import {Sort} from '@/services/common/types.ts'
-import {useGetCardsInDeckQuery, useGetDeckByIdQuery} from '@/services/decks/decks.service.ts'
-import {CardsTable} from "@/pages/cards-page/CardsTable.tsx"
+import { Sort } from '@/services/common/types.ts'
+import { useGetCardsInDeckQuery, useGetDeckByIdQuery } from '@/services/decks/decks.service.ts'
+import { CardsTable } from '@/pages/cards-page/CardsTable.tsx'
 
 export const CardsPage = () => {
-  const {currentPage, itemsPerPage, orderBy} = useAppSelector(state => state.cards)
+  const { currentPage, itemsPerPage, orderBy } = useAppSelector(state => state.cards)
 
-  let {deckId} = useParams()
-  const {data} = useGetDeckByIdQuery({id: deckId ? deckId : ''})
-  const {data: cards} = useGetCardsInDeckQuery({
+  let { deckId } = useParams()
+  const { data } = useGetDeckByIdQuery({ id: deckId ? deckId : '' })
+  const { data: cards } = useGetCardsInDeckQuery({
     itemsPerPage: +itemsPerPage,
     id: deckId ? deckId : '',
     currentPage,
     orderBy,
   })
-  const {data: me} = useGetMeQuery()
+  const { data: me } = useGetMeQuery()
 
   const [isAddNewCardDialogOpen, setIsAddNewCardDialogOpen] = useState(false)
   const [isUpdateDialogOpen, setIsUpdateDialogOpen] = useState(false) // for Update dialog
@@ -81,11 +81,11 @@ export const CardsPage = () => {
 
   const onSelectCardForDel = (id: string, question: string) => {
     setIsDeleteDialogOpen(true)
-    setSelectedCard({id, question})
+    setSelectedCard({ id, question })
   }
   const onSelectCardForUpdate = (id: string, question: string, answer: string) => {
     setIsUpdateDialogOpen(true)
-    setSelectedForUpdateCard({id, question, answer})
+    setSelectedForUpdateCard({ id, question, answer })
   }
   const updateCardsCurrentPageCallback = (page: number | string) => {
     dispatch(updateCardsCurrentPage(+page))
@@ -125,7 +125,7 @@ export const CardsPage = () => {
         deckId={deckId ? deckId : ''}
       />
       <div className={s.arrowContainer} onClick={onArrowLeft}>
-        <img src={arrowLeft} alt="arrowLeft"/>
+        <img src={arrowLeft} alt="arrowLeft" />
         <span className={s.text}>Back to Packs List</span>
       </div>
       <div className={sT.topContainer}>

@@ -1,6 +1,6 @@
-import {omit} from 'remeda'
+import { omit } from 'remeda'
 
-import {baseApi} from '@/services/base-api.ts'
+import { baseApi } from '@/services/base-api.ts'
 import {
   CardType,
   CreateCardInDeckResponseType,
@@ -11,10 +11,9 @@ import {
   DecksResponse,
   GetCardsInDeckParams,
   GetCardsInDeckResponse,
-  LearnCardType,
   UpdateDeckType,
 } from '@/services/decks/deck.types.ts'
-import {RootState} from '@/services/store.ts'
+import { RootState } from '@/services/store.ts'
 
 export const decksService = baseApi.injectEndpoints({
   endpoints: builder => ({
@@ -157,14 +156,14 @@ export const decksService = baseApi.injectEndpoints({
       // invalidatesTags: ['CardsIdDeck'], // not works together with onQueryStarted
       //todo: understand why it not works together
     }),
-    getCard: builder.query<LearnCardType, { deckId: string }>({
+    getCard: builder.query<CardType, { deckId: string }>({
       query: params => ({
         url: `v1/decks/${params.deckId}/learn`,
         method: 'GET',
       }),
       providesTags: ['Card'],
     }),
-    postCard: builder.mutation<LearnCardType, DeckLearnArgType>({
+    postCard: builder.mutation<CardType, DeckLearnArgType>({
       query: body => ({
         url: `v1/decks/${body.cardId}/learn`,
         method: 'POST',
