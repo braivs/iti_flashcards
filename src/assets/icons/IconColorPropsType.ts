@@ -1,4 +1,4 @@
-export type IconColorsPropsType = {
+export type IconColorsProps = {
   color?: string
   className?: string
 }

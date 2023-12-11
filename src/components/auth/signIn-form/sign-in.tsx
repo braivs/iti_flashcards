@@ -77,7 +77,7 @@ export const SignIn = (props: PropsType) => {
           <ControlledCheckbox
             name={'rememberMe'}
             control={control}
-            label={'remember me'}
+            label={'Remember me'}
             className={sC.checkbox}
             position={'left'}
           />

@@ -2,16 +2,16 @@ import { omit } from 'remeda'
 
 import { baseApi } from '@/services/base-api.ts'
 import {
-  CardType,
-  CreateCardInDeckResponseType,
-  DeckType,
+  Card,
+  CreateCardInDeckResponse,
+  Deck,
   DeckByIdResponse,
-  DeckLearnArgType,
+  DeckLearnArg,
   DeckParams,
   DecksResponse,
   GetCardsInDeckParams,
   GetCardsInDeckResponse,
-  UpdateDeckType,
+  UpdateDeck,
 } from '@/services/decks/deck.types.ts'
 import { RootState } from '@/services/store.ts'
 
@@ -39,7 +39,7 @@ export const decksService = baseApi.injectEndpoints({
       }),
       providesTags: ['CardsIdDeck'],
     }),
-    createDeck: builder.mutation<DeckType, { name: string; isPrivate: boolean }>({
+    createDeck: builder.mutation<Deck, { name: string; isPrivate: boolean }>({
       query: data => ({
         url: `v1/decks`,
         method: 'POST',
@@ -77,7 +77,7 @@ export const decksService = baseApi.injectEndpoints({
       },
       invalidatesTags: ['Decks'], //todo: maybe del invalidate and same in other places
     }),
-    deleteDeck: builder.mutation<DeckType, { id: string }>({
+    deleteDeck: builder.mutation<Deck, { id: string }>({
       query: data => ({
         url: `v1/decks/${data.id}`,
         method: 'DELETE',
@@ -114,7 +114,7 @@ export const decksService = baseApi.injectEndpoints({
       },
       invalidatesTags: ['Decks'],
     }),
-    updateDeck: builder.mutation<DeckByIdResponse, { deckId: string; data: UpdateDeckType }>({
+    updateDeck: builder.mutation<DeckByIdResponse, { deckId: string; data: UpdateDeck }>({
       query: ({ deckId, data }) => {
         return {
           method: 'PATCH',
@@ -125,7 +125,7 @@ export const decksService = baseApi.injectEndpoints({
       invalidatesTags: ['Decks'],
     }),
     createCardInDeck: builder.mutation<
-      CreateCardInDeckResponseType,
+      CreateCardInDeckResponse,
       { deckId: string; formData?: FormData }
     >({
       query: ({ deckId, formData }) => ({
@@ -156,14 +156,14 @@ export const decksService = baseApi.injectEndpoints({
       // invalidatesTags: ['CardsIdDeck'], // not works together with onQueryStarted
       //todo: understand why it not works together
     }),
-    getCard: builder.query<CardType, { deckId: string }>({
+    getCard: builder.query<Card, { deckId: string }>({
       query: params => ({
         url: `v1/decks/${params.deckId}/learn`,
         method: 'GET',
       }),
       providesTags: ['Card'],
     }),
-    postCard: builder.mutation<CardType, DeckLearnArgType>({
+    postCard: builder.mutation<Card, DeckLearnArg>({
       query: body => ({
         url: `v1/decks/${body.cardId}/learn`,
         method: 'POST',
@@ -185,7 +185,7 @@ export const {
   useUpdateDeckMutation,
 } = decksService
 
-const resultConvert = (card: CreateCardInDeckResponseType): CardType => {
+const resultConvert = (card: CreateCardInDeckResponse): Card => {
   return omit({ ...card, grade: 0 }, ['type', 'moreId', 'comments', 'rating'])
 }
 

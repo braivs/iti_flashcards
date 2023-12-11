@@ -1,6 +1,6 @@
 import { Meta, StoryObj } from '@storybook/react'
 
-import { TabSwitcher, TabSwitcherValuesType } from '@/components/ui/TabSwitcher/TabSwitcher.tsx'
+import { TabSwitcher, TabSwitcherValues } from '@/components/ui/TabSwitcher/TabSwitcher.tsx'
 
 const meta = {
   title: 'Components/TabSwitcher',
@@ -22,7 +22,7 @@ export const Default: Story = {
       console.log(`Selected tab 111: ${value}`)
     }
 
-    const valuesArr: Array<TabSwitcherValuesType> = [
+    const valuesArr: Array<TabSwitcherValues> = [
       { index: 1, value: 'tab1', text: 'Switcher 1' },
       { index: 2, value: 'tab2', text: 'Switcher 2' },
       { index: 3, value: 'tab3', text: 'Switcher 3' },

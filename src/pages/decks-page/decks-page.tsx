@@ -5,7 +5,7 @@ import sT from '../../common/commonStyles/tables.module.scss'
 import trashIcon from '@/assets/icons/trashIcon.png'
 import sC from '@/common/commonStyles/common.module.scss'
 import { sortStringCallback } from '@/common/functions.ts'
-import { DecksOrderByType, SelectedDeckType } from '@/common/types.ts'
+import { DecksOrderBy, SelectedDeck } from '@/common/types.ts'
 import { paginationSelectValues } from '@/common/values.ts'
 import { Button } from '@/components/ui/Button'
 import { DialogAddPack } from '@/components/ui/Dialogs/DialogAddPack.tsx'
@@ -14,7 +14,7 @@ import { DialogUpdatePack } from '@/components/ui/Dialogs/DialogUpdatePack.tsx'
 import { Pagination } from '@/components/ui/Pagination/Pagination.tsx'
 import { Slider } from '@/components/ui/Slider/slider.tsx'
 import { TabSwitcher } from '@/components/ui/TabSwitcher'
-import { TabSwitcherValuesType } from '@/components/ui/TabSwitcher/TabSwitcher.tsx'
+import { TabSwitcherValues } from '@/components/ui/TabSwitcher/TabSwitcher.tsx'
 import { Textfield } from '@/components/ui/Textfield'
 import { Typography } from '@/components/ui/Typography'
 import { useAppDispatch, useAppSelector } from '@/hooks.ts'
@@ -38,7 +38,7 @@ export const DecksPage = () => {
 
   const [sort, setSort] = useState<Sort>(null) // for sorting cells in table
 
-  const [selectedDeck, setSelectedDeck] = useState<SelectedDeckType>({
+  const [selectedDeck, setSelectedDeck] = useState<SelectedDeck>({
     id: '',
     name: '',
     isPrivate: false,
@@ -74,7 +74,7 @@ export const DecksPage = () => {
   })
 
   //for tabSwitcher
-  const tabSwitcherValues: Array<TabSwitcherValuesType> = [
+  const tabSwitcherValues: Array<TabSwitcherValues> = [
     { index: 1, value: 'MyCards', text: 'My Cards' },
     { index: 2, value: 'AllCards', text: 'All Cards' },
   ]
@@ -102,7 +102,7 @@ export const DecksPage = () => {
   useEffect(() => {
     const sortString: string | undefined = sortStringCallback(sort)
 
-    dispatch(setDecksOrderBy(sortString as DecksOrderByType))
+    dispatch(setDecksOrderBy(sortString as DecksOrderBy))
   }, [sort])
 
   const onSelectDeckForDel = (id: string, name: string) => {

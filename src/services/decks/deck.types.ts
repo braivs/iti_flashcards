@@ -1,11 +1,11 @@
-import { DecksOrderByType } from '@/common/types.ts'
+import { DecksOrderBy } from '@/common/types.ts'
 
 export type Author = {
   id: string
   name: string
 }
 
-export type DeckType = {
+export type Deck = {
   id: string
   userId: string
   name: string
@@ -21,7 +21,7 @@ export type DeckType = {
   author: Author
 }
 
-type PaginationType = {
+type Pagination = {
   currentPage: number
   itemsPerPage: number
   totalItems: number
@@ -30,8 +30,8 @@ type PaginationType = {
 
 export type DecksResponse = {
   maxCardsCount: number
-  items: DeckType[]
-  pagination: PaginationType
+  items: Deck[]
+  pagination: Pagination
 }
 
 export type DeckByIdResponse = {
@@ -51,7 +51,7 @@ export type DeckByIdResponse = {
 export type DeckParams = {
   name?: string
   authorId?: string
-  orderBy?: DecksOrderByType
+  orderBy?: DecksOrderBy
   minCardsCount?: number
   maxCardsCount?: number
   currentPage?: number
@@ -76,12 +76,12 @@ export type CreateCardInDeckType = {
   answerVideo?: string
 }
 
-export type UpdateDeckType = {
+export type UpdateDeck = {
   cover: string
   name: string
   isPrivate?: boolean
 }
-export type CardType = {
+export type Card = {
   id: string
   deckId: string
   userId: string
@@ -98,18 +98,18 @@ export type CardType = {
 }
 
 export type GetCardsInDeckResponse = {
-  items: Array<CardType>
-  pagination: PaginationType
+  items: Array<Card>
+  pagination: Pagination
 }
 
-export type CreateCardInDeckResponseType = Omit<CardType, 'grade'> & {
+export type CreateCardInDeckResponse = Omit<Card, 'grade'> & {
   comments: string | null
   moreId: string | null
   rating: number
   type: string | null
 }
 
-export type UpdateCardType = {
+export type UpdateCard = {
   questionImg?: string | null
   answerImg?: string | null
   question: string
@@ -118,7 +118,7 @@ export type UpdateCardType = {
   answerVideo?: string | null
 }
 
-export type DeckLearnArgType = {
+export type DeckLearnArg = {
   cardId: string
   grade: number
 }

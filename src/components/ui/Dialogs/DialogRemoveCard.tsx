@@ -1,6 +1,6 @@
 import * as RDialog from '@radix-ui/react-dialog'
 
-import { SelectedCardType } from '@/common/types.ts'
+import { SelectedCard } from '@/common/types.ts'
 import sC from '@/components/ui/Dialogs/DialogsParrent/DialogsParrent.module.scss'
 import { DialogsParrent } from '@/components/ui/Dialogs/DialogsParrent/DialogsParrent.tsx'
 import { useDeleteCardMutation } from '@/services/cards/cards.service.ts'
@@ -38,6 +38,6 @@ export const DialogRemoveCard = (props: PropsType) => {
 type PropsType = {
   open: boolean
   setOpen: (value: boolean) => void
-  selectedCard: SelectedCardType
-  setSelectedCard: (value: SelectedCardType) => void
+  selectedCard: SelectedCard
+  setSelectedCard: (value: SelectedCard) => void
 }

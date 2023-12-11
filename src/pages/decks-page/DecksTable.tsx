@@ -7,7 +7,7 @@ import { Play } from '@/assets/icons/Play.tsx'
 import { Edit } from '@/assets/icons/Edit.tsx'
 import { TrashHollow } from '@/assets/icons/TrashHollow.tsx'
 import { Sort } from '@/services/common/types.ts'
-import { DeckType } from '@/services/decks/deck.types.ts'
+import { Deck } from '@/services/decks/deck.types.ts'
 import { useGetMeQuery } from '@/services/auth/auth.service.ts'
 
 export const DecksTable = (props: PropsType) => {
@@ -40,13 +40,13 @@ export const DecksTable = (props: PropsType) => {
 
   const { data: me } = useGetMeQuery()
 
-  const isEditHidden = (deck: DeckType): boolean => deck.author.id !== me.id
+  const isEditHidden = (deck: Deck): boolean => deck.author.id !== me.id
 
-  const onEdit = (deck: DeckType) => {
+  const onEdit = (deck: Deck) => {
     props.onSelectDeckForUpdate(deck.id, deck.name, deck.isPrivate)
   }
 
-  const onDelete = (deck: DeckType) => {
+  const onDelete = (deck: Deck) => {
     props.onSelectDeckForDel(deck.id, deck.name)
   }
 
@@ -92,7 +92,7 @@ export const DecksTable = (props: PropsType) => {
 }
 
 type PropsType = {
-  items: DeckType[] | undefined
+  items: Deck[] | undefined
   onSelectDeckForUpdate: (id: string, name: string, isPrivate: boolean) => void
   onSelectDeckForDel: (id: string, name: string) => void
   sort: Sort

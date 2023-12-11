@@ -4,7 +4,7 @@ import { zodResolver } from '@hookform/resolvers/zod'
 import { useForm } from 'react-hook-form'
 import { z } from 'zod'
 
-import { SelectedDeckType } from '@/common/types.ts'
+import { SelectedDeck } from '@/common/types.ts'
 import { Checkbox } from '@/components/ui/Checkbox'
 import { ControlledTextField } from '@/components/ui/controlled/controlled-text-field'
 import sC from '@/components/ui/Dialogs/DialogsParrent/DialogsParrent.module.scss'
@@ -105,7 +105,7 @@ type PropsType = {
   isPrivate?: boolean
   setIsPrivate: (test: any) => void
   setOpen: (value: boolean) => void
-  selectedDeck: SelectedDeckType
-  setSelectedDeck: (value: SelectedDeckType) => void
+  selectedDeck: SelectedDeck
+  setSelectedDeck: (value: SelectedDeck) => void
   deckId: string
 }

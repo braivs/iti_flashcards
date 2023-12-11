@@ -6,7 +6,7 @@ import { Button } from '@/components/ui/Button'
 import { Edit } from '@/assets/icons/Edit.tsx'
 import { TrashHollow } from '@/assets/icons/TrashHollow.tsx'
 import { Sort } from '@/services/common/types.ts'
-import { CardType } from '@/services/decks/deck.types.ts'
+import { Card } from '@/services/decks/deck.types.ts'
 
 export const CardsTable = (props: PropsType) => {
   const columns: Column[] = [
@@ -36,11 +36,11 @@ export const CardsTable = (props: PropsType) => {
     },
   ]
 
-  const onEdit = (data: CardType) => {
+  const onEdit = (data: Card) => {
     props.onSelectCardForUpdate(data.id, data.question, data.answer)
   }
 
-  const onDelete = (data: CardType) => {
+  const onDelete = (data: Card) => {
     props.onSelectCardForDel(data.id, data.question)
   }
 
@@ -108,7 +108,7 @@ export const CardsTable = (props: PropsType) => {
 type PropsType = {
   sort: Sort
   setSort: (value: Sort) => void
-  items: Array<CardType> | undefined
+  items: Array<Card> | undefined
   isEditHidden: boolean
   onSelectCardForUpdate: (id: string, question: string, answer: string) => void
   onSelectCardForDel: (id: string, question: string) => void

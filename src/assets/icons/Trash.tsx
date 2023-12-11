@@ -1,6 +1,6 @@
-import { IconColorsPropsType } from '@/assets/icons/IconColorPropsType.ts'
+import { IconColorsProps } from '@/assets/icons/IconColorPropsType.ts'
 
-export const Trash = ({ color = 'transponent', className }: IconColorsPropsType) => {
+export const Trash = ({ color = 'transponent', className }: IconColorsProps) => {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"

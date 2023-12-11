@@ -1,8 +1,8 @@
 import { FC } from 'react'
 
-import { IconColorsPropsType } from '@/assets/icons/IconColorPropsType.ts'
+import { IconColorsProps } from '@/assets/icons/IconColorPropsType.ts'
 
-export const StarOutline: FC<IconColorsPropsType> = ({
+export const StarOutline: FC<IconColorsProps> = ({
   color = 'var(--color-warning-300)',
   className,
 }) => {

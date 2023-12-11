@@ -1,6 +1,6 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 
-import { CardsOrderByType } from '@/common/types.ts'
+import { CardsOrderBy } from '@/common/types.ts'
 
 export const cardsSlice = createSlice({
   name: 'cards',
@@ -8,7 +8,7 @@ export const cardsSlice = createSlice({
     itemsPerPage: '9',
     id: '',
     currentPage: 1,
-    orderBy: undefined as undefined | CardsOrderByType,
+    orderBy: undefined as undefined | CardsOrderBy,
   },
   reducers: {
     setCardId: (state, action: PayloadAction<string>) => {
@@ -20,7 +20,7 @@ export const cardsSlice = createSlice({
     setCardsItemsPerPage: (state, action: PayloadAction<string>) => {
       state.itemsPerPage = action.payload
     },
-    setCardsOrderBy: (state, action: PayloadAction<CardsOrderByType | undefined>) => {
+    setCardsOrderBy: (state, action: PayloadAction<CardsOrderBy | undefined>) => {
       state.orderBy = action.payload
     },
   },

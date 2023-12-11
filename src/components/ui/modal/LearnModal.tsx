@@ -11,7 +11,7 @@ import { ArrowBack } from '@/assets/icons/ArrowBack.tsx'
 import { Button } from '@/components/ui/Button'
 import { Card } from '@/components/ui/Card'
 import { Typography } from '@/components/ui/Typography'
-import { DeckLearnArgType } from '@/services/decks/deck.types.ts'
+import { DeckLearnArg } from '@/services/decks/deck.types.ts'
 
 type LearnModalType = {
   id: string
@@ -20,7 +20,7 @@ type LearnModalType = {
   answer: string
   shots: number
   navigate: (to: string) => void
-  onChange: ({ grade, cardId }: DeckLearnArgType) => void
+  onChange: ({ grade, cardId }: DeckLearnArg) => void
   imgAnswer: string | null
   imgQuestion: string | null
 }

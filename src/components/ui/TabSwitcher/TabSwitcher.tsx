@@ -35,7 +35,7 @@ export const TabSwitcher = (props: PropsType) => {
   )
 }
 
-export type TabSwitcherValuesType = {
+export type TabSwitcherValues = {
   index: number
   value: string
   text: string
@@ -43,7 +43,7 @@ export type TabSwitcherValuesType = {
 
 type PropsType = {
   onChangeCallback: (index: string) => void
-  values: Array<TabSwitcherValuesType>
+  values: Array<TabSwitcherValues>
   isDisabled?: boolean
   defaultValue?: string
   value?: string

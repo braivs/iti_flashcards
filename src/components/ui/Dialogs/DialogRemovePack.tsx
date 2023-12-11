@@ -1,6 +1,6 @@
 import * as RDialog from '@radix-ui/react-dialog'
 
-import { SelectedDeckType } from '@/common/types.ts'
+import { SelectedDeck } from '@/common/types.ts'
 import sC from '@/components/ui/Dialogs/DialogsParrent/DialogsParrent.module.scss'
 import { DialogsParrent } from '@/components/ui/Dialogs/DialogsParrent/DialogsParrent.tsx'
 import { useDeleteDeckMutation } from '@/services/decks/decks.service.ts'
@@ -38,6 +38,6 @@ export const DialogRemovePack = (props: PropsType) => {
 type PropsType = {
   open: boolean
   setOpen: (value: boolean) => void
-  selectedDeck: SelectedDeckType
-  setSelectedDeck: (value: SelectedDeckType) => void
+  selectedDeck: SelectedDeck
+  setSelectedDeck: (value: SelectedDeck) => void
 }

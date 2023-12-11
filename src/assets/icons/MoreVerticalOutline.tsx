@@ -1,8 +1,8 @@
 import { FC } from 'react'
 
-import { IconColorsPropsType } from '@/assets/icons/IconColorPropsType.ts'
+import { IconColorsProps } from '@/assets/icons/IconColorPropsType.ts'
 
-export const MoreVerticalOutline: FC<IconColorsPropsType> = ({
+export const MoreVerticalOutline: FC<IconColorsProps> = ({
   color = 'var(--color-dark-900)',
   className,
 }) => {

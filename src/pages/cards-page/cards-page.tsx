@@ -7,7 +7,7 @@ import s from './cards-page.module.scss'
 import arrowLeft from '@/assets/icons/ArrowLeft.svg'
 import sC from '@/common/commonStyles/common.module.scss'
 import sT from '@/common/commonStyles/tables.module.scss'
-import { CardsOrderByType, SelectedCardType, SelectedCardUpdateType } from '@/common/types.ts'
+import { CardsOrderBy, SelectedCard, SelectedCardUpdate } from '@/common/types.ts'
 import { paginationSelectValues } from '@/common/values.ts'
 import { Button } from '@/components/ui/Button'
 import { DialogAddNewCard } from '@/components/ui/Dialogs/DialogAddNewCard/DialogAddNewCard.tsx'
@@ -43,13 +43,13 @@ export const CardsPage = () => {
 
   const [isAddNewCardDialogOpen, setIsAddNewCardDialogOpen] = useState(false)
   const [isUpdateDialogOpen, setIsUpdateDialogOpen] = useState(false) // for Update dialog
-  const [selectedForUpdateCard, setSelectedForUpdateCard] = useState<SelectedCardUpdateType>({
+  const [selectedForUpdateCard, setSelectedForUpdateCard] = useState<SelectedCardUpdate>({
     id: '',
     question: '',
     answer: '',
   })
   const [isDeleteDialogOpen, setIsDeleteDialogOpen] = useState(false) // for delete dialog
-  const [selectedCard, setSelectedCard] = useState<SelectedCardType>({
+  const [selectedCard, setSelectedCard] = useState<SelectedCard>({
     id: '',
     question: '',
   })
@@ -68,7 +68,7 @@ export const CardsPage = () => {
   useEffect(() => {
     const sortString: string | undefined = sortStringCallback(sort)
 
-    dispatch(setCardsOrderBy(sortString as CardsOrderByType))
+    dispatch(setCardsOrderBy(sortString as CardsOrderBy))
   }, [sort])
 
   useEffect(() => {

@@ -14,13 +14,13 @@ const schema = z.object({
   email: z.string().email(),
 })
 
-export type FormType = z.infer<typeof schema>
+export type Form = z.infer<typeof schema>
 
 type Props = {
-  onSubmit: (data: FormType) => void
+  onSubmit: (data: Form) => void
 }
 export const RecoverPassword = (props: Props) => {
-  const { control, handleSubmit } = useForm<FormType>({
+  const { control, handleSubmit } = useForm<Form>({
     mode: 'onSubmit',
     resolver: zodResolver(schema),
     defaultValues: {

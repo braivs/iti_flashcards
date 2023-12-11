@@ -2,13 +2,13 @@ import { useState } from 'react'
 
 import { Navigate } from 'react-router-dom'
 
-import { FormType, RecoverPassword } from '@/components/auth/recover-password/recover-password.tsx'
+import { Form, RecoverPassword } from '@/components/auth/recover-password/recover-password.tsx'
 import { useRecoverPasswordMutation } from '@/services/auth/auth.service.ts'
 
 export const RecoverPasswordPage = () => {
   const [recoverPassword, { isLoading: isMeLoading, isSuccess }] = useRecoverPasswordMutation()
-  const [data, setData] = useState<FormType>()
-  const onDataSubmit = (data: FormType) => {
+  const [data, setData] = useState<Form>()
+  const onDataSubmit = (data: Form) => {
     setData(data)
     recoverPassword(data)
   }

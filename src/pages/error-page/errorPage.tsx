@@ -8,10 +8,10 @@ import { Error404 } from '@/assets/images/404.tsx'
 import { Button } from '@/components/ui/Button'
 import { Typography } from '@/components/ui/Typography'
 
-type ErrorType = {
+type Error = {
   errorMessage?: string
 }
-export const ErrorPage: FC<ErrorType> = () => {
+export const ErrorPage: FC<Error> = () => {
   const navigate = useNavigate()
   const onChangeHandler = () => {
     return navigate('/')

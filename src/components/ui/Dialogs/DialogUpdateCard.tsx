@@ -4,7 +4,7 @@ import { zodResolver } from '@hookform/resolvers/zod'
 import { useForm } from 'react-hook-form'
 import { z } from 'zod'
 
-import { SelectedCardUpdateType } from '@/common/types.ts'
+import { SelectedCardUpdate } from '@/common/types.ts'
 import { ControlledTextField } from '@/components/ui/controlled/controlled-text-field'
 import sC from '@/components/ui/Dialogs/DialogsParrent/DialogsParrent.module.scss'
 import { DialogsParrent } from '@/components/ui/Dialogs/DialogsParrent/DialogsParrent.tsx'
@@ -106,6 +106,6 @@ type PropsType = {
   answer: string
   open: boolean
   setOpen: (value: boolean) => void
-  selectedCard: SelectedCardUpdateType
-  setSelectedCard: (value: SelectedCardUpdateType) => void
+  selectedCard: SelectedCardUpdate
+  setSelectedCard: (value: SelectedCardUpdate) => void
 }
