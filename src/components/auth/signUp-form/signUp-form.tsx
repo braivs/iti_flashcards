@@ -4,6 +4,7 @@ import { DevTool } from '@hookform/devtools'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { clsx } from 'clsx'
 import { useForm } from 'react-hook-form'
+import { Link } from 'react-router-dom'
 import { toast, ToastContainer } from 'react-toastify'
 import { omit } from 'remeda'
 import { z } from 'zod'
@@ -123,9 +124,9 @@ export const SignUpForm = () => {
           <Typography variant={'Body_2'} className={clsx(sC.center, sC.colorLight)}>
             Already have an account?
           </Typography>
-          <Button variant="link" className={clsx(sC.center, sC.signUp)} as={'a'} href={'/login'}>
+          <Link to={'/login'} className={clsx(sC.center, sC.signUp)}>
             Sign In
-          </Button>
+          </Link>
         </Card>
       </div>
     </form>

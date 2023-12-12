@@ -1,5 +1,7 @@
 import { FC } from 'react'
 
+import { Link } from 'react-router-dom'
+
 import s from './error-clean-card-page.module.scss'
 
 import { Zero } from '@/assets/images/0_Cards.tsx'
@@ -12,9 +14,9 @@ export const ErrorCleanCardPage: FC<ErrorCleanCardPageType> = () => {
       <Zero />
       <div className={s.title}>This pack is empty!</div>
       <div>
-        <Button as={'a'} href={'/'}>
-          Back to decks page
-        </Button>
+        <Link to={'/'}>
+          <Button>Back to decks page</Button>
+        </Link>
       </div>
     </div>
   )

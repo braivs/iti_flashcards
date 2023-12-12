@@ -3,6 +3,7 @@ import { useEffect } from 'react'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { clsx } from 'clsx'
 import { useForm } from 'react-hook-form'
+import { Link } from 'react-router-dom'
 import { ToastContainer } from 'react-toastify'
 import { z } from 'zod'
 
@@ -83,24 +84,21 @@ export const SignIn = (props: PropsType) => {
             className={sC.checkbox}
             position={'left'}
           />
-          <Button variant="link" as={'a'} href={'/recover-password'} className={sC.right}>
+          <Link to={'/recover-password'} className={sC.right}>
             Forgot Password?
-          </Button>
+          </Link>
+          {/*<Button variant="link" as={'a'} href={'/recover-password'} className={sC.right}>*/}
+          {/*  Forgot Password?*/}
+          {/*</Button>*/}
           <Button type="submit" className={sC.button}>
             Sign in
           </Button>
           <Typography variant={'Body_2'} className={clsx(sC.center, sC.colorLight)}>
             Don&apos;t have an account?
           </Typography>
-          <Button
-            type="button"
-            variant="link"
-            className={clsx(sC.center, sC.signUp)}
-            as={'a'}
-            href={'/sign-up'}
-          >
+          <Link to={'/sign-up'} className={clsx(sC.center, sC.signUp)}>
             Sign Up
-          </Button>
+          </Link>
         </Card>
       </div>
     </form>

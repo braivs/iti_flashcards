@@ -27,6 +27,7 @@ export const Header: FC<HeaderProps> = ({ className, ...rest }) => {
 
   const classNames = {
     header: clsx(s.header, className),
+    link: clsx(s.link),
   }
 
   const [logout] = useLogoutMutation()
@@ -39,7 +40,10 @@ export const Header: FC<HeaderProps> = ({ className, ...rest }) => {
   return (
     <header className={classNames.header} {...rest}>
       <div className={s.wrapper}>
-        <Logo />
+        <Link to={'/'}>
+          <Logo />
+        </Link>
+
         {isLoggedIn ? (
           <div className={s.containerNameAva}>
             <div className={s.name}>{me && me.name}</div>
@@ -58,7 +62,7 @@ export const Header: FC<HeaderProps> = ({ className, ...rest }) => {
                 </Typography>
               </DropdownItemWithAvatar>
               <DropdownMenu.Separator className={s.dropDownMenuSeparator} />
-              <Link to={'/personal-information'}>
+              <Link to={'/personal-information'} className={classNames.link}>
                 <DropdownItemWithIcon
                   icon={<Person color={'var(--color-light-100)'} className={s.icons} />}
                   className={s.dropDownMenuItem}
@@ -80,10 +84,12 @@ export const Header: FC<HeaderProps> = ({ className, ...rest }) => {
             </DropDownMenu>
           </div>
         ) : (
-          <Button className={s.button} as={'a'} href={'/login'} variant="primary">
-            <Vector />
-            Sign In
-          </Button>
+          <Link to={'/login'}>
+            <Button className={s.button} variant="primary">
+              <Vector />
+              Sign In
+            </Button>
+          </Link>
         )}
       </div>
     </header>

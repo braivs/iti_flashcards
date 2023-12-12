@@ -1,5 +1,5 @@
 import { clsx } from 'clsx'
-import { useLocation } from 'react-router-dom'
+import { Link, useLocation } from 'react-router-dom'
 
 import { Typography } from '../../ui/Typography'
 
@@ -30,9 +30,11 @@ export const CheckEmailForm = () => {
         We’ve sent an Email with instructions to
         <Typography variant={'Body_2'}>{email} </Typography>
       </Typography>
-      <Button variant="primary" fullWidth={true} className={s.loginLink} as={'a'} href={'/login'}>
-        Back to Sign In
-      </Button>
+      <Link to={'/login'}>
+        <Button variant="primary" fullWidth={true} className={s.loginLink}>
+          Back to Sign In
+        </Button>
+      </Link>
     </Card>
   )
 }

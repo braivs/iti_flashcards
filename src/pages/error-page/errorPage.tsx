@@ -1,6 +1,6 @@
 import { FC } from 'react'
 
-import { useNavigate } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 
 import s from './errorPage.module.scss'
 
@@ -12,11 +12,6 @@ type Error = {
   errorMessage?: string
 }
 export const ErrorPage: FC<Error> = () => {
-  const navigate = useNavigate()
-  const onChangeHandler = () => {
-    return navigate('/')
-  }
-
   return (
     <div className={s.errorWrapper}>
       <div className={s.errorImg}>
@@ -26,7 +21,9 @@ export const ErrorPage: FC<Error> = () => {
         <Typography variant={'Body_1'}>Sorry! Page not found!</Typography>
       </div>
       <div>
-        <Button onClick={onChangeHandler}>Back to home page</Button>
+        <Link to={'/'}>
+          <Button>Back to home page</Button>
+        </Link>
       </div>
     </div>
   )

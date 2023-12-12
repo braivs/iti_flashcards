@@ -1,6 +1,7 @@
 import { DevTool } from '@hookform/devtools'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useForm } from 'react-hook-form'
+import { Link } from 'react-router-dom'
 import { z } from 'zod'
 
 import s from './recover-password.module.scss'
@@ -57,9 +58,9 @@ export const RecoverPassword = (props: Props) => {
         <Typography variant="Body_2" className={s.caption}>
           Did you remember your password?
         </Typography>
-        <Button variant="link" className={s.loginLink} as={'a'} href={'/login'}>
+        <Link to={'/login'} className={s.loginLink}>
           Try logging in
-        </Button>
+        </Link>
       </Card>
     </>
   )

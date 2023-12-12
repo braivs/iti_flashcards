@@ -9,7 +9,8 @@
   }
 
   .right {
-    justify-content: right;
+    display: inline;
+    text-align: end;
 
     font-size: 14px;
     font-weight: 400;
@@ -51,6 +52,7 @@
   .signUp {
     margin-top: 11px;
     color: var(--color-accent-500);
+    transition: all 0.5s ease;
   }
   .signUp:hover {
     color: var(--color-accent-100);
