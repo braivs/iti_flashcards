@@ -81,7 +81,7 @@ export const DialogAddPack = (props: PropsType) => {
           <form ref={formRef}>
             <ControlledTextField
               name={'packName'}
-              placeholder={'type a pack name'}
+              placeholder={'Lucky pack'}
               label={'Name Pack'}
               control={control}
             />

@@ -93,6 +93,7 @@ export const SignUpForm = () => {
                 errorMessage={errors.email?.message}
                 label={'email'}
                 control={control}
+                placeholder={'example@proton.me'}
               />
             </div>
             <div className={sC.element}>
@@ -102,6 +103,7 @@ export const SignUpForm = () => {
                 type={'password'}
                 errorMessage={errors.password?.message}
                 control={control}
+                placeholder={'pass_Word12345'}
               />
             </div>
             <div className={sC.element}>
@@ -111,6 +113,7 @@ export const SignUpForm = () => {
                 type={'password'}
                 errorMessage={errors.confirm?.message}
                 control={control}
+                placeholder={'pass_Word12345'}
               />
             </div>
           </div>

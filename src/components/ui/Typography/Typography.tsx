@@ -7,6 +7,9 @@ import s from './Typography.module.scss'
 export const Typography = <T extends ElementType = 'p'>(
   props: PropsType<T> & Omit<ComponentPropsWithoutRef<T>, keyof PropsType<T>>
 ) => {
+  const classNames = clsx(s.text, s[props.variant], props.className)
+  const Component = props.as || 'div'
+
   const tagSelector = () => {
     switch (props.variant) {
       case 'H1':
@@ -14,13 +17,13 @@ export const Typography = <T extends ElementType = 'p'>(
       case 'H2':
         return <h2 className={clsx(props.className, s[props.variant])}>{props.children}</h2>
       case 'H3':
-        return <h2 className={clsx(props.className, s[props.variant])}>{props.children}</h2>
+        return <h3 className={clsx(props.className, s[props.variant])}>{props.children}</h3>
       default:
         return <div className={clsx(props.className, s[props.variant])}>{props.children}</div>
     }
   }
 
-  return <>{tagSelector()}</>
+  return props.as ? <Component className={classNames}>{props.children}</Component> : <>{tagSelector()}</>
 }
 
 type PropsType<T extends ElementType> = {

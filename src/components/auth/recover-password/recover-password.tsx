@@ -40,7 +40,7 @@ export const RecoverPassword = (props: Props) => {
         <form onSubmit={handleFormSubmitted}>
           <div className={s.form}>
             <ControlledTextField
-              placeholder={'Email'}
+              placeholder={'mail@proton.me'}
               name={'email'}
               control={control}
               type={'email'}

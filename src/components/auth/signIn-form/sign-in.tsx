@@ -62,6 +62,7 @@ export const SignIn = (props: PropsType) => {
                 errorMessage={errors.email?.message}
                 label={'Email'}
                 control={control}
+                placeholder={'example@proton.me'}
               />
             </div>
             <div className={sC.element}>
@@ -71,6 +72,7 @@ export const SignIn = (props: PropsType) => {
                 type={'password'}
                 errorMessage={errors.password?.message}
                 control={control}
+                placeholder={'pass_Word12345'}
               />
             </div>
           </div>

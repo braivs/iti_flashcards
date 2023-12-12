@@ -112,7 +112,7 @@ export const DialogAddNewCard = (props: PropsType) => {
             <div className={sC.element}>
               <ControlledTextField
                 name={'question'}
-                placeholder={'type a question'}
+                placeholder={'interesting question'}
                 label={'Question'}
                 control={control}
               />
@@ -122,7 +122,7 @@ export const DialogAddNewCard = (props: PropsType) => {
             <div className={sC.element}>
               <ControlledTextField
                 name={'answer'}
-                placeholder={'type an answer'}
+                placeholder={'simple answer'}
                 label={'Answer'}
                 control={control}
               />

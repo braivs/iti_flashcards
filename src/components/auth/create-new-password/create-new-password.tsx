@@ -43,7 +43,7 @@ export const CreateNewPassword = (props: Props) => {
         <form onSubmit={handleFormSubmitted}>
           <div className={s.input}>
             <ControlledTextField
-              placeholder={'Password'}
+              placeholder={'pass_Word12345'}
               name={'password'}
               control={control}
               type={'password'}
