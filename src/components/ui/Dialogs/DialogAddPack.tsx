@@ -9,9 +9,10 @@ import {ControlledTextField} from '@/components/ui/controlled/controlled-text-fi
 import sC from '@/components/ui/Dialogs/DialogsParrent/DialogsParrent.module.scss'
 import {DialogsParrent} from '@/components/ui/Dialogs/DialogsParrent/DialogsParrent.tsx'
 import {useAppDispatch} from '@/hooks.ts'
-import {useCreateDeckMutation} from '@/services/decks/decks.service.ts'
+import {useCreateDeckFormMutation, useCreateDeckMutation} from '@/services/decks/decks.service.ts'
 import {updateDecksCurrentPage} from '@/services/decks/decks.slice.ts'
 import {DialogAddPackImgUpload} from "@/components/ui/Dialogs/DialogAddPackImgUpload.tsx"
+import {fromBase64} from "@/components/ui/Dialogs/DialogAddNewCard/extra/cropFunctions.ts"
 
 export const DialogAddPack = (props: PropsType) => {
   const schema = z.object({
@@ -40,6 +41,7 @@ export const DialogAddPack = (props: PropsType) => {
 
   const dispatch = useAppDispatch()
   const [createDeck] = useCreateDeckMutation()
+  const [] = useCreateDeckFormMutation()
 
   const handleFormSubmitted = handleSubmit(values => {
     onAddDeck(values.packName)
@@ -53,8 +55,16 @@ export const DialogAddPack = (props: PropsType) => {
     formRef.current.submit()
   }
 
-  function onAddDeck(packName: string) {
+  async function onAddDeck(packName: string) {
     if (!packName) return
+    const formData = new FormData()
+    const deckCoverImg = await fromBase64(cropImg ? cropImg : '')
+    formData.append('name', packName)
+    // formData.append('isPrivate', isPrivate)
+    if (deckCoverImg) {
+      formData.append('cover', deckCoverImg)
+    }
+
     dispatch(updateDecksCurrentPage(1))
     createDeck({name: packName, isPrivate})
 

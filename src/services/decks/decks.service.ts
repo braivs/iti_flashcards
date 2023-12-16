@@ -39,7 +39,7 @@ export const decksService = baseApi.injectEndpoints({
       }),
       providesTags: ['CardsIdDeck'],
     }),
-    createDeck: builder.mutation<Deck, { name: string; isPrivate: boolean }>({
+    createDeck: builder.mutation<Deck, { name: string; isPrivate: boolean; cover?: File }>({
       query: data => ({
         url: `v1/decks`,
         method: 'POST',
@@ -75,7 +75,15 @@ export const decksService = baseApi.injectEndpoints({
           console.error(e)
         }
       },
-      invalidatesTags: ['Decks'], //todo: maybe del invalidate and same in other places
+      invalidatesTags: ['Decks'],
+    }),
+    createDeckForm: builder.mutation<Deck, { formData?: FormData }>({
+      query: formData => ({
+        url: `v1/decks`,
+        method: 'POST',
+        body: formData,
+      }),
+      invalidatesTags: ['Decks'],
     }),
     deleteDeck: builder.mutation<Deck, { id: string }>({
       query: data => ({
@@ -153,7 +161,8 @@ export const decksService = baseApi.injectEndpoints({
           console.error(e)
         }
       },
-      // invalidatesTags: ['CardsIdDeck'], // not works together with onQueryStarted
+      invalidatesTags: ['CardsIdDeck'], // not works together with onQueryStarted
+
       //todo: understand why it not works together
     }),
     getCard: builder.query<Card, { deckId: string }>({
@@ -183,6 +192,7 @@ export const {
   useGetCardQuery,
   usePostCardMutation,
   useUpdateDeckMutation,
+  useCreateDeckFormMutation
 } = decksService
 
 const resultConvert = (card: CreateCardInDeckResponse): Card => {

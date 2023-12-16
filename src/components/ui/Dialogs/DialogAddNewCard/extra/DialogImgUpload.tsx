@@ -5,10 +5,7 @@ import {onCrop} from "@/components/ui/Dialogs/DialogAddNewCard/extra/cropFunctio
 import {CropType} from "@/components/ui/Dialogs/DialogAddNewCard/extra/CropTypes.ts"
 import {onFileChange} from "@/common/functions.ts"
 import {canvaHeight, canvaWidth, minSliderValue} from "@/components/ui/Dialogs/DialogsCommon/DialogsCommonData.ts"
-import {
-  ComboCropImgDummyChangeCover,
-  ComboFileCropperSliderApprove
-} from "@/components/ui/Dialogs/DialogsCommon/DialogsCommonComponents.tsx"
+import {ComboChangeCoverDummyImgCropper} from "@/components/ui/Dialogs/DialogsCommon/DialogsCommonComponents.tsx"
 
 export const DialogImgUpload = (props: PropsType) => {
 
@@ -25,10 +22,11 @@ export const DialogImgUpload = (props: PropsType) => {
   const [cropAnswerArea, setCropAnswerArea] = useState<null | CropType>(null)
   const [sliderAnswerValue, setSliderAnswerValue] = useState<number[]>([minSliderValue])
 
-  const cropSuggestionTextQuestion = 'Plz select question img'
-  const cropSuggestionTextAnswer = 'Plz select answer img'
+  const cropSuggestionTextQuestion = 'Picture image'
+  const cropSuggestionTextAnswer = 'Answer image'
 
   const onFileQuestionChangeCallback = async (e: ChangeEvent<HTMLInputElement>) => {
+    props.setCropQuestionImg('')
     await onFileChange(e, setInputQuestionImg)
   }
 
@@ -53,6 +51,7 @@ export const DialogImgUpload = (props: PropsType) => {
   }
 
   const onFileAnswerChangeCallback = async (e: ChangeEvent<HTMLInputElement>) => {
+    props.setCropAnswerImg('')
     await onFileChange(e, setInputAnswerImg)
   }
 
@@ -102,31 +101,35 @@ export const DialogImgUpload = (props: PropsType) => {
       .then()
   }
 
+  const onCancelQuestion = () => {
+    setInputQuestionImg(undefined)
+  }
+
+  function onCancelAnswer() {
+    setInputAnswerImg(undefined)
+  }
+
   return (
     <>
       <Typography variant={'Body_2'}>Question:</Typography>
-      {
-        !isEditQuestionPicture
-          ? <ComboCropImgDummyChangeCover cropImg={props.cropQuestionImg} setIsEditPicture={setIsEditQuestionPicture} cropSuggestionText={cropSuggestionTextQuestion}/>
-          : <ComboFileCropperSliderApprove
-            file={ {cropImg: props.cropQuestionImg, isEditPicture: isEditQuestionPicture, onFileChangeCallback: onFileQuestionChangeCallback} }
-            inputImg={inputQuestionImg}
-            cropper={ {crop: cropQuestion, zoom: zoomQuestion, onCropChange: onCropQuestionChange, onCropComplete: onCropQuestionComplete, onZoomChange: onZoomQuestionChange} }
-            slider={ {sliderValue: sliderQuestionValue, sliderChangeHandler: sliderQuestionChangeHandler} }
-            onApprove={onApproveQuestion} cropSuggestionText={cropSuggestionTextQuestion}/>
-      }
+      <ComboChangeCoverDummyImgCropper
+        file={{cropImg: props.cropQuestionImg, isEditPicture: isEditQuestionPicture, onFileChangeCallback: onFileQuestionChangeCallback}}
+        inputImg={inputQuestionImg}
+        cropper={{crop: cropQuestion, zoom: zoomQuestion, onCropChange: onCropQuestionChange, onCropComplete: onCropQuestionComplete, onZoomChange: onZoomQuestionChange}}
+        slider={{sliderValue: sliderQuestionValue, sliderChangeHandler: sliderQuestionChangeHandler}}
+        onApprove={onApproveQuestion} cropSuggestionText={cropSuggestionTextQuestion}
+        onCancel={onCancelQuestion}
+      />
 
       <Typography variant={'Body_2'}>Answer:</Typography>
-      {
-        !isEditAnswerPicture
-          ? <ComboCropImgDummyChangeCover cropImg={props.cropAnswerImg} setIsEditPicture={setIsEditAnswerPicture} cropSuggestionText={cropSuggestionTextAnswer}/>
-          : <ComboFileCropperSliderApprove
-              file={ {cropImg: props.cropAnswerImg, isEditPicture: isEditAnswerPicture, onFileChangeCallback: onFileAnswerChangeCallback} }
-              inputImg={inputAnswerImg}
-              cropper={ {crop: cropAnswer, zoom: zoomAnswer, onCropChange: onCropAnswerChange, onCropComplete: onCropAnswerComplete, onZoomChange: onZoomAnswerChange} }
-              slider={ {sliderValue: sliderAnswerValue, sliderChangeHandler: sliderAnswerChangeHandler} }
-              onApprove={onApproveAnswer} cropSuggestionText={cropSuggestionTextAnswer}/>
-      }
+      <ComboChangeCoverDummyImgCropper
+        file={{cropImg: props.cropAnswerImg, isEditPicture: isEditAnswerPicture, onFileChangeCallback: onFileAnswerChangeCallback}}
+        inputImg={inputAnswerImg}
+        cropper={{crop: cropAnswer, zoom: zoomAnswer, onCropChange: onCropAnswerChange, onCropComplete: onCropAnswerComplete, onZoomChange: onZoomAnswerChange}}
+        slider={{sliderValue: sliderAnswerValue, sliderChangeHandler: sliderAnswerChangeHandler}}
+        onApprove={onApproveAnswer} cropSuggestionText={cropSuggestionTextAnswer}
+        onCancel={onCancelAnswer}
+      />
     </>
   )
 }

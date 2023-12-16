@@ -4,63 +4,27 @@ import {
   canvaHeight,
   canvaWidth,
   maxSliderValue,
-  minSliderValue, sliderStep
+  minSliderValue,
+  sliderStep
 } from "@/components/ui/Dialogs/DialogsCommon/DialogsCommonData.ts"
 import {SliderSingle} from "@/components/ui/SliderSingle/SliderSingle.tsx"
 import {Button} from "@/components/ui/Button"
-import {ChangeEvent} from "react"
+import {ChangeEvent, useRef} from "react"
 import s from "@/components/ui/Dialogs/DialogAddNewCard/DialogAddNewCard.module.scss"
 import imgUpload from "@/assets/icons/imgUpload.svg"
 import sT from "@/common/commonStyles/tables.module.scss"
 
-export const ComboFileCropperSliderApprove = (props: ComboFileCropperSliderApprovePropsType) => {
-  return (
-    <>
-      {(!props.file.cropImg || props.file.isEditPicture) &&
-          <input type="file" accept=".jpg, .jpeg, .png" onChange={props.file.onFileChangeCallback}/>}
-      {
-        props.inputImg
-          ? <>
-            <div className={sC.imgContainer}>
-              <Cropper
-                image={props.inputImg}
-                crop={props.cropper.crop}
-                zoom={props.cropper.zoom}
-                cropSize={{width: canvaWidth, height: canvaHeight}}
-                onCropChange={props.cropper.onCropChange}
-                onCropComplete={props.cropper.onCropComplete}
-                onZoomChange={props.cropper.onZoomChange}
-                minZoom={minSliderValue}
-                maxZoom={maxSliderValue}
-                zoomSpeed={sliderStep * 2}
-              />
-            </div>
-            <SliderSingle
-              defaultValue={minSliderValue}
-              min={minSliderValue}
-              max={maxSliderValue}
-              step={sliderStep}
-              value={props.slider.sliderValue[0]}
-              onValueChange={props.slider.sliderChangeHandler}
-            />
-            <Button onClick={props.onApprove}>Approve</Button>
-          </>
-          : <div className={sC.dummyImg}>{props.cropSuggestionText}</div>
-      }
-    </>
-  )
-}
+export const CustomFileUpload = (props: CustomFileUploadProps) => {
+  const inputFile = useRef<HTMLInputElement | null>(null)
+  const onButtonClick = () => {
+    inputFile.current?.click()
+  }
 
-export const ComboCropImgDummyChangeCover = (props: ComboCropImgDummyChangeCoverType) => {
   return (
     <>
-      {!props.cropImg
-        ? <div className={sC.dummyImg}>{props.cropSuggestionText}</div>
-        : <div className={sC.imgContainer}><img className={s.croppedImg} src={props.cropImg} alt="cropImg"/></div>
-      }
-      <Button variant="secondary" onClick={() => {
-        props.setIsEditPicture(true)
-      }} className={s.button}>
+      <input type="file" ref={inputFile} style={{display: 'none'}} accept=".jpg, .jpeg, .png"
+             onChange={props.onFileChangeCallback}/>
+      <Button variant="secondary" onClick={onButtonClick} className={s.button}>
         <img src={imgUpload} alt="trashIcon" className={sT.trashIcon}/>
         Change cover
       </Button>
@@ -68,7 +32,54 @@ export const ComboCropImgDummyChangeCover = (props: ComboCropImgDummyChangeCover
   )
 }
 
-type ComboFileCropperSliderApprovePropsType = {
+export const ComboChangeCoverDummyImgCropper = (props: ComboChangeCoverDummyImgCropperProps) => {
+
+  return (
+    <>
+      {
+       !props.inputImg
+            ? <div className={sC.dummyImg}>{props.cropSuggestionText}</div>
+            : <>
+           {
+             !props.file.cropImg
+               ? <>
+                 <div className={sC.imgContainer}>
+                   <Cropper
+                     image={props.inputImg}
+                     crop={props.cropper.crop}
+                     zoom={props.cropper.zoom}
+                     cropSize={{width: canvaWidth, height: canvaHeight}}
+                     onCropChange={props.cropper.onCropChange}
+                     onCropComplete={props.cropper.onCropComplete}
+                     onZoomChange={props.cropper.onZoomChange}
+                     minZoom={minSliderValue}
+                     maxZoom={maxSliderValue}
+                     zoomSpeed={sliderStep * 2}
+                   />
+                 </div>
+                 <SliderSingle
+                   defaultValue={minSliderValue}
+                   min={minSliderValue}
+                   max={maxSliderValue}
+                   step={sliderStep}
+                   value={props.slider.sliderValue[0]}
+                   onValueChange={props.slider.sliderChangeHandler}
+                 />
+                 <div className={sC.container}>
+                   <Button onClick={props.onApprove} variant="secondary" className={sC.halfButton}>Approve</Button>
+                   <Button onClick={props.onCancel} variant="secondary" className={sC.halfButton}>Cancel</Button>
+                 </div>
+               </>
+               : <div className={sC.imgContainer}><img className={s.croppedImg} src={props.file.cropImg} alt="cropImg"/></div>
+           }
+         </>
+      }
+      {(!props.inputImg || props.file.cropImg) && <CustomFileUpload onFileChangeCallback={props.file.onFileChangeCallback}/> }
+    </>
+  )
+}
+
+type ComboChangeCoverDummyImgCropperProps = {
   file: {
     cropImg: string | undefined
     isEditPicture: boolean
@@ -88,10 +99,9 @@ type ComboFileCropperSliderApprovePropsType = {
   }
   onApprove: () => void
   cropSuggestionText: string
+  onCancel: () => void
 }
 
-type ComboCropImgDummyChangeCoverType = {
-  cropImg: string | undefined
-  setIsEditPicture: (value: boolean) => void
-  cropSuggestionText: string
+type CustomFileUploadProps = {
+  onFileChangeCallback: (e: ChangeEvent<HTMLInputElement>) => void
 }
