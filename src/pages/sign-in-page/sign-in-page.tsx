@@ -5,6 +5,7 @@ import s from './sign-in-page.module.scss'
 import 'react-toastify/dist/ReactToastify.css'
 
 import { SignIn } from '@/components/auth/signIn-form'
+import { Loader } from '@/components/ui/Loader/Loader.tsx'
 import { useGetMeQuery, useLoginMutation } from '@/services/auth/auth.service.ts'
 import { LoginArgs } from '@/services/auth/auth.types.ts'
 
@@ -27,7 +28,7 @@ export const SignInPage = () => {
       })
   }
 
-  if (isMeLoading) return <div>Loading...</div>
+  if (isMeLoading) return <Loader />
   if (me && me?.success !== false) return <Navigate to="/" />
 
   return (

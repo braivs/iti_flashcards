@@ -11,6 +11,7 @@ import { Button } from '@/components/ui/Button'
 import { DialogAddPack } from '@/components/ui/Dialogs/DialogAddPack.tsx'
 import { DialogRemovePack } from '@/components/ui/Dialogs/DialogRemovePack.tsx'
 import { DialogUpdatePack } from '@/components/ui/Dialogs/DialogUpdatePack.tsx'
+import { Loader } from '@/components/ui/Loader/Loader.tsx'
 import { Pagination } from '@/components/ui/Pagination/Pagination.tsx'
 import { Slider } from '@/components/ui/Slider/slider.tsx'
 import { TabSwitcher } from '@/components/ui/TabSwitcher'
@@ -115,7 +116,7 @@ export const DecksPage = () => {
   }
 
   // logging
-  if (decksLoading) return <div>Loading...</div>
+  if (decksLoading) return <Loader />
   if (decksIsError) return <div>Error</div>
 
   return (

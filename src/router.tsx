@@ -8,6 +8,7 @@ import {
 
 import { Layout } from './layout'
 
+import { Loader } from '@/components/ui/Loader/Loader.tsx'
 import { CardsPage } from '@/pages/cards-page/cards-page.tsx'
 import { CheckEmailPage } from '@/pages/check-email-page/check-email-page.tsx'
 import { CreateNewPasswordPage } from '@/pages/create-new-password/create-new-password-page.tsx'
@@ -41,7 +42,7 @@ const publicRoutes: RouteObject[] = [
   {
     path: '/confirm-email/:token',
     element: <CreateNewPasswordPage />,
-  }
+  },
 ]
 
 const privateRoutes: RouteObject[] = [
@@ -54,7 +55,7 @@ const privateRoutes: RouteObject[] = [
     element: <PersonalInformationPage />,
   },
   {
-    path: '/learn/:deckTitle/:deckId',
+    path: '/learn/:deckId',
     element: <LearnModalPage />,
   },
   {
@@ -71,8 +72,8 @@ const privateRoutes: RouteObject[] = [
   },
   {
     path: '/cards/:deckId',
-    element: <CardsPage/>
-  }
+    element: <CardsPage />,
+  },
 ]
 
 const router = createBrowserRouter([
@@ -97,8 +98,7 @@ function PrivateRoutes() {
 
   const isAuthenticated = me && me?.success !== false
 
-  if (isMeLoading) return <div>Loading...</div>
+  if (isMeLoading) return <Loader />
 
-  debugger
   return isAuthenticated ? <Outlet /> : <Navigate to="/login" />
 }

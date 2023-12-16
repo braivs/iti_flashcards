@@ -1,14 +1,15 @@
-import sT from '@/common/commonStyles/tables.module.scss'
-import { Column, Table } from '@/components/ui/Table'
-import { Button } from '@/components/ui/Button'
 import { Link } from 'react-router-dom'
-import { formatDate } from '@/common/functions.ts'
-import { Play } from '@/assets/icons/Play.tsx'
+
 import { Edit } from '@/assets/icons/Edit.tsx'
+import { Play } from '@/assets/icons/Play.tsx'
 import { TrashHollow } from '@/assets/icons/TrashHollow.tsx'
+import sT from '@/common/commonStyles/tables.module.scss'
+import { formatDate } from '@/common/functions.ts'
+import { Button } from '@/components/ui/Button'
+import { Column, Table } from '@/components/ui/Table'
+import { useGetMeQuery } from '@/services/auth/auth.service.ts'
 import { Sort } from '@/services/common/types.ts'
 import { Deck } from '@/services/decks/deck.types.ts'
-import { useGetMeQuery } from '@/services/auth/auth.service.ts'
 
 export const DecksTable = (props: PropsType) => {
   const columns: Column[] = [
@@ -68,7 +69,7 @@ export const DecksTable = (props: PropsType) => {
                 <Table.Cell>{deck.author.name}</Table.Cell>
                 <Table.Cell>
                   <div className={sT.iconContainer}>
-                    <Button as={Link} variant={'link'} to={`learn/${deck.name}/${deck.id}`}>
+                    <Button as={Link} variant={'link'} to={`learn/${deck.id}`}>
                       <Play />
                     </Button>
                     {!isEditHidden(deck) && (

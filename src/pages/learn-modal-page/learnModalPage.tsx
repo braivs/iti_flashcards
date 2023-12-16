@@ -1,26 +1,24 @@
-import { Navigate, useLocation, useNavigate, useParams } from 'react-router-dom'
+import { Navigate, useNavigate, useParams } from 'react-router-dom'
 
 import s from './learnModalPage.module.scss'
 
+import { Loader } from '@/components/ui/Loader/Loader.tsx'
 import { LearnModal } from '@/components/ui/modal/LearnModal.tsx'
-import { useGetCardQuery, usePostCardMutation } from '@/services/decks/decks.service.ts'
+import {
+  useGetCardQuery,
+  useGetDeckByIdQuery,
+  usePostCardMutation,
+} from '@/services/decks/decks.service.ts'
 
 export const LearnModalPage = () => {
-  const params = useParams<'deckTitle' | 'deckId'>()
+  const params = useParams<'deckId'>()
   const navigate = useNavigate()
-  const location = useLocation()
 
   const [sendGrade, { isLoading: isPostCardLoading, data }] = usePostCardMutation()
+  const { data: deckData } = useGetDeckByIdQuery({ id: params?.deckId ?? '' })
 
-  const pathArray = location.pathname.split('/')
-  let deckId1, title
-
-  if (pathArray.length > 4) {
-    deckId1 = pathArray[pathArray.length - 1]
-
-    pathArray.pop()
-    title = decodeURI(pathArray.slice(2).join(''))
-  }
+  const title = deckData?.name ?? ''
+  const deckId1 = params.deckId
 
   const {
     data: dataGet,
@@ -33,7 +31,7 @@ export const LearnModalPage = () => {
   })
 
   if (isLoading || isFetching || isPostCardLoading) {
-    return <div>Loading...</div>
+    return <Loader />
   }
   console.log(error)
 
@@ -49,7 +47,7 @@ export const LearnModalPage = () => {
       {cardData && (
         <LearnModal
           id={cardData.id}
-          title={title || (params.deckTitle ? params.deckTitle : 'Title')}
+          title={title ? title : 'Title'}
           question={cardData.question}
           answer={cardData.answer}
           shots={cardData.shots}

@@ -59,7 +59,11 @@ export const PersonalInformation = ({
 
   const finalUrlAvatar = avatar ? avatar : defaultAva
 
-  const { handleSubmit, control } = useForm<FormValues>({
+  const {
+    handleSubmit,
+    control,
+    formState: { isDirty },
+  } = useForm<FormValues>({
     resolver: zodResolver(schema),
     defaultValues: {
       name: userName,
@@ -81,11 +85,16 @@ export const PersonalInformation = ({
   const handleFormSubmitted = handleSubmit(data => {
     const formData = new FormData()
 
-    if (data.name) {
-      formData.append('name', data.name)
+    if (!isDirty) {
+      setEditMode(!editMode)
+    } else {
+      if (data.name) {
+        formData.append('name', data.name)
+      }
+      onChangePersonalData && onChangePersonalData(formData)
+      setEditMode(!editMode)
     }
-    onChangePersonalData && onChangePersonalData(formData)
-    setEditMode(!editMode)
+
     //setFileCount(0)
   })
   const logoutHandler = () => {
