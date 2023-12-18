@@ -19,7 +19,7 @@ import { TabSwitcherValues } from '@/components/ui/TabSwitcher/TabSwitcher.tsx'
 import { Textfield } from '@/components/ui/Textfield'
 import { Typography } from '@/components/ui/Typography'
 import { useAppDispatch, useAppSelector } from '@/hooks.ts'
-import { DecksTable } from '@/pages/decks-page/DecksTable.tsx'
+import { DecksTable } from '@/pages/decks-page/DecksTable/DecksTable.tsx'
 import { maxCardsCountHard } from '@/pages/decks-page/maxCardsCount.tsx'
 import { useGetMeQuery } from '@/services/auth/auth.service.ts'
 import { Sort } from '@/services/common/types.ts'
@@ -154,7 +154,7 @@ export const DecksPage = () => {
             type={'search'}
             value={searchByName}
             onChange={e => dispatch(setSearchByName(e.currentTarget.value))}
-            placeholder={'Search...'}
+            placeholder={'PackName...'}
           />
         </div>
         <TabSwitcher

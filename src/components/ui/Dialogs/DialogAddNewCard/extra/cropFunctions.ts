@@ -3,7 +3,6 @@ import { CropType } from '@/components/ui/Dialogs/DialogAddNewCard/extra/CropTyp
 export const fromBase64 = (url: string) => {
   //todo: fix fileName
   if (url.length === 0) return
-  console.log('url: ', url)
   const ext = url.split(';')[0].split('/')[1]
 
   return fetch(url)
