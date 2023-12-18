@@ -173,6 +173,7 @@ export const DecksPage = () => {
           min={0}
           max={decks?.maxCardsCount || maxCardsCountHard}
           minStepsBetweenThumbs={1}
+          title={'Number of cards'}
         />
         <Button variant="secondary" onClick={filterHandler}>
           <img src={trashIcon} alt="trashIcon" className={sT.trashIcon} />

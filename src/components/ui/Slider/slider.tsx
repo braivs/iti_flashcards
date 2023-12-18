@@ -4,20 +4,33 @@ import * as SliderPrimitive from '@radix-ui/react-slider'
 import { clsx } from 'clsx'
 
 import s from './slider.module.scss'
+import {Typography} from "@/components/ui/Typography"
 
 export const Slider = forwardRef<
   ElementRef<typeof SliderPrimitive.Root>,
   ComponentPropsWithoutRef<typeof SliderPrimitive.Root>
->(({ className, name, max, ...props }, ref) => (
-  <div className={s.container}>
-    <span className={s.value}>{props?.value?.[0]}</span>
-    <SliderPrimitive.Root ref={ref} className={clsx(s.root, className)} {...props}>
-      <SliderPrimitive.Track className={s.track}>
-        <SliderPrimitive.Range className={s.range} />
-      </SliderPrimitive.Track>
-      <SliderPrimitive.Thumb className={s.thumb} />
-      <SliderPrimitive.Thumb className={s.thumb} />
-    </SliderPrimitive.Root>
-    <span className={s.value}>{max}</span>
-  </div>
+>(({ className, name, max, title, ...props }, ref) => (
+    <div>
+        {title && (
+            <Typography variant={'Body_2'} as={'label'}>
+                {title}
+            </Typography>
+        )}
+        <div className={s.container}>
+            <div>
+                <span className={s.value}>{props?.value?.[0]}</span>
+            </div>
+            <SliderPrimitive.Root ref={ref} className={clsx(s.root, className)} {...props}>
+                <SliderPrimitive.Track className={s.track}>
+                    <SliderPrimitive.Range className={s.range}/>`
+                </SliderPrimitive.Track>
+                <SliderPrimitive.Thumb className={s.thumb}/>
+                <SliderPrimitive.Thumb className={s.thumb}/>
+            </SliderPrimitive.Root>
+            <div>
+                <span className={s.value}>{max}</span>
+            </div>
+        </div>
+    </div>
+
 ))

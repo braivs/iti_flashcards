@@ -1,22 +1,19 @@
-.conteiner {
-  gap: 30px;
+@use '../../../common/mixins';
 
-  //padding: 6px 24px;
+
+
+.container {
+  @include mixins.flex($flexDirection: column)
 }
 
 .TabsRoot {
   display: flex;
   justify-content: space-between;
+  margin-top: 5px;
 }
 
 .TypBox {
   position: relative;
-}
-
-.TabLabel {
-  position: absolute;
-  top: -20px;
-  right: 0;
 }
 
 .TabsList {

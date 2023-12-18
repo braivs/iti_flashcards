@@ -39,7 +39,7 @@ export const Checkbox: FC<CheckboxProps> = ({
 
   return (
     <div className={classNames.container}>
-      <LabelRadix.Root>
+      <LabelRadix.Root asChild>
         <Typography variant="Body_2" className={classNames.label} as={'label'}>
           <div className={classNames.buttonWrapper}>
             <CheckboxRadix.Root

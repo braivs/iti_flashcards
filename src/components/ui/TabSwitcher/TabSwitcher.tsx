@@ -6,10 +6,10 @@ import { Typography } from '@/components/ui/Typography'
 
 export const TabSwitcher = (props: PropsType) => {
   return (
-    <div className={s.conteiner}>
+    <div className={s.container}>
       <div className={s.TypBox}>
         {props.label && (
-          <Typography variant={'Body_2'} className={s.TabLabel}>
+          <Typography variant={'Body_2'} as={'label'}>
             {props.label}
           </Typography>
         )}
