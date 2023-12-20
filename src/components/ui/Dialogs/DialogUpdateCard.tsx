@@ -12,12 +12,8 @@ import { useUpdateCardMutation } from '@/services/cards/cards.service.ts'
 
 export const DialogUpdateCard = (props: PropsType) => {
   const schema = z.object({
-    //questionImg: z.string(),
-    // answerImg: z.string(),
     question: z.string().min(2).max(500),
     answer: z.string().min(2).max(500),
-    // questionVideo: z.string(),
-    // answerVideo: z.string(),
   })
 
   type FormValues = z.input<typeof schema>
@@ -31,12 +27,8 @@ export const DialogUpdateCard = (props: PropsType) => {
     mode: 'onSubmit',
     resolver: zodResolver(schema),
     defaultValues: {
-      // questionImg: '',
-      // answerImg: '',
       question: props.selectedCard.question,
       answer: props.selectedCard.answer,
-      // questionVideo: '',
-      // answerVideo: '',
     },
   })
 
@@ -58,16 +50,31 @@ export const DialogUpdateCard = (props: PropsType) => {
   }
 
   const onUpdateCard = (question: string, answer: string) => {
-    if (!question || !answer || !props.id) return
-    updateCard({
-      id: props.id,
-      data: {
-        question,
-        answer,
-      },
-    })
-    props.setOpen(false)
+    if (!question || !answer || !props.id) return;
+
+    // Check if either question or answer has changed
+    const isQuestionChanged = props.question !== question;
+    const isAnswerChanged = props.answer !== answer;
+
+    if (isQuestionChanged || isAnswerChanged) {
+      // Prepare the data object with only the changed properties
+      const updatedData: { question?: string; answer?: string } = {};
+      if (isQuestionChanged) {
+        updatedData.question = question;
+      }
+      if (isAnswerChanged) {
+        updatedData.answer = answer;
+      }
+
+      updateCard({
+        id: props.id,
+        data: updatedData,
+      });
+    }
+
+    props.setOpen(false);
   }
+
   const onClose = () => {
     reset()
     props.setOpen(false)
@@ -75,7 +82,7 @@ export const DialogUpdateCard = (props: PropsType) => {
 
   return (
     <DialogsParrent
-      title={'Eddite Card'}
+      title={'Edite Card'}
       open={props.open}
       setOpen={onClose}
       onButtonAction={onSubmitEmulation}

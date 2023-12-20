@@ -77,10 +77,11 @@ export type CreateCardInDeckType = {
 }
 
 export type UpdateDeck = {
-  cover: string
-  name: string
+  cover?: string
+  name?: string
   isPrivate?: boolean
 }
+
 export type Card = {
   id: string
   deckId: string
@@ -112,8 +113,8 @@ export type CreateCardInDeckResponse = Omit<Card, 'grade'> & {
 export type UpdateCard = {
   questionImg?: string | null
   answerImg?: string | null
-  question: string
-  answer: string
+  question?: string
+  answer?: string
   questionVideo?: string | null
   answerVideo?: string | null
 }
