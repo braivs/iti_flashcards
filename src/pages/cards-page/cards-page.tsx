@@ -7,6 +7,7 @@ import s from './cards-page.module.scss'
 import arrowLeft from '@/assets/icons/ArrowLeft.svg'
 import sC from '@/common/commonStyles/common.module.scss'
 import sT from '@/common/commonStyles/tables.module.scss'
+import { sortStringCallback } from '@/common/functions.ts'
 import { CardsOrderBy, SelectedCard, SelectedCardUpdate } from '@/common/types.ts'
 import { paginationSelectValues } from '@/common/values.ts'
 import { Button } from '@/components/ui/Button'
@@ -16,8 +17,8 @@ import { DialogUpdateCard } from '@/components/ui/Dialogs/DialogUpdateCard.tsx'
 import { Pagination } from '@/components/ui/Pagination'
 import { Typography } from '@/components/ui/Typography'
 import { useAppDispatch, useAppSelector } from '@/hooks.ts'
+import { CardsTable } from '@/pages/cards-page/CardsTable.tsx'
 import { useGetMeQuery } from '@/services/auth/auth.service.ts'
-import { sortStringCallback } from '@/common/functions.ts'
 import {
   setCardId,
   setCardsItemsPerPage,
@@ -26,7 +27,6 @@ import {
 } from '@/services/cards/cards.slice.ts'
 import { Sort } from '@/services/common/types.ts'
 import { useGetCardsInDeckQuery, useGetDeckByIdQuery } from '@/services/decks/decks.service.ts'
-import { CardsTable } from '@/pages/cards-page/CardsTable.tsx'
 
 export const CardsPage = () => {
   const { currentPage, itemsPerPage, orderBy } = useAppSelector(state => state.cards)

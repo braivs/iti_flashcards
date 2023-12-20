@@ -14,7 +14,7 @@ type Story = StoryObj<typeof Slider>
 
 export const SliderExample: Story = {
   render: args => {
-    const [value, setValue] = useState([1, 12])
+    const [value, setValue] = useState([1, 15])
 
     return (
       <Slider
@@ -24,13 +24,13 @@ export const SliderExample: Story = {
         step={1}
         defaultValue={value}
         min={1}
-        max={12}
+        max={15}
         minStepsBetweenThumbs={1}
       />
     )
   },
   args: {
-    defaultValue: [1],
+    defaultValue: [2, 8],
     value: [1, 10],
     onValueChange: () => {},
     step: 1,

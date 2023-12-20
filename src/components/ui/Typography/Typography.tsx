@@ -23,7 +23,11 @@ export const Typography = <T extends ElementType = 'p'>(
     }
   }
 
-  return props.as ? <Component className={classNames}>{props.children}</Component> : <>{tagSelector()}</>
+  return props.as ? (
+    <Component className={classNames}>{props.children}</Component>
+  ) : (
+    <>{tagSelector()}</>
+  )
 }
 
 type PropsType<T extends ElementType> = {

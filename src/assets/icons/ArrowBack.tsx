@@ -1,10 +1,7 @@
 import { FC } from 'react'
 
 import { IconColorsProps } from '@/assets/icons/IconColorPropsType.ts'
-export const ArrowBack: FC<IconColorsProps> = ({
-  color = '#000',
-  className,
-}: IconColorsProps) => {
+export const ArrowBack: FC<IconColorsProps> = ({ color = '#000', className }: IconColorsProps) => {
   return (
     // <svg
     //   xmlns="http://www.w3.org/2000/svg"

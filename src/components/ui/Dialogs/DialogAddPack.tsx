@@ -1,18 +1,18 @@
-import {Dispatch, SetStateAction, useRef, useState} from 'react'
+import { Dispatch, SetStateAction, useRef, useState } from 'react'
 
-import {zodResolver} from '@hookform/resolvers/zod'
-import {useForm} from 'react-hook-form'
-import {z} from 'zod'
+import { zodResolver } from '@hookform/resolvers/zod'
+import { useForm } from 'react-hook-form'
+import { z } from 'zod'
 
-import {Checkbox} from '@/components/ui/Checkbox'
-import {ControlledTextField} from '@/components/ui/controlled/controlled-text-field'
+import { Checkbox } from '@/components/ui/Checkbox'
+import { ControlledTextField } from '@/components/ui/controlled/controlled-text-field'
+import { fromBase64 } from '@/components/ui/Dialogs/DialogAddNewCard/extra/cropFunctions.ts'
+import { DialogAddPackImgUpload } from '@/components/ui/Dialogs/DialogAddPackImgUpload.tsx'
 import sC from '@/components/ui/Dialogs/DialogsParrent/DialogsParrent.module.scss'
-import {DialogsParrent} from '@/components/ui/Dialogs/DialogsParrent/DialogsParrent.tsx'
-import {useAppDispatch} from '@/hooks.ts'
-import {useCreateDeckMutation} from '@/services/decks/decks.service.ts'
-import {updateDecksCurrentPage} from '@/services/decks/decks.slice.ts'
-import {DialogAddPackImgUpload} from "@/components/ui/Dialogs/DialogAddPackImgUpload.tsx"
-import {fromBase64} from "@/components/ui/Dialogs/DialogAddNewCard/extra/cropFunctions.ts"
+import { DialogsParrent } from '@/components/ui/Dialogs/DialogsParrent/DialogsParrent.tsx'
+import { useAppDispatch } from '@/hooks.ts'
+import { useCreateDeckMutation } from '@/services/decks/decks.service.ts'
+import { updateDecksCurrentPage } from '@/services/decks/decks.slice.ts'
 
 export const DialogAddPack = (props: PropsType) => {
   const schema = z.object({
@@ -25,7 +25,7 @@ export const DialogAddPack = (props: PropsType) => {
     handleSubmit,
     control,
     reset,
-    formState: {errors},
+    formState: { errors },
   } = useForm<FormValues>({
     mode: 'onSubmit',
     resolver: zodResolver(schema),
@@ -58,13 +58,14 @@ export const DialogAddPack = (props: PropsType) => {
     if (!packName) return
     const formData = new FormData()
     const deckCoverImg = await fromBase64(cropImg ? cropImg : '')
+
     formData.append('name', packName)
     formData.append('isPrivate', JSON.stringify(isPrivate))
     if (deckCoverImg) {
       formData.append('cover', deckCoverImg)
     }
     dispatch(updateDecksCurrentPage(1))
-    createDeckForm({formData})
+    createDeckForm({ formData })
     props.setOpen(false)
   }
 
@@ -83,7 +84,9 @@ export const DialogAddPack = (props: PropsType) => {
       isButtonDisable={Object.keys(errors).length > 0}
     >
       <div className={sC.DialogDescription}>
-        <div className={sC.dialogElement}><DialogAddPackImgUpload cropImg={cropImg} setCropImg={setCropImg}/></div>
+        <div className={sC.dialogElement}>
+          <DialogAddPackImgUpload cropImg={cropImg} setCropImg={setCropImg} />
+        </div>
         <div className={sC.dialogElement}>
           <form ref={formRef}>
             <ControlledTextField
@@ -95,9 +98,8 @@ export const DialogAddPack = (props: PropsType) => {
           </form>
         </div>
         <div className={sC.dialogElement}>
-          <Checkbox label={'Private pack'} checked={isPrivate} onValueChange={setIsPrivate}/>
+          <Checkbox label={'Private pack'} checked={isPrivate} onValueChange={setIsPrivate} />
         </div>
-
       </div>
     </DialogsParrent>
   )

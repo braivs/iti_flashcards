@@ -1,15 +1,21 @@
-import {ChangeEvent, useCallback, useState} from "react"
-import {onFileChange} from "@/common/functions.ts"
-import {Area, Point} from "react-easy-crop"
-import {canvaHeight, canvaWidth, minSliderValue} from "@/components/ui/Dialogs/DialogsCommon/DialogsCommonData.ts"
-import {CropType} from "@/components/ui/Dialogs/DialogAddNewCard/extra/CropTypes.ts"
-import {onCrop} from "@/components/ui/Dialogs/DialogAddNewCard/extra/cropFunctions.ts"
-import {ComboChangeCoverDummyImgCropper} from "@/components/ui/Dialogs/DialogsCommon/DialogsCommonComponents.tsx"
+import { ChangeEvent, useCallback, useState } from 'react'
+
+import { Area, Point } from 'react-easy-crop'
+
+import { onFileChange } from '@/common/functions.ts'
+import { onCrop } from '@/components/ui/Dialogs/DialogAddNewCard/extra/cropFunctions.ts'
+import { CropType } from '@/components/ui/Dialogs/DialogAddNewCard/extra/CropTypes.ts'
+import { ComboChangeCoverDummyImgCropper } from '@/components/ui/Dialogs/DialogsCommon/DialogsCommonComponents.tsx'
+import {
+  canvaHeight,
+  canvaWidth,
+  minSliderValue,
+} from '@/components/ui/Dialogs/DialogsCommon/DialogsCommonData.ts'
 
 export const DialogAddPackImgUpload = (props: PropsType) => {
   const [isEditPicture, setIsEditPicture] = useState(false)
   const [inputImg, setInputImg] = useState<undefined | string>(undefined)
-  const [crop, setCrop] = useState<Point>({x: 0, y: 0})
+  const [crop, setCrop] = useState<Point>({ x: 0, y: 0 })
   const [zoom, setZoom] = useState(minSliderValue)
   const [cropArea, setCropArea] = useState<null | CropType>(null)
   const [sliderValue, setSliderValue] = useState<number[]>([minSliderValue])
@@ -32,7 +38,7 @@ export const DialogAddPackImgUpload = (props: PropsType) => {
         x: croppedAreaPixels.x,
         y: croppedAreaPixels.y,
         width: croppedAreaPixels.width,
-        height: croppedAreaPixels.height
+        height: croppedAreaPixels.height,
       })
     },
     []
@@ -50,8 +56,7 @@ export const DialogAddPackImgUpload = (props: PropsType) => {
 
   function onApprove() {
     setIsEditPicture(false)
-    onCrop(cropArea, inputImg, canvaWidth, canvaHeight, props.setCropImg)
-      .then()
+    onCrop(cropArea, inputImg, canvaWidth, canvaHeight, props.setCropImg).then()
   }
 
   const onCancel = () => {
@@ -60,10 +65,10 @@ export const DialogAddPackImgUpload = (props: PropsType) => {
 
   return (
     <ComboChangeCoverDummyImgCropper
-      file={{cropImg: props.cropImg, isEditPicture, onFileChangeCallback}}
+      file={{ cropImg: props.cropImg, isEditPicture, onFileChangeCallback }}
       inputImg={inputImg}
-      cropper={{crop, zoom, onCropChange, onCropComplete, onZoomChange}}
-      slider={{sliderValue, sliderChangeHandler}}
+      cropper={{ crop, zoom, onCropChange, onCropComplete, onZoomChange }}
+      slider={{ sliderValue, sliderChangeHandler }}
       onApprove={onApprove}
       cropSuggestionText={cropSuggestionText}
       onCancel={onCancel}

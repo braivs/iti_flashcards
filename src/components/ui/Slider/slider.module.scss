@@ -1,67 +1,63 @@
 .container {
-    margin-top: 5px;
-    display: flex;
+  margin-top: 5px;
+  display: flex;
 
+  align-items: center;
+  justify-content: center;
+
+  width: 251px;
+  height: 36px;
+
+  .value {
+    display: flex;
     align-items: center;
     justify-content: center;
 
-    width: 251px;
+    width: 36px;
     height: 36px;
 
-    .value {
-        display: flex;
-        align-items: center;
-        justify-content: center;
+    text-align: center;
 
-        width: 36px;
-        height: 36px;
+    border: 1px solid var(--color-dark-300);
+  }
 
-        text-align: center;
+  .root {
+    position: relative;
+    display: flex;
+    align-items: center;
+    width: 100%;
+    margin: 0 12px;
+    user-select: none;
+  }
 
-        border: 1px solid var(--color-dark-300);
-    }
+  .track {
+    position: relative;
 
-    .root {
-        position: relative;
-        display: flex;
-        align-items: center;
-        width: 100%;
-        margin: 0 12px;
-    }
+    width: 100%;
+    height: 4px;
+    opacity: 0.5;
+    background-color: var(--color-accent-500);
+    border-radius: 12px;
+  }
 
-    .track {
-        position: relative;
+  .range {
+    position: absolute;
+    height: 100%;
+    background-color: var(--color-accent-500);
+  }
 
-        width: 100%;
-        height: 4px;
+  .thumb {
+    touch-action: pan-x;
+    cursor: pointer;
 
-        opacity: 0.5;
-        background-color: var(--color-accent-500);
-        border-radius: 12px;
+    display: block;
 
+    width: 16px;
+    height: 16px;
 
-    }
+    background-color: var(--color-light-100);
+    border-radius: 9999px;
 
-    .range {
-        position: absolute;
-        height: 100%;
-        background-color: var(--color-accent-500);
-    }
-
-    .thumb {
-        touch-action: pan-x;
-        cursor: pointer;
-
-        display: block;
-
-        width: 16px;
-        height: 16px;
-
-        background-color: var(--color-light-100);
-        border-radius: 9999px;
-
-        transition: transform 0.2s ease-in-out;
-    }
-
+    transition: transform 0.2s ease-in-out;
+  }
 }
-

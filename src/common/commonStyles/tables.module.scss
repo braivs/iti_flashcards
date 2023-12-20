@@ -1,6 +1,7 @@
 .component {
   width: 100%;
   max-width: 1024px;
+  //padding: 0 20px;
 
   .topContainer,
   .middleContainer {
@@ -32,7 +33,6 @@
       width: 150px;
       height: 36.8px;
     }
-
   }
 
   .container {

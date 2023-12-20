@@ -38,7 +38,7 @@ export const DecksPage = () => {
     useAppSelector(state => state.decks)
 
   const [sort, setSort] = useState<Sort>(null) // for sorting cells in table
-  const [sliderValue, setSliderValue] = useState([0])
+  const [sliderValue, setSliderValue] = useState([cardsCounts[0], cardsCounts[1]])
 
   const [selectedDeck, setSelectedDeck] = useState<SelectedDeck>({
     id: '',
@@ -166,7 +166,7 @@ export const DecksPage = () => {
         />
         <Slider
           value={sliderValue}
-          defaultValue={[1]}
+          defaultValue={[1, 12]}
           onValueChange={setSliderValue}
           onValueCommit={sliderChangeHandler}
           step={1}
