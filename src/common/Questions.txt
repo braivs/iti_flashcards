@@ -1,5 +1,5 @@
 Hi. This is common files with questions. Maybe I (Braivs) or somebody else will solve this later :)
 
--decks.service.ts: invalidatesTags: ['CardsIdDeck'] not works together with onQueryStarted
+-decks.service.ts: invalidatesTags: ['CardsInDeck'] not works together with onQueryStarted
 -How to separate callbacks to cropFunctions
 -How to separate onQueryStarted to function?

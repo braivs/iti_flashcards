@@ -1,4 +1,5 @@
-import { DecksOrderBy } from '@/common/types.ts'
+import {DecksOrderBy} from '@/common/types.ts'
+import {Card} from "@/services/cards/cards.types.ts"
 
 export type Author = {
   id: string
@@ -67,35 +68,10 @@ export type GetCardsInDeckParams = {
   itemsPerPage?: number
 }
 
-export type CreateCardInDeckType = {
-  question: string
-  answer: string
-  questionImg?: string
-  answerImg?: string
-  questionVideo?: string
-  answerVideo?: string
-}
-
 export type UpdateDeck = {
   cover?: string
   name?: string
   isPrivate?: boolean
-}
-
-export type Card = {
-  id: string
-  deckId: string
-  userId: string
-  answer: string
-  answerImg: string | null
-  answerVideo: string | null
-  created: string
-  grade: number
-  question: string
-  questionImg: string | null
-  questionVideo: string | null
-  shots: number
-  updated: string
 }
 
 export type GetCardsInDeckResponse = {
@@ -108,15 +84,6 @@ export type CreateCardInDeckResponse = Omit<Card, 'grade'> & {
   moreId: string | null
   rating: number
   type: string | null
-}
-
-export type UpdateCard = {
-  questionImg?: string | null
-  answerImg?: string | null
-  question?: string
-  answer?: string
-  questionVideo?: string | null
-  answerVideo?: string | null
 }
 
 export type DeckLearnArg = {

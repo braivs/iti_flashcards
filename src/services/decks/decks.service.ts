@@ -2,7 +2,6 @@ import { omit } from 'remeda'
 
 import { baseApi } from '@/services/base-api.ts'
 import {
-  Card,
   CreateCardInDeckResponse,
   Deck,
   DeckByIdResponse,
@@ -14,6 +13,7 @@ import {
   UpdateDeck,
 } from '@/services/decks/deck.types.ts'
 import { RootState } from '@/services/store.ts'
+import {Card} from "@/services/cards/cards.types.ts"
 
 export const decksService = baseApi.injectEndpoints({
   endpoints: builder => ({
@@ -37,7 +37,7 @@ export const decksService = baseApi.injectEndpoints({
         method: 'GET',
         params: { ...params },
       }),
-      providesTags: ['CardsIdDeck'],
+      providesTags: ['CardsInDeck'],
     }),
     createDeck: builder.mutation<Deck, { formData: FormData }>({
       query: ({ formData }) => ({
@@ -153,7 +153,7 @@ export const decksService = baseApi.injectEndpoints({
           console.error(e)
         }
       },
-      invalidatesTags: ['CardsIdDeck'], // not works together with onQueryStarted
+      invalidatesTags: ['CardsInDeck'], // not works together with onQueryStarted
 
       //todo: understand why it not works together
     }),

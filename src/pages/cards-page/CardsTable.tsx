@@ -6,7 +6,8 @@ import { Button } from '@/components/ui/Button'
 import { Grade } from '@/components/ui/Rating/rating.tsx'
 import { Column, Table } from '@/components/ui/Table'
 import { Sort } from '@/services/common/types.ts'
-import { Card } from '@/services/decks/deck.types.ts'
+
+import {Card} from "@/services/cards/cards.types.ts"
 
 export const CardsTable = (props: PropsType) => {
   const columns: Column[] = [

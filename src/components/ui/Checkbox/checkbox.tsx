@@ -57,7 +57,7 @@ export const Checkbox: FC<CheckboxProps> = ({
               )}
             </CheckboxRadix.Root>
           </div>
-          {label}
+          <div className={s.label}>{label}</div>
         </Typography>
       </LabelRadix.Root>
     </div>

@@ -99,7 +99,7 @@ export const Pagination = (props: PropsType) => {
             isGreyColor={true}
           />
         </div>
-        <span className={s.label2}>cards per page</span>
+        <span className={s.label2}>decks per page</span>
       </div>
     </div>
   )
