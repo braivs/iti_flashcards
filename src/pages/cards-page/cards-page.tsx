@@ -131,7 +131,7 @@ export const CardsPage = () => {
       <div className={sT.topContainer}>
         <Typography variant={'H1'}>{data?.name}</Typography>
         {data?.cardsCount !== 0 && (
-          <Button disabled={isEditHidden} onClick={onAddCard}>
+          <Button disabled={isEditHidden} onClick={onAddCard} className={s.button}>
             Add New Card
           </Button>
         )}
