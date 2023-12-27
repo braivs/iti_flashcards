@@ -5,6 +5,7 @@ import { formatDate } from '@/common/functions.ts'
 import { Button } from '@/components/ui/Button'
 import { Grade } from '@/components/ui/Rating/rating.tsx'
 import { Column, Table } from '@/components/ui/Table'
+import { Tooltip } from '@/components/ui/Tooltip/Tooltip'
 import { Sort } from '@/services/common/types.ts'
 
 import {Card} from "@/services/cards/cards.types.ts"
@@ -61,7 +62,7 @@ export const CardsTable = (props: PropsType) => {
                 )}{' '}
                 {/*TODO ask a question mentor */}
                 {data.question.length > 30 ? (
-                  <div title={data.question}>{data.question}</div>
+                  <Tooltip triggerData={data.question} />
                 ) : (
                   <div>{data.question}</div>
                 )}
@@ -75,7 +76,7 @@ export const CardsTable = (props: PropsType) => {
                 )}{' '}
                 {/*TODO ask a question mentor */}
                 {data.answer.length > 30 ? (
-                  <div title={data.answer}>{data.answer}</div>
+                  <Tooltip triggerData={data.answer} />
                 ) : (
                   <div>{data.answer}</div>
                 )}
