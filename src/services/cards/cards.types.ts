@@ -13,11 +13,15 @@ export type Card = {
     shots: number
     updated: string
 }
-export type UpdateCard = {
+type UpdateCardData = {
     questionImg?: string | null
     answerImg?: string | null
     question?: string
     answer?: string
     questionVideo?: string | null
     answerVideo?: string | null
+}
+export type UpdateCardArgs = {
+    id: string
+    data: UpdateCardData
 }
