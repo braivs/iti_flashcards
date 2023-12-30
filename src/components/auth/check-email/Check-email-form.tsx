@@ -19,6 +19,11 @@ export const CheckEmailForm = () => {
 
   const { state } = useLocation()
   const { email } = state
+      ? state
+      : {email: 'example@email.com'} // for storybook
+
+  console.log('state', state)
+  console.log('email', email)
 
   return (
     <Card className={formClassNames.cardStyle}>
