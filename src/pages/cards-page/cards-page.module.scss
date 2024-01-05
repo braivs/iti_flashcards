@@ -1,5 +1,5 @@
-.cell {
-}
+@use '../../common/mixins';
+
 
 .emptyPackContainer {
   text-align: center;
@@ -28,4 +28,8 @@
 
 .button {
   height: 36px;
+}
+
+.loaderContainer {
+  @include mixins.flex($justifyContent: center, $alignItems: flex-start);
 }

@@ -27,13 +27,14 @@ import {
 } from '@/services/cards/cards.slice.ts'
 import { Sort } from '@/services/common/types.ts'
 import { useGetCardsInDeckQuery, useGetDeckByIdQuery } from '@/services/decks/decks.service.ts'
+import {Loader} from "@/components/ui/Loader/Loader.tsx"
 
 export const CardsPage = () => {
   const { currentPage, itemsPerPage, orderBy } = useAppSelector(state => state.cards)
 
   let { deckId } = useParams()
   const { data } = useGetDeckByIdQuery({ id: deckId ? deckId : '' })
-  const { data: cards } = useGetCardsInDeckQuery({
+  const { data: cards, isLoading } = useGetCardsInDeckQuery({
     itemsPerPage: +itemsPerPage,
     id: deckId ? deckId : '',
     currentPage,
@@ -97,6 +98,11 @@ export const CardsPage = () => {
     setIsAddNewCardDialogOpen(true)
   }
 
+  const isEmptyPack = (): boolean => {
+    return cards?.items.length === 0
+  }
+
+
   return (
     <div className={sT.component}>
       {isDeleteDialogOpen && (
@@ -128,57 +134,66 @@ export const CardsPage = () => {
         <img src={arrowLeft} alt="arrowLeft" />
         <span className={s.text}>Back to Packs List</span>
       </div>
-      <div className={sT.topContainer}>
-        <Typography variant={'H1'}>{data?.name}</Typography>
-        {data?.cardsCount !== 0 && (
-          <Button disabled={isEditHidden} onClick={onAddCard} className={s.button}>
-            Add New Card
-          </Button>
-        )}
-      </div>
-      {cards && cards.items.length === 0 ? (
-        <div className={s.emptyPackContainer}>
-          <Typography variant={'Subtitle_2'} className={s.Subtitle_2}>
-            This pack is empty.
-            {!isEditHidden ? (
-              <span> Click add new card to fill this pack</span>
-            ) : (
-              <span> You can&apos;t create cards in a deck that you don&apos;t own.</span>
-            )}
-          </Typography>
-          <Button onClick={onAddCard} disabled={isEditHidden}>
-            Add New Card
-          </Button>
-        </div>
-      ) : (
-        <>
-          <div className={sT.container}>
-            <CardsTable
-              sort={sort}
-              setSort={setSort}
-              items={cards?.items}
-              isEditHidden={isEditHidden}
-              onSelectCardForUpdate={onSelectCardForUpdate}
-              onSelectCardForDel={onSelectCardForDel}
-            />
-          </div>
 
-          <div className={sC.paginationContainer}>
-            <Pagination
-              onPageChange={updateCardsCurrentPageCallback}
-              totalCount={cards?.pagination.totalItems ?? 0}
-              currentPage={currentPage}
-              pageSize={+itemsPerPage}
-              siblingCount={2}
-              selectSettings={{
-                value: itemsPerPage,
-                onChangeOption: setCardsItemsPerPageCallback,
-                arr: paginationSelectValues,
-              }}
-            />
-          </div>
-        </>
-      )}
+      {
+        isLoading
+            ? <div className={s.loaderContainer}><Loader /></div>
+            : <>
+              <div className={sT.topContainer}>
+                <Typography variant={'H1'}>{data?.name}</Typography>
+                {!isEmptyPack() &&
+                    <Button disabled={isEditHidden} onClick={onAddCard} className={s.button}>
+                      Add New Card
+                    </Button>
+                }
+              </div>
+              {isEmptyPack() ? (
+                  <div className={s.emptyPackContainer}>
+                    <Typography variant={'Subtitle_2'} className={s.Subtitle_2}>
+                      This pack is empty.
+                      {!isEditHidden ? (
+                          <span> Click add new card to fill this pack</span>
+                      ) : (
+                          <span> You can&apos;t create cards in a deck that you don&apos;t own.</span>
+                      )}
+                    </Typography>
+                    <Button onClick={onAddCard} disabled={isEditHidden}>
+                      Add New Card
+                    </Button>
+                  </div>
+              ) : (
+                  <>
+                    <div className={sT.container}>
+                      <CardsTable
+                          sort={sort}
+                          setSort={setSort}
+                          items={cards?.items}
+                          isEditHidden={isEditHidden}
+                          onSelectCardForUpdate={onSelectCardForUpdate}
+                          onSelectCardForDel={onSelectCardForDel}
+                      />
+                    </div>
+
+                    <div className={sC.paginationContainer}>
+                      <Pagination
+                          onPageChange={updateCardsCurrentPageCallback}
+                          totalCount={cards?.pagination.totalItems ?? 0}
+                          currentPage={currentPage}
+                          pageSize={+itemsPerPage}
+                          siblingCount={2}
+                          selectSettings={{
+                            value: itemsPerPage,
+                            onChangeOption: setCardsItemsPerPageCallback,
+                            arr: paginationSelectValues,
+                          }}
+                      />
+                    </div>
+                  </>
+              )}
+            </>
+      }
+
+
     </div>
   )
 }
