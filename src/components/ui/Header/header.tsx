@@ -1,23 +1,23 @@
-import { ComponentProps, FC } from 'react'
+import {ComponentProps, FC} from 'react'
 
 import * as DropdownMenu from '@radix-ui/react-dropdown-menu'
-import { clsx } from 'clsx'
-import { Link } from 'react-router-dom'
+import {clsx} from 'clsx'
+import {Link} from 'react-router-dom'
 
 import s from './header.module.scss'
 
-import { Logout } from '@/assets/icons/Logout.tsx'
-import { Person } from '@/assets/icons/Person.tsx'
+import {Logout} from '@/assets/icons/Logout.tsx'
+import {Person} from '@/assets/icons/Person.tsx'
 import defaultAva from '@/assets/images/defaultAva.png'
-import { Avatar } from '@/components/ui/Avatar/Avatar.tsx'
-import { Button } from '@/components/ui/Button'
-import { Vector } from '@/components/ui/Button/vector.tsx'
-import { DropDownMenu } from '@/components/ui/DropDownMenu/DropDownMenu.tsx'
-import { DropdownItemWithAvatar } from '@/components/ui/DropDownMenu/DropdownMenuWithAvatar/DropdownMenuWithAvatar'
-import { DropdownItemWithIcon } from '@/components/ui/DropDownMenu/DropdownMenuWithIcon'
-import Logo from '@/components/ui/Header/logo.tsx'
-import { Typography } from '@/components/ui/Typography'
-import { useGetMeQuery, useLogoutMutation } from '@/services/auth/auth.service.ts'
+import {Avatar} from '@/components/ui/Avatar/Avatar.tsx'
+import {Button} from '@/components/ui/Button'
+import {Vector} from '@/components/ui/Button/vector.tsx'
+import {DropDownMenu} from '@/components/ui/DropDownMenu/DropDownMenu.tsx'
+import {DropdownItemWithAvatar} from '@/components/ui/DropDownMenu/DropdownMenuWithAvatar/DropdownMenuWithAvatar'
+import {DropdownItemWithIcon} from '@/components/ui/DropDownMenu/DropdownMenuWithIcon'
+import {Typography} from '@/components/ui/Typography'
+import {useGetMeQuery, useLogoutMutation} from '@/services/auth/auth.service.ts'
+import logo from '@/assets/images/logoCan.jpg'
 
 export type HeaderProps = ComponentProps<'header'>
 
@@ -32,20 +32,17 @@ export const Header: FC<HeaderProps> = ({ className, ...rest }) => {
 
   const [logout] = useLogoutMutation()
 
-  // const onClickHandler = (e: any) => {
-  //   e.preventDefault()
-  //   navigate('/personal-information')
-  // }
-
   return (
     <header className={classNames.header} {...rest}>
       <div className={s.wrapper}>
         <Link to={'/'}>
-          <Logo />
+          {/*<Logo />*/}
+          <img src={logo} alt="logo"/>
+
         </Link>
 
         {isLoggedIn ? (
-          <div className={s.containerNameAva}>
+            <div className={s.containerNameAva}>
             <div className={s.name}>{me && me.name}</div>
             <DropDownMenu
               trigger={<Avatar urlAdress={me.avatar ? me.avatar : defaultAva} />}
