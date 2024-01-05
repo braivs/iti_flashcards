@@ -63,7 +63,7 @@ export const DecksPage = () => {
   }
 
   const {
-    currentData: decks,
+    currentData, data,
     isLoading: decksLoading,
     isError: decksIsError,
   } = useGetDecksQuery({
@@ -75,6 +75,8 @@ export const DecksPage = () => {
     authorId,
     orderBy,
   })
+
+  const decks = currentData ?? data
 
   //for tabSwitcher
   const tabSwitcherValues: Array<TabSwitcherValues> = [
