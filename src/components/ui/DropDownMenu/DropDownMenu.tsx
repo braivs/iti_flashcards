@@ -19,7 +19,7 @@ export const DropDownMenu: FC<DropDownMenuType> = ({
   className,
 }) => {
   const classNames = {
-    content: clsx(s.dropDownMenuContent, className),
+    content: clsx(className, s.dropDownMenuContent),
     arrow: s.dropDownMenuArrow,
     trigger: clsx(s.button),
   }

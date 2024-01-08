@@ -45,6 +45,7 @@ export const DecksPage = () => {
     name: '',
     isPrivate: false,
   })
+
   const [isUpdateDialogOpen, setIsUpdateDialogOpen] = useState(false) // for update dialog
   const [isDeleteDialogOpen, setIsDeleteDialogOpen] = useState(false) // for delete dialog
   const [isAddDialogOpen, setIsAddDialogOpen] = useState(false) // for add dialog

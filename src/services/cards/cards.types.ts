@@ -25,3 +25,12 @@ export type UpdateCardArgs = {
     id: string
     data: UpdateCardData
 }
+
+export type UpdateCard = {
+    questionImg?: string | null
+    answerImg?: string | null
+    question?: string
+    answer?: string
+    questionVideo?: string | null
+    answerVideo?: string | null
+}

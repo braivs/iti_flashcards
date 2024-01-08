@@ -1,9 +1,7 @@
 @use '../../../common/mixins';
 
-
-
 .container {
-  @include mixins.flex($flexDirection: column)
+  @include mixins.flex($flexDirection: column);
 }
 
 .TabsRoot {

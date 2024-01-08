@@ -2,6 +2,7 @@
   display: flex;
   outline: none;
   //border-radius: 6px;
+  padding: 12px 0;
 }
 .dropDownMenuItem[data-highlighted] {
   background-color: var(--color-accent-900);

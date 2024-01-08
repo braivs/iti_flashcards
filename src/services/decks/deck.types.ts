@@ -1,5 +1,5 @@
-import {DecksOrderBy} from '@/common/types.ts'
-import {Card} from "@/services/cards/cards.types.ts"
+import { DecksOrderBy } from '@/common/types.ts'
+import { Card } from '@/services/cards/cards.types.ts'
 
 export type Author = {
   id: string

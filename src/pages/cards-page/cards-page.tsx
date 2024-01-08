@@ -1,19 +1,27 @@
 import { useEffect, useState } from 'react'
 
+import * as DropdownMenu from '@radix-ui/react-dropdown-menu'
 import { useNavigate, useParams } from 'react-router-dom'
 
 import s from './cards-page.module.scss'
 
 import arrowLeft from '@/assets/icons/ArrowLeft.svg'
+import { Edit } from '@/assets/icons/Edit'
+import { Play } from '@/assets/icons/Play.tsx'
+import { TrashHollow } from '@/assets/icons/TrashHollow.tsx'
 import sC from '@/common/commonStyles/common.module.scss'
 import sT from '@/common/commonStyles/tables.module.scss'
 import { sortStringCallback } from '@/common/functions.ts'
-import { CardsOrderBy, SelectedCard, SelectedCardUpdate } from '@/common/types.ts'
+import { CardsOrderBy, SelectedCard, SelectedCardUpdate, SelectedDeck } from '@/common/types.ts'
 import { paginationSelectValues } from '@/common/values.ts'
 import { Button } from '@/components/ui/Button'
 import { DialogAddNewCard } from '@/components/ui/Dialogs/DialogAddNewCard/DialogAddNewCard.tsx'
 import { DialogRemoveCard } from '@/components/ui/Dialogs/DialogRemoveCard.tsx'
+import { DialogRemovePack } from '@/components/ui/Dialogs/DialogRemovePack.tsx'
 import { DialogUpdateCard } from '@/components/ui/Dialogs/DialogUpdateCard.tsx'
+import { DialogUpdatePack } from '@/components/ui/Dialogs/DialogUpdatePack.tsx'
+import { DropDownMenu } from '@/components/ui/DropDownMenu/DropDownMenu.tsx'
+import { DropdownItemWithIcon } from '@/components/ui/DropDownMenu/DropdownMenuWithIcon'
 import { Pagination } from '@/components/ui/Pagination'
 import { Typography } from '@/components/ui/Typography'
 import { useAppDispatch, useAppSelector } from '@/hooks.ts'
@@ -33,7 +41,7 @@ export const CardsPage = () => {
   const { currentPage, itemsPerPage, orderBy } = useAppSelector(state => state.cards)
 
   let { deckId } = useParams()
-  const { data } = useGetDeckByIdQuery({ id: deckId ? deckId : '' })
+  const { data: decks, currentData} = useGetDeckByIdQuery({ id: deckId ? deckId : '' })
   const { data: cards, isLoading } = useGetCardsInDeckQuery({
     itemsPerPage: +itemsPerPage,
     id: deckId ? deckId : '',
@@ -41,6 +49,17 @@ export const CardsPage = () => {
     orderBy,
   })
   const { data: me } = useGetMeQuery()
+
+  const data = currentData ?? decks
+
+  const [selectedDeck, setSelectedDeck] = useState<SelectedDeck>({
+    id: '',
+    name: '',
+    isPrivate: false,
+  })
+
+  const [isUpdateDeckDialogOpen, setIsUpdateDeckDialogOpen] = useState(false) // for update decks dialog
+  const [isDeleteDeckDialogOpen, setIsDeleteDeckDialogOpen] = useState(false) // for delete decks dialog
 
   const [isAddNewCardDialogOpen, setIsAddNewCardDialogOpen] = useState(false)
   const [isUpdateDialogOpen, setIsUpdateDialogOpen] = useState(false) // for Update dialog
@@ -80,6 +99,29 @@ export const CardsPage = () => {
     navigate(`/`)
   }
 
+  // DECKS
+  const onPlayLearn = () => {
+    navigate(`/learn/${deckId}`)
+  }
+
+  const onSelectDeckForDel = (id: string, name: string) => {
+    setIsDeleteDeckDialogOpen(true)
+    setSelectedDeck({ id, name })
+  }
+  const onSelectDeckForUpdate = (id: string, name: string, isPrivate: boolean) => {
+    setIsUpdateDeckDialogOpen(true)
+    setSelectedDeck({ id, name, isPrivate })
+  }
+
+  const onEditDeckHandler = () => {
+    onSelectDeckForUpdate(data?.id ?? '123', data?.name ?? 'Hello', data?.isPrivate ?? false)
+  }
+
+  const onDeleteDeckHandler = () => {
+    onSelectDeckForDel(data?.id ?? '123', data?.name ?? 'Hello')
+    // navigate(`/`)
+  }
+
   const onSelectCardForDel = (id: string, question: string) => {
     setIsDeleteDialogOpen(true)
     setSelectedCard({ id, question })
@@ -102,6 +144,7 @@ export const CardsPage = () => {
     return cards?.items.length === 0
   }
 
+  if (!data) navigate('/')
 
   return (
     <div className={sT.component}>
@@ -140,13 +183,65 @@ export const CardsPage = () => {
             ? <div className={s.loaderContainer}><Loader /></div>
             : <>
               <div className={sT.topContainer}>
-                <Typography variant={'H1'}>{data?.name}</Typography>
+                  <Typography className={sT.topHeader} variant={'H1'}>
+                      {data?.name}
+                  </Typography>
+                  <DropDownMenu align={'end'} className={s.dropDownMenuContent}>
+                      <DropdownItemWithIcon
+                          icon={<Play className={s.icons} />}
+                          title={'Learn'}
+                          className={s.dropDownMenuItem}
+                          onClick={onPlayLearn}
+                      ></DropdownItemWithIcon>
+                      {me?.id === data?.userId && (
+                          <>
+                              <DropdownMenu.Separator className={s.dropDownMenuSeparator} />
+                              <DropdownItemWithIcon
+                                  icon={<Edit className={s.icons} />}
+                                  className={s.dropDownMenuItem}
+                                  title={'Edit'}
+                                  onClick={onEditDeckHandler}
+                              />
+                              <DropdownMenu.Separator className={s.dropDownMenuSeparator} />
+                              <DropdownItemWithIcon
+                                  icon={<TrashHollow className={s.icons} />}
+                                  className={s.dropDownMenuItem}
+                                  title={'Delete'}
+                                  onClick={onDeleteDeckHandler}
+                              />
+                          </>
+                      )}
+                  </DropDownMenu>
+
                 {!isEmptyPack() &&
                     <Button disabled={isEditHidden} onClick={onAddCard} className={s.button}>
                       Add New Card
                     </Button>
                 }
               </div>
+
+                {isUpdateDeckDialogOpen && selectedDeck && (
+                    <DialogUpdatePack
+                        name={selectedDeck.name}
+                        deckId={selectedDeck.id ?? ''}
+                        open={isUpdateDeckDialogOpen}
+                        setOpen={setIsUpdateDeckDialogOpen}
+                        isPrivate={selectedDeck.isPrivate}
+                        setIsPrivate={setSelectedDeck}
+                        selectedDeck={selectedDeck}
+                        setSelectedDeck={setSelectedDeck}
+                    />
+                )}
+
+                {isDeleteDeckDialogOpen && (
+                    <DialogRemovePack
+                        open={isDeleteDeckDialogOpen}
+                        setOpen={setIsDeleteDeckDialogOpen}
+                        selectedDeck={selectedDeck}
+                        setSelectedDeck={setSelectedDeck}
+                    />
+                )}
+
               {isEmptyPack() ? (
                   <div className={s.emptyPackContainer}>
                     <Typography variant={'Subtitle_2'} className={s.Subtitle_2}>

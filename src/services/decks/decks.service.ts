@@ -31,6 +31,7 @@ export const decksService = baseApi.injectEndpoints({
                 url: `v1/decks/${data.id}`,
                 method: 'GET',
             }),
+            providesTags: ['Deck'],
         }),
         getCardsInDeck: builder.query<GetCardsInDeckResponse, GetCardsInDeckArgs>({
             query: ({id, ...params}) => ({
@@ -113,7 +114,7 @@ export const decksService = baseApi.injectEndpoints({
                     patchResult.undo()
                 }
             },
-            invalidatesTags: ['Decks'],
+            invalidatesTags: ['Decks', 'Deck'],
         }),
         updateDeck: builder.mutation<DeckByIdResponse, UpdateDeckArgs>({
             query: ({deckId, data}) => {
@@ -123,7 +124,7 @@ export const decksService = baseApi.injectEndpoints({
                     body: data,
                 }
             },
-            invalidatesTags: ['Decks'],
+            invalidatesTags: ['Decks', 'Deck'],
         }),
         createCardInDeck: builder.mutation<CreateCardInDeckResponse, createCardInDeckArgs>({
             query: ({deckId, formData}) => ({

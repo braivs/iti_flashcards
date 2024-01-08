@@ -21,7 +21,7 @@ export const DropdownItemWithIcon: FC<DropdownMenuWithIconType> = ({
   ...rest
 }) => {
   const classNames = {
-    container: s.dropDownMenuItem,
+    container: clsx(s.dropDownMenuItem),
     title: clsx(className),
   }
 

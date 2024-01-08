@@ -50,29 +50,30 @@ export const DialogUpdateCard = (props: PropsType) => {
   }
 
   const onUpdateCard = (question: string, answer: string) => {
-    if (!question || !answer || !props.id) return;
+    if (!question || !answer || !props.id) return
 
     // Check if either question or answer has changed
-    const isQuestionChanged = props.question !== question;
-    const isAnswerChanged = props.answer !== answer;
+    const isQuestionChanged = props.question !== question
+    const isAnswerChanged = props.answer !== answer
 
     if (isQuestionChanged || isAnswerChanged) {
       // Prepare the data object with only the changed properties
-      const updatedData: { question?: string; answer?: string } = {};
+      const updatedData: { question?: string; answer?: string } = {}
+
       if (isQuestionChanged) {
-        updatedData.question = question;
+        updatedData.question = question
       }
       if (isAnswerChanged) {
-        updatedData.answer = answer;
+        updatedData.answer = answer
       }
 
       updateCard({
         id: props.id,
         data: updatedData,
-      });
+      })
     }
 
-    props.setOpen(false);
+    props.setOpen(false)
   }
 
   const onClose = () => {
