@@ -183,6 +183,7 @@ export const CardsPage = () => {
             ? <div className={s.loaderContainer}><Loader /></div>
             : <>
               <div className={sT.topContainer}>
+                <div className={sT.topContainer}>
                   <Typography className={sT.topHeader} variant={'H1'}>
                       {data?.name}
                   </Typography>
@@ -212,6 +213,7 @@ export const CardsPage = () => {
                           </>
                       )}
                   </DropDownMenu>
+                </div>
 
                 {!isEmptyPack() &&
                     <Button disabled={isEditHidden} onClick={onAddCard} className={s.button}>
