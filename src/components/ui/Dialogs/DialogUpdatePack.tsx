@@ -13,6 +13,7 @@ import {useAppDispatch} from '@/hooks.ts'
 import {useUpdateDeckMutation} from '@/services/decks/decks.service.ts'
 import {updateDecksCurrentPage} from '@/services/decks/decks.slice.ts'
 import {DialogAddPackImgUpload} from "@/components/ui/Dialogs/DialogAddPackImgUpload.tsx"
+import {fromBase64} from "@/components/ui/Dialogs/DialogAddNewCard/extra/cropFunctions.ts"
 
 export const DialogUpdatePack = (props: PropsType) => {
     const schema = z.object({
@@ -46,9 +47,13 @@ export const DialogUpdatePack = (props: PropsType) => {
     const [updateDeck] = useUpdateDeckMutation()
 
     const handleFormSubmitted = handleSubmit(values => {
-        onUpdateDeck(values.name, isPrivate)
-        reset()
-        props.setOpen(false)
+        onUpdateDeck(values.name, isPrivate, cropImg)
+            .then(() => {
+                    reset()
+                    props.setOpen(false)
+                }
+            )
+
     })
 
     // on submit form emulation
@@ -58,28 +63,42 @@ export const DialogUpdatePack = (props: PropsType) => {
         formRef.current.submit()
     }
 
-    const onUpdateDeck = (name: string, isPrivate: boolean) => {
-        if (!name || !props.deckId) return
+    const onUpdateDeck = async (name: string, isPrivate: boolean, cover: string) => {
+        if (!name || !props.deckId || !cover) return
+        // const formData = new FormData()
+        // const coverImg = await fromBase64(cover ? cover : '')
 
         // Check if any of the properties has changed
         const isNameChanged = props.name !== name
         const isPrivateChanged = props.isPrivate !== isPrivate
+        const isCoverChanged = props.cover !== cover
 
-        if (isNameChanged || isPrivateChanged) {
+        if (isNameChanged || isPrivateChanged || isCoverChanged) {
+            debugger
             dispatch(updateDecksCurrentPage(1))
 
             // Prepare the data object with only the changed properties
             const updatedData: { name?: string; cover?: string; isPrivate?: boolean } = {}
+
             if (isNameChanged) {
                 updatedData.name = name
+                // formData.append('name', name)
             }
             if (isPrivateChanged) {
                 updatedData.isPrivate = isPrivate
+                // formData.append('isPrivate', isPrivate.toString())
             }
+/*            if (isCoverChanged) {
+                if (coverImg) {
+                    formData.append('cover', coverImg)
+                }
+            }*/
+
+            // console.log('formData', formData)
 
             updateDeck({
                 deckId: props.deckId,
-                data: updatedData,
+                data: updatedData
             })
         }
 
@@ -123,6 +142,7 @@ export const DialogUpdatePack = (props: PropsType) => {
 type PropsType = {
     open: boolean
     name: string
+    cover: string
     isPrivate?: boolean
     setIsPrivate: (test: any) => void
     setOpen: (value: boolean) => void

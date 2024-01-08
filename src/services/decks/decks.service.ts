@@ -10,8 +10,7 @@ import {
     DeckLearnArg,
     DecksResponse,
     GetCardsInDeckArgs,
-    GetCardsInDeckResponse,
-    UpdateDeckArgs,
+    GetCardsInDeckResponse, UpdateDeckArgs,
 } from '@/services/decks/deck.types.ts'
 import {RootState} from '@/services/store.ts'
 import {Card} from "@/services/cards/cards.types.ts"

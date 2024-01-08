@@ -139,6 +139,7 @@ export const DecksPage = () => {
         <DialogUpdatePack
           name={selectedDeck.name}
           deckId={selectedDeck.id ?? ''}
+          cover={selectedDeck.cover}
           open={isUpdateDialogOpen}
           setOpen={setIsUpdateDialogOpen}
           isPrivate={selectedDeck.isPrivate}
