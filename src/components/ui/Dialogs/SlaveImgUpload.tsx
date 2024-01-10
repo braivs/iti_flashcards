@@ -12,7 +12,7 @@ import {
   minSliderValue,
 } from '@/components/ui/Dialogs/DialogsCommon/DialogsCommonData.ts'
 
-export const DialogAddPackImgUpload = (props: PropsType) => {
+export const SlaveImgUpload = (props: PropsType) => {
   const [isEditPicture, setIsEditPicture] = useState(false)
   const [inputImg, setInputImg] = useState<undefined | string>(undefined)
   const [crop, setCrop] = useState<Point>({ x: 0, y: 0 })
@@ -55,6 +55,7 @@ export const DialogAddPackImgUpload = (props: PropsType) => {
   }
 
   function onApprove() {
+    props.onApproveCallback()
     setIsEditPicture(false)
     onCrop(cropArea, inputImg, canvaWidth, canvaHeight, props.setCropImg).then()
   }
@@ -79,4 +80,5 @@ export const DialogAddPackImgUpload = (props: PropsType) => {
 type PropsType = {
   cropImg: string | undefined
   setCropImg: (value: string) => void
+  onApproveCallback: () => void
 }

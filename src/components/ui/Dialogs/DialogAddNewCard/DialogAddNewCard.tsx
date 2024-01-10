@@ -5,12 +5,12 @@ import { useForm } from 'react-hook-form'
 import { z } from 'zod'
 
 import { ControlledTextField } from '@/components/ui/controlled/controlled-text-field'
-import { fromBase64 } from '@/components/ui/Dialogs/DialogAddNewCard/extra/cropFunctions.ts'
 import { DialogImgUpload } from '@/components/ui/Dialogs/DialogAddNewCard/extra/DialogImgUpload.tsx'
 import sC from '@/components/ui/Dialogs/DialogsParrent/DialogsParrent.module.scss'
 import { DialogsParrent } from '@/components/ui/Dialogs/DialogsParrent/DialogsParrent.tsx'
 import { Select } from '@/components/ui/Select'
 import { useCreateCardInDeckMutation } from '@/services/decks/decks.service.ts'
+import {fromBase64} from "@/common/functions.ts"
 
 export const DialogAddNewCard = (props: PropsType) => {
   const [value, setValue] = useState('Text') // for select

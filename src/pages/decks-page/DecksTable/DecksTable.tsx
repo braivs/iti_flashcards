@@ -46,11 +46,11 @@ export const DecksTable = (props: PropsType) => {
   const isEditHidden = (deck: Deck): boolean => deck.author.id !== me.id
 
   const onEdit = (deck: Deck) => {
-    props.onSelectDeckForUpdate(deck.id, deck.name, deck.isPrivate)
+    props.onSelectDeckForUpdate(deck.id, deck.name, deck.isPrivate, deck.cover)
   }
 
   const onDelete = (deck: Deck) => {
-    props.onSelectDeckForDel(deck.id, deck.name)
+    props.onSelectDeckForDel(deck.id, deck.name, deck.cover)
   }
 
   return (
@@ -104,8 +104,8 @@ export const DecksTable = (props: PropsType) => {
 
 type PropsType = {
   items: Deck[] | undefined
-  onSelectDeckForUpdate: (id: string, name: string, isPrivate: boolean) => void
-  onSelectDeckForDel: (id: string, name: string) => void
+  onSelectDeckForUpdate: (id: string, name: string, isPrivate: boolean, cover: string) => void
+  onSelectDeckForDel: (id: string, name: string, cover: string) => void
   sort: Sort
   setSort: (value: Sort) => void
 }

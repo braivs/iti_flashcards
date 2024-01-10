@@ -12,7 +12,7 @@ export type Deck = {
   name: string
   isPrivate: boolean
   shots: number
-  cover: string | null
+  cover: string
   rating: number
   isDeleted?: boolean | null
   isBlocked?: boolean | null
@@ -68,17 +68,6 @@ export type GetCardsInDeckArgs = {
   itemsPerPage?: number
 }
 
-type UpdateDeckData = {
-  cover?: string
-  name?: string
-  isPrivate?: boolean
-}
-
-export type UpdateDeckArgs = {
-  deckId: string
-  data: UpdateDeckData
-}
-
 export type GetCardsInDeckResponse = {
   items: Array<Card>
   pagination: Pagination
@@ -90,7 +79,7 @@ export type CreateCardInDeckResponse = Omit<Card, 'grade'> & {
   rating: number
   type: string | null
 }
-export type createCardInDeckArgs = {
+export type createCardIn_UpdateDeckArgs = {
   deckId: string
   formData?: FormData
 }
@@ -99,5 +88,3 @@ export type DeckLearnArg = {
   cardId: string
   grade: number
 }
-
-// const orderBy: DeckParams['orderBy'] = 'updated-desc'

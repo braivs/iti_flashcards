@@ -1,16 +1,4 @@
-import { CropType } from '@/components/ui/Dialogs/DialogAddNewCard/extra/CropTypes.ts'
-
-export const fromBase64 = (url: string) => {
-  //todo: fix fileName
-  if (url.length === 0) return
-  const ext = url.split(';')[0].split('/')[1]
-
-  return fetch(url)
-    .then(res => res.blob())
-    .then(blob => {
-      return new File([blob], `fileName.${ext}`, { type: `image/${ext}` })
-    })
-}
+import {CropType} from '@/components/ui/Dialogs/DialogAddNewCard/extra/CropTypes.ts'
 
 // create the image with a src of the base64 string
 export const createImage = (url: string): Promise<CanvasImageSource> =>

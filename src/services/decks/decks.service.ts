@@ -2,7 +2,7 @@ import {omit} from 'remeda'
 
 import {baseApi} from '@/services/base-api.ts'
 import {
-    createCardInDeckArgs,
+    createCardIn_UpdateDeckArgs,
     CreateCardInDeckResponse,
     Deck,
     DeckArgs,
@@ -11,7 +11,6 @@ import {
     DecksResponse,
     GetCardsInDeckArgs,
     GetCardsInDeckResponse,
-    UpdateDeckArgs,
 } from '@/services/decks/deck.types.ts'
 import {RootState} from '@/services/store.ts'
 import {Card} from "@/services/cards/cards.types.ts"
@@ -116,17 +115,17 @@ export const decksService = baseApi.injectEndpoints({
             },
             invalidatesTags: ['Decks', 'Deck'],
         }),
-        updateDeck: builder.mutation<DeckByIdResponse, UpdateDeckArgs>({
-            query: ({deckId, data}) => {
+        updateDeck: builder.mutation<DeckByIdResponse, createCardIn_UpdateDeckArgs>({
+            query: ({deckId, formData}) => {
                 return {
                     method: 'PATCH',
                     url: `v1/decks/${deckId}`,
-                    body: data,
+                    body: formData,
                 }
             },
             invalidatesTags: ['Decks', 'Deck'],
         }),
-        createCardInDeck: builder.mutation<CreateCardInDeckResponse, createCardInDeckArgs>({
+        createCardInDeck: builder.mutation<CreateCardInDeckResponse, createCardIn_UpdateDeckArgs>({
             query: ({deckId, formData}) => ({
                 url: `v1/decks/${deckId}/cards`,
                 method: 'POST',

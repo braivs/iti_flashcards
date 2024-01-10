@@ -44,6 +44,7 @@ export const DecksPage = () => {
     id: '',
     name: '',
     isPrivate: false,
+    cover: ''
   })
 
   const [isUpdateDialogOpen, setIsUpdateDialogOpen] = useState(false) // for update dialog
@@ -111,13 +112,13 @@ export const DecksPage = () => {
     dispatch(setDecksOrderBy(sortString as DecksOrderBy))
   }, [sort])
 
-  const onSelectDeckForDel = (id: string, name: string) => {
+  const onSelectDeckForDel = (id: string, name: string, cover: string) => {
     setIsDeleteDialogOpen(true)
-    setSelectedDeck({ id, name })
+    setSelectedDeck({ id, name, cover })
   }
-  const onSelectDeckForUpdate = (id: string, name: string, isPrivate: boolean) => {
+  const onSelectDeckForUpdate = (id: string, name: string, isPrivate: boolean, cover?: string) => {
     setIsUpdateDialogOpen(true)
-    setSelectedDeck({ id, name, isPrivate })
+    setSelectedDeck({ id, name, isPrivate, cover: cover ? cover : '' })
   }
 
   // logging
