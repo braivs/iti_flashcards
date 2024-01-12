@@ -14,7 +14,7 @@ export const DialogRemovePack = (props: PropsType) => {
       .catch(err => {
         alert(err?.data?.message)
       })
-    props.setSelectedDeck({ id: '', name: '' })
+    props.setSelectedDeck({ id: '', name: '', cover: '' })
     props.setOpen(false)
   }
 

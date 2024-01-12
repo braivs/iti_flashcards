@@ -15,7 +15,7 @@ import { sortStringCallback } from '@/common/functions.ts'
 import { CardsOrderBy, SelectedCard, SelectedCardUpdate, SelectedDeck } from '@/common/types.ts'
 import { paginationSelectValues } from '@/common/values.ts'
 import { Button } from '@/components/ui/Button'
-import { DialogAddNewCard } from '@/components/ui/Dialogs/DialogAddNewCard/DialogAddNewCard.tsx'
+import { DialogAddCard } from '@/components/ui/Dialogs/DialogAddCard/DialogAddCard.tsx'
 import { DialogRemoveCard } from '@/components/ui/Dialogs/DialogRemoveCard.tsx'
 import { DialogRemovePack } from '@/components/ui/Dialogs/DialogRemovePack.tsx'
 import { DialogUpdateCard } from '@/components/ui/Dialogs/DialogUpdateCard.tsx'
@@ -41,7 +41,7 @@ export const CardsPage = () => {
   const { currentPage, itemsPerPage, orderBy } = useAppSelector(state => state.cards)
 
   let { deckId } = useParams()
-  const { data: decks, currentData} = useGetDeckByIdQuery({ id: deckId ? deckId : '' })
+  const { data: decks, currentData } = useGetDeckByIdQuery({ id: deckId ? deckId : '' })
   const { data: cards, isLoading } = useGetCardsInDeckQuery({
     itemsPerPage: +itemsPerPage,
     id: deckId ? deckId : '',
@@ -55,7 +55,7 @@ export const CardsPage = () => {
   const [selectedDeck, setSelectedDeck] = useState<SelectedDeck>({
     id: '',
     name: '',
-    isPrivate: false,
+    isPrivate: false
   })
 
   const [isUpdateDeckDialogOpen, setIsUpdateDeckDialogOpen] = useState(false) // for update decks dialog
@@ -126,9 +126,15 @@ export const CardsPage = () => {
     setIsDeleteDialogOpen(true)
     setSelectedCard({ id, question })
   }
-  const onSelectCardForUpdate = (id: string, question: string, answer: string) => {
+  const onSelectCardForUpdate = (id: string, question: string, answer: string, questionImg?: string,  answerImg?: string) => {
     setIsUpdateDialogOpen(true)
-    setSelectedForUpdateCard({ id, question, answer })
+    setSelectedForUpdateCard({
+      id,
+      question,
+      answer,
+      questionImg: questionImg ? questionImg : '',
+      answerImg: answerImg ? answerImg : ''
+    })
   }
   const updateCardsCurrentPageCallback = (page: number | string) => {
     dispatch(updateCardsCurrentPage(+page))
@@ -144,7 +150,7 @@ export const CardsPage = () => {
     return cards?.items.length === 0
   }
 
-  if (!data) navigate('/')
+  // if (!data) navigate('/')
 
   return (
     <div className={sT.component}>
@@ -168,7 +174,7 @@ export const CardsPage = () => {
         />
       )}
 
-      <DialogAddNewCard
+      <DialogAddCard
         open={isAddNewCardDialogOpen}
         setOpen={setIsAddNewCardDialogOpen}
         deckId={deckId ? deckId : ''}

@@ -1,45 +1,19 @@
-import {ChangeEvent, useRef} from 'react'
-
-import Cropper, {Area, Point} from 'react-easy-crop'
-
-import imgUpload from '@/assets/icons/imgUpload.svg'
-import sT from '@/common/commonStyles/tables.module.scss'
-import {Button} from '@/components/ui/Button'
-import s from '@/components/ui/Dialogs/DialogAddNewCard/DialogAddNewCard.module.scss'
-import sC from '@/components/ui/Dialogs/DialogsCommon/DialogsCommon.module.scss'
+import sC from "@/components/ui/Dialogs/common/Dialogs.module.scss"
+import s from "@/components/ui/Dialogs/DialogAddCard/DialogAddCard.module.scss"
+import Cropper, {Area, Point} from "react-easy-crop"
 import {
     canvaHeight,
     canvaWidth,
     maxSliderValue,
     minSliderValue,
-    sliderStep,
-} from '@/components/ui/Dialogs/DialogsCommon/DialogsCommonData.ts'
-import {SliderSingle} from '@/components/ui/SliderSingle/SliderSingle.tsx'
+    sliderStep
+} from "@/components/ui/Dialogs/common/DialogsData.ts"
+import {SliderSingle} from "@/components/ui/SliderSingle/SliderSingle.tsx"
+import {Button} from "@/components/ui/Button"
+import {ChangeEvent} from "react"
+import {CustomFileUpload} from "@/components/ui/Dialogs/common/CustomFileUpload.tsx"
 
-export const CustomFileUpload = (props: CustomFileUploadProps) => {
-    const inputFile = useRef<HTMLInputElement | null>(null)
-    const onButtonClick = () => {
-        inputFile.current?.click()
-    }
-
-    return (
-        <>
-            <input
-                type="file"
-                ref={inputFile}
-                style={{display: 'none'}}
-                accept=".jpg, .jpeg, .png"
-                onChange={props.onFileChangeCallback}
-            />
-            <Button variant="secondary" onClick={onButtonClick} className={s.button}>
-                <img src={imgUpload} alt="trashIcon" className={sT.trashIcon}/>
-                Change cover
-            </Button>
-        </>
-    )
-}
-
-export const ComboChangeCoverDummyImgCropper = (props: ComboChangeCoverDummyImgCropperProps) => {
+export const ChangeCoverDummyImgCropper = (props: ExtraChangeCoverDummyImgCropperProps) => {
     return (
         <>
             {!props.inputImg ? (
@@ -102,7 +76,7 @@ export const ComboChangeCoverDummyImgCropper = (props: ComboChangeCoverDummyImgC
     )
 }
 
-type ComboChangeCoverDummyImgCropperProps = {
+type ExtraChangeCoverDummyImgCropperProps = {
     file: {
         cropImg: string | undefined
         isEditPicture: boolean
@@ -123,8 +97,4 @@ type ComboChangeCoverDummyImgCropperProps = {
     onApprove: () => void
     cropSuggestionText: string
     onCancel: () => void
-}
-
-type CustomFileUploadProps = {
-    onFileChangeCallback: (e: ChangeEvent<HTMLInputElement>) => void
 }

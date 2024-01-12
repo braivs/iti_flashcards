@@ -12,7 +12,7 @@ import {DialogsParrent} from '@/components/ui/Dialogs/DialogsParrent/DialogsParr
 import {useAppDispatch} from '@/hooks.ts'
 import {useUpdateDeckMutation} from '@/services/decks/decks.service.ts'
 import {updateDecksCurrentPage} from '@/services/decks/decks.slice.ts'
-import {SlaveImgUpload} from "@/components/ui/Dialogs/SlaveImgUpload.tsx"
+import {DeckImgUpload} from "@/components/ui/Dialogs/common/DeckImgUpload.tsx"
 import {fromBase64} from "@/common/functions.ts"
 
 export const DialogUpdatePack = (props: PropsType) => {
@@ -41,7 +41,7 @@ export const DialogUpdatePack = (props: PropsType) => {
     const formRef = useRef<HTMLFormElement | null>(null)
 
     const [isPrivate, setIsPrivate] = useState<boolean>(props.selectedDeck.isPrivate ? props.selectedDeck.isPrivate : false)
-    const [cropImg, setCropImg] = useState<string>(props.selectedDeck.cover)
+    const [cropImg, setCropImg] = useState<string | undefined>(props.selectedDeck.cover)
     const [isCoverChanged, setIsCoverChanged] = useState(false)
 
     const dispatch = useAppDispatch()
@@ -66,7 +66,7 @@ export const DialogUpdatePack = (props: PropsType) => {
         formRef.current.submit()
     }
 
-    const onUpdateDeck = async (name: string, isPrivate: boolean, cover: string) => {
+    const onUpdateDeck = async (name: string, isPrivate: boolean, cover?: string) => {
         if (!name || !props.deckId) return
 
         // Check if any of the properties has changed
@@ -121,7 +121,7 @@ export const DialogUpdatePack = (props: PropsType) => {
         >
             <div className={sC.DialogDescription}>
                 <div className={sC.dialogElement}>
-                    <SlaveImgUpload cropImg={cropImg} setCropImg={setCropImg} onApproveCallback={onApprove}/>
+                    <DeckImgUpload cropImg={cropImg} setCropImg={setCropImg} onApproveCallback={onApprove}/>
                 </div>
 
             </div>

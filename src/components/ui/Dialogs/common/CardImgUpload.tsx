@@ -3,17 +3,17 @@ import { ChangeEvent, useCallback, useState } from 'react'
 import { Area, Point } from 'react-easy-crop'
 
 import { onFileChange } from '@/common/functions.ts'
-import { onCrop } from '@/components/ui/Dialogs/DialogAddNewCard/extra/cropFunctions.ts'
-import { CropType } from '@/components/ui/Dialogs/DialogAddNewCard/extra/CropTypes.ts'
-import { ComboChangeCoverDummyImgCropper } from '@/components/ui/Dialogs/DialogsCommon/DialogsCommonComponents.tsx'
+import { onCrop } from '@/components/ui/Dialogs/common/cropFunctions.ts'
+import { CropType } from '@/components/ui/Dialogs/common/CropTypes.ts'
 import {
   canvaHeight,
   canvaWidth,
   minSliderValue,
-} from '@/components/ui/Dialogs/DialogsCommon/DialogsCommonData.ts'
+} from '@/components/ui/Dialogs/common/DialogsData.ts'
 import { Typography } from '@/components/ui/Typography'
+import {ChangeCoverDummyImgCropper} from "@/components/ui/Dialogs/common/ChangeCoverDummyImgCropper.tsx"
 
-export const DialogImgUpload = (props: PropsType) => {
+export const CardImgUpload = (props: PropsType) => {
   const [isEditQuestionPicture, setIsEditQuestionPicture] = useState(false)
   const [isEditAnswerPicture, setIsEditAnswerPicture] = useState(false)
   const [inputAnswerImg, setInputAnswerImg] = useState<undefined | string>(undefined)
@@ -26,6 +26,7 @@ export const DialogImgUpload = (props: PropsType) => {
   const [zoomAnswer, setZoomAnswer] = useState(minSliderValue)
   const [cropAnswerArea, setCropAnswerArea] = useState<null | CropType>(null)
   const [sliderAnswerValue, setSliderAnswerValue] = useState<number[]>([minSliderValue])
+
 
   const cropSuggestionTextQuestion = 'Picture image'
   const cropSuggestionTextAnswer = 'Answer image'
@@ -47,17 +48,6 @@ export const DialogImgUpload = (props: PropsType) => {
   const sliderQuestionChangeHandler = (newValue: number[]) => {
     setZoomQuestion(newValue[0])
     setSliderQuestionValue(newValue)
-  }
-
-  function onApproveQuestion() {
-    setIsEditQuestionPicture(false)
-    onCrop(
-      cropQuestionArea,
-      inputQuestionImg,
-      canvaWidth,
-      canvaHeight,
-      props.setCropQuestionImg
-    ).then()
   }
 
   const onFileAnswerChangeCallback = async (e: ChangeEvent<HTMLInputElement>) => {
@@ -108,6 +98,19 @@ export const DialogImgUpload = (props: PropsType) => {
   function onApproveAnswer() {
     setIsEditAnswerPicture(false)
     onCrop(cropAnswerArea, inputAnswerImg, canvaWidth, canvaHeight, props.setCropAnswerImg).then()
+    props.onApproveAnswerCallback()
+  }
+
+  function onApproveQuestion() {
+    setIsEditQuestionPicture(false)
+    onCrop(
+        cropQuestionArea,
+        inputQuestionImg,
+        canvaWidth,
+        canvaHeight,
+        props.setCropQuestionImg
+    ).then()
+    props.onApproveQuestionCallback()
   }
 
   const onCancelQuestion = () => {
@@ -121,7 +124,7 @@ export const DialogImgUpload = (props: PropsType) => {
   return (
     <>
       <Typography variant={'Body_2'}>Question:</Typography>
-      <ComboChangeCoverDummyImgCropper
+      <ChangeCoverDummyImgCropper
         file={{
           cropImg: props.cropQuestionImg,
           isEditPicture: isEditQuestionPicture,
@@ -145,7 +148,7 @@ export const DialogImgUpload = (props: PropsType) => {
       />
 
       <Typography variant={'Body_2'}>Answer:</Typography>
-      <ComboChangeCoverDummyImgCropper
+      <ChangeCoverDummyImgCropper
         file={{
           cropImg: props.cropAnswerImg,
           isEditPicture: isEditAnswerPicture,
@@ -173,4 +176,6 @@ type PropsType = {
   cropAnswerImg: string | undefined
   setCropQuestionImg: (value: string) => void
   setCropAnswerImg: (value: string) => void
+  onApproveAnswerCallback: () => void
+  onApproveQuestionCallback: () => void
 }

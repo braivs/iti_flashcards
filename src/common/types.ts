@@ -7,7 +7,7 @@ export type SelectedDeck = {
   id: string
   name: string
   isPrivate?: boolean
-  cover: string
+  cover?: string
 }
 export type SelectedCard = {
   id: string
@@ -18,4 +18,6 @@ export type SelectedCardUpdate = {
   id: string
   question: string
   answer: string
+  questionImg?: string
+  answerImg?: string
 }
