@@ -7,7 +7,6 @@ import { useDeleteCardMutation } from '@/services/cards/cards.service.ts'
 
 export const DialogRemoveCard = (props: PropsType) => {
   const [deleteCard] = useDeleteCardMutation()
-
   const onDeleteCard = () => {
     deleteCard({ id: props.selectedCard.id })
       .unwrap()

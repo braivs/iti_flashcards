@@ -65,7 +65,8 @@ export const DecksPage = () => {
   }
 
   const {
-    currentData, data,
+    currentData,
+    data,
     isLoading: decksLoading,
     isError: decksIsError,
   } = useGetDecksQuery({

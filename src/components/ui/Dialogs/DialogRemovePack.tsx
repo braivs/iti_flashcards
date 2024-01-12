@@ -1,4 +1,5 @@
 import * as RDialog from '@radix-ui/react-dialog'
+import { useNavigate } from 'react-router-dom'
 
 import { SelectedDeck } from '@/common/types.ts'
 import sC from '@/components/ui/Dialogs/DialogsParrent/DialogsParrent.module.scss'
@@ -7,10 +8,13 @@ import { useDeleteDeckMutation } from '@/services/decks/decks.service.ts'
 
 export const DialogRemovePack = (props: PropsType) => {
   const [deleteDeck] = useDeleteDeckMutation()
-
+  const navigate = useNavigate()
   const onDeleteDeck = () => {
     deleteDeck({ id: props.selectedDeck.id })
       .unwrap()
+      .then(() => {
+        navigate('/')
+      })
       .catch(err => {
         alert(err?.data?.message)
       })

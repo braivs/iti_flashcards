@@ -1,7 +1,7 @@
-import {baseApi} from '@/services/base-api.ts'
-import {decksService} from '@/services/decks/decks.service.ts'
-import {RootState} from '@/services/store.ts'
-import {Card, UpdateCardArgs, UpdateCard} from "@/services/cards/cards.types.ts"
+import { baseApi } from '@/services/base-api.ts'
+import { Card, UpdateCard } from '@/services/cards/cards.types.ts'
+import { decksService } from '@/services/decks/decks.service.ts'
+import { RootState } from '@/services/store.ts'
 
 const cardsService = baseApi.injectEndpoints({
   endpoints: builder => ({
@@ -19,6 +19,7 @@ const cardsService = baseApi.injectEndpoints({
             draft?.items?.splice(draft?.items?.findIndex(card => card?.id === id), 1)
           })
         )
+
         try {
           await queryFulfilled
         } catch (e) {

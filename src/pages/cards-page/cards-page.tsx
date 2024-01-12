@@ -41,7 +41,7 @@ export const CardsPage = () => {
   const { currentPage, itemsPerPage, orderBy } = useAppSelector(state => state.cards)
 
   let { deckId } = useParams()
-  const { data: decks, currentData } = useGetDeckByIdQuery({ id: deckId ? deckId : '' })
+  const { data } = useGetDeckByIdQuery({ id: deckId ? deckId : '' })
   const { data: cards, isLoading } = useGetCardsInDeckQuery({
     itemsPerPage: +itemsPerPage,
     id: deckId ? deckId : '',
@@ -50,12 +50,13 @@ export const CardsPage = () => {
   })
   const { data: me } = useGetMeQuery()
 
-  const data = currentData ?? decks
+  // const data = currentData ?? decks
+  // const data = decks
 
   const [selectedDeck, setSelectedDeck] = useState<SelectedDeck>({
     id: '',
     name: '',
-    isPrivate: false
+    isPrivate: false,
   })
 
   const [isUpdateDeckDialogOpen, setIsUpdateDeckDialogOpen] = useState(false) // for update decks dialog

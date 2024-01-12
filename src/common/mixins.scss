@@ -1,8 +1,8 @@
 @mixin flex($justifyContent: stretch, $alignItems: stretch, $flexDirection: row) {
   display: flex;
-  justify-content: $justifyContent;
-  align-items: $alignItems;
   flex-direction: $flexDirection;
+  align-items: $alignItems;
+  justify-content: $justifyContent;
 }
 
 @mixin imgUploadSize() {

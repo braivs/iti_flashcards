@@ -1,9 +1,10 @@
 html {
+  box-sizing: border-box;
+  min-height: 100vh;
   margin: 0;
   padding: 0;
-  box-sizing: border-box;
+
   font-size: 100%;
-  min-height: 100vh;
 
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
@@ -33,10 +34,12 @@ a:visited {
 }
 
 body {
+  overflow-y: scroll;
+
+  width: calc(100% - var(--removed-body-scroll-bar-size, 0px));
   margin: 0 !important;
   padding: 0;
-  width: calc(100% - var(--removed-body-scroll-bar-size, 0px));
-  overflow-y: scroll;
+
   font-family: var(--font-family-primary), sans-serif;
   line-height: var(--line-height-m);
   color: var(--color-light-100);
@@ -47,15 +50,16 @@ body {
 input:-webkit-autofill,
 input:-webkit-autofill:hover,
 input:-webkit-autofill:focus input:-webkit-autofill {
+  box-shadow: 0 0 0 1000px transparent inset;
+  transition: background-color 5000s ease-in-out 0s;
   //border: 0;
   -webkit-text-fill-color: var(--color-dark-100);
-  -webkit-box-shadow: 0 0 0 1000px transparent inset;
-  transition: background-color 5000s ease-in-out 0s;
- /* background: -webkit-linear-gradient(
+
+  /* background: -webkit-linear-gradient(
     top,
     rgba(255, 255, 255, 0) 0%,
     rgba(0, 174, 255, 0.04) 50%,
     rgba(255, 255, 255, 0) 51%,
     rgba(0, 174, 255, 0.03) 100%
-  );*/
+  ); */
 }
