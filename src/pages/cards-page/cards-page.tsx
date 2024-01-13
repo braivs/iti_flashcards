@@ -109,13 +109,13 @@ export const CardsPage = () => {
     setIsDeleteDeckDialogOpen(true)
     setSelectedDeck({ id, name })
   }
-  const onSelectDeckForUpdate = (id: string, name: string, isPrivate: boolean) => {
+  const onSelectDeckForUpdate = (id: string, name: string, isPrivate: boolean, cover?:string) => {
     setIsUpdateDeckDialogOpen(true)
-    setSelectedDeck({ id, name, isPrivate })
+    setSelectedDeck({ id, name, isPrivate,cover: cover ??  '' })
   }
 
   const onEditDeckHandler = () => {
-    onSelectDeckForUpdate(data?.id ?? '123', data?.name ?? 'Hello', data?.isPrivate ?? false)
+    onSelectDeckForUpdate(data?.id ?? '123', data?.name ?? 'Hello', data?.isPrivate ?? false,data?.cover)
   }
 
   const onDeleteDeckHandler = () => {

@@ -112,7 +112,7 @@ export const DialogUpdatePack = (props: PropsType) => {
 
     return (
         <DialogsParrent
-            title={'Edite Pack'}
+            title={'Edit Pack'}
             open={props.open}
             setOpen={onClose}
             onButtonAction={onSubmitEmulation}
