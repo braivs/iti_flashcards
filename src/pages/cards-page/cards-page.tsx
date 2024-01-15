@@ -22,6 +22,7 @@ import { DialogUpdateCard } from '@/components/ui/Dialogs/DialogUpdateCard.tsx'
 import { DialogUpdatePack } from '@/components/ui/Dialogs/DialogUpdatePack.tsx'
 import { DropDownMenu } from '@/components/ui/DropDownMenu/DropDownMenu.tsx'
 import { DropdownItemWithIcon } from '@/components/ui/DropDownMenu/DropdownMenuWithIcon'
+import { Loader } from '@/components/ui/Loader/Loader.tsx'
 import { Pagination } from '@/components/ui/Pagination'
 import { Typography } from '@/components/ui/Typography'
 import { useAppDispatch, useAppSelector } from '@/hooks.ts'
@@ -35,7 +36,6 @@ import {
 } from '@/services/cards/cards.slice.ts'
 import { Sort } from '@/services/common/types.ts'
 import { useGetCardsInDeckQuery, useGetDeckByIdQuery } from '@/services/decks/decks.service.ts'
-import {Loader} from "@/components/ui/Loader/Loader.tsx"
 
 export const CardsPage = () => {
   const { currentPage, itemsPerPage, orderBy } = useAppSelector(state => state.cards)
@@ -109,13 +109,18 @@ export const CardsPage = () => {
     setIsDeleteDeckDialogOpen(true)
     setSelectedDeck({ id, name })
   }
-  const onSelectDeckForUpdate = (id: string, name: string, isPrivate: boolean, cover?:string) => {
+  const onSelectDeckForUpdate = (id: string, name: string, isPrivate: boolean, cover?: string) => {
     setIsUpdateDeckDialogOpen(true)
-    setSelectedDeck({ id, name, isPrivate,cover: cover ??  '' })
+    setSelectedDeck({ id, name, isPrivate, cover: cover ?? '' })
   }
 
   const onEditDeckHandler = () => {
-    onSelectDeckForUpdate(data?.id ?? '123', data?.name ?? 'Hello', data?.isPrivate ?? false,data?.cover)
+    onSelectDeckForUpdate(
+      data?.id ?? '123',
+      data?.name ?? 'Hello',
+      data?.isPrivate ?? false,
+      data?.cover
+    )
   }
 
   const onDeleteDeckHandler = () => {
@@ -127,14 +132,20 @@ export const CardsPage = () => {
     setIsDeleteDialogOpen(true)
     setSelectedCard({ id, question })
   }
-  const onSelectCardForUpdate = (id: string, question: string, answer: string, questionImg?: string,  answerImg?: string) => {
+  const onSelectCardForUpdate = (
+    id: string,
+    question: string,
+    answer: string,
+    questionImg?: string,
+    answerImg?: string
+  ) => {
     setIsUpdateDialogOpen(true)
     setSelectedForUpdateCard({
       id,
       question,
       answer,
       questionImg: questionImg ? questionImg : '',
-      answerImg: answerImg ? answerImg : ''
+      answerImg: answerImg ? answerImg : '',
     })
   }
   const updateCardsCurrentPageCallback = (page: number | string) => {
@@ -185,119 +196,119 @@ export const CardsPage = () => {
         <span className={s.text}>Back to Packs List</span>
       </div>
 
-      {
-        isLoading
-            ? <div className={s.loaderContainer}><Loader /></div>
-            : <>
-              <div className={sT.topContainer}>
-                <div className={sT.topContainer}>
-                  <Typography className={sT.topHeader} variant={'H1'}>
-                      {data?.name}
-                  </Typography>
-                  <DropDownMenu align={'end'} className={s.dropDownMenuContent}>
-                      <DropdownItemWithIcon
-                          icon={<Play className={s.icons} />}
-                          title={'Learn'}
-                          className={s.dropDownMenuItem}
-                          onClick={onPlayLearn}
-                      ></DropdownItemWithIcon>
-                      {me?.id === data?.userId && (
-                          <>
-                              <DropdownMenu.Separator className={s.dropDownMenuSeparator} />
-                              <DropdownItemWithIcon
-                                  icon={<Edit className={s.icons} />}
-                                  className={s.dropDownMenuItem}
-                                  title={'Edit'}
-                                  onClick={onEditDeckHandler}
-                              />
-                              <DropdownMenu.Separator className={s.dropDownMenuSeparator} />
-                              <DropdownItemWithIcon
-                                  icon={<TrashHollow className={s.icons} />}
-                                  className={s.dropDownMenuItem}
-                                  title={'Delete'}
-                                  onClick={onDeleteDeckHandler}
-                              />
-                          </>
-                      )}
-                  </DropDownMenu>
-                </div>
+      {isLoading ? (
+        <div className={s.loaderContainer}>
+          <Loader />
+        </div>
+      ) : (
+        <>
+          <div className={sT.topContainer}>
+            <div className={sT.topContainer}>
+              <Typography className={sT.topHeader} variant={'H1'}>
+                {data?.name}
+              </Typography>
+              <DropDownMenu align={'end'} className={s.dropDownMenuContent}>
+                <DropdownItemWithIcon
+                  icon={<Play className={s.icons} />}
+                  title={'Learn'}
+                  className={s.dropDownMenuItem}
+                  onClick={onPlayLearn}
+                ></DropdownItemWithIcon>
+                {me?.id === data?.userId && (
+                  <>
+                    <DropdownMenu.Separator className={s.dropDownMenuSeparator} />
+                    <DropdownItemWithIcon
+                      icon={<Edit className={s.icons} />}
+                      className={s.dropDownMenuItem}
+                      title={'Edit'}
+                      onClick={onEditDeckHandler}
+                    />
+                    <DropdownMenu.Separator className={s.dropDownMenuSeparator} />
+                    <DropdownItemWithIcon
+                      icon={<TrashHollow className={s.icons} />}
+                      className={s.dropDownMenuItem}
+                      title={'Delete'}
+                      onClick={onDeleteDeckHandler}
+                    />
+                  </>
+                )}
+              </DropDownMenu>
+            </div>
 
-                {!isEmptyPack() &&
-                    <Button disabled={isEditHidden} onClick={onAddCard} className={s.button}>
-                      Add New Card
-                    </Button>
-                }
+            {!isEmptyPack() && (
+              <Button disabled={isEditHidden} onClick={onAddCard} className={s.button}>
+                Add New Card
+              </Button>
+            )}
+          </div>
+
+          {isUpdateDeckDialogOpen && selectedDeck && (
+            <DialogUpdatePack
+              name={selectedDeck.name}
+              deckId={selectedDeck.id ?? ''}
+              open={isUpdateDeckDialogOpen}
+              setOpen={setIsUpdateDeckDialogOpen}
+              isPrivate={selectedDeck.isPrivate}
+              setIsPrivate={setSelectedDeck}
+              selectedDeck={selectedDeck}
+              setSelectedDeck={setSelectedDeck}
+            />
+          )}
+
+          {isDeleteDeckDialogOpen && (
+            <DialogRemovePack
+              open={isDeleteDeckDialogOpen}
+              setOpen={setIsDeleteDeckDialogOpen}
+              selectedDeck={selectedDeck}
+              setSelectedDeck={setSelectedDeck}
+            />
+          )}
+
+          {isEmptyPack() ? (
+            <div className={s.emptyPackContainer}>
+              <Typography variant={'Subtitle_2'} className={s.Subtitle_2}>
+                This pack is empty.
+                {!isEditHidden ? (
+                  <span> Click add new card to fill this pack</span>
+                ) : (
+                  <span> You can&apos;t create cards in a deck that you don&apos;t own.</span>
+                )}
+              </Typography>
+              <Button onClick={onAddCard} disabled={isEditHidden}>
+                Add New Card
+              </Button>
+            </div>
+          ) : (
+            <>
+              <div className={sT.container}>
+                <CardsTable
+                  sort={sort}
+                  setSort={setSort}
+                  items={cards?.items}
+                  isEditHidden={isEditHidden}
+                  onSelectCardForUpdate={onSelectCardForUpdate}
+                  onSelectCardForDel={onSelectCardForDel}
+                />
               </div>
 
-                {isUpdateDeckDialogOpen && selectedDeck && (
-                    <DialogUpdatePack
-                        name={selectedDeck.name}
-                        deckId={selectedDeck.id ?? ''}
-                        open={isUpdateDeckDialogOpen}
-                        setOpen={setIsUpdateDeckDialogOpen}
-                        isPrivate={selectedDeck.isPrivate}
-                        setIsPrivate={setSelectedDeck}
-                        selectedDeck={selectedDeck}
-                        setSelectedDeck={setSelectedDeck}
-                    />
-                )}
-
-                {isDeleteDeckDialogOpen && (
-                    <DialogRemovePack
-                        open={isDeleteDeckDialogOpen}
-                        setOpen={setIsDeleteDeckDialogOpen}
-                        selectedDeck={selectedDeck}
-                        setSelectedDeck={setSelectedDeck}
-                    />
-                )}
-
-              {isEmptyPack() ? (
-                  <div className={s.emptyPackContainer}>
-                    <Typography variant={'Subtitle_2'} className={s.Subtitle_2}>
-                      This pack is empty.
-                      {!isEditHidden ? (
-                          <span> Click add new card to fill this pack</span>
-                      ) : (
-                          <span> You can&apos;t create cards in a deck that you don&apos;t own.</span>
-                      )}
-                    </Typography>
-                    <Button onClick={onAddCard} disabled={isEditHidden}>
-                      Add New Card
-                    </Button>
-                  </div>
-              ) : (
-                  <>
-                    <div className={sT.container}>
-                      <CardsTable
-                          sort={sort}
-                          setSort={setSort}
-                          items={cards?.items}
-                          isEditHidden={isEditHidden}
-                          onSelectCardForUpdate={onSelectCardForUpdate}
-                          onSelectCardForDel={onSelectCardForDel}
-                      />
-                    </div>
-
-                    <div className={sC.paginationContainer}>
-                      <Pagination
-                          onPageChange={updateCardsCurrentPageCallback}
-                          totalCount={cards?.pagination.totalItems ?? 0}
-                          currentPage={currentPage}
-                          pageSize={+itemsPerPage}
-                          siblingCount={2}
-                          selectSettings={{
-                            value: itemsPerPage,
-                            onChangeOption: setCardsItemsPerPageCallback,
-                            arr: paginationSelectValues,
-                          }}
-                      />
-                    </div>
-                  </>
-              )}
+              <div className={sC.paginationContainer}>
+                <Pagination
+                  onPageChange={updateCardsCurrentPageCallback}
+                  totalCount={cards?.pagination.totalItems ?? 0}
+                  currentPage={currentPage}
+                  pageSize={+itemsPerPage}
+                  siblingCount={2}
+                  selectSettings={{
+                    value: itemsPerPage,
+                    onChangeOption: setCardsItemsPerPageCallback,
+                    arr: paginationSelectValues,
+                  }}
+                />
+              </div>
             </>
-      }
-
-
+          )}
+        </>
+      )}
     </div>
   )
 }

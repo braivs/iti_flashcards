@@ -1,4 +1,4 @@
-import {CropType} from '@/components/ui/Dialogs/common/CropTypes.ts'
+import { CropType } from '@/components/ui/Dialogs/common/CropTypes.ts'
 
 // create the image with a src of the base64 string
 export const createImage = (url: string): Promise<CanvasImageSource> =>

@@ -10,7 +10,7 @@ import {
   canvaWidth,
   minSliderValue,
 } from '@/components/ui/Dialogs/common/DialogsData.ts'
-import {ChangeCoverDummyImgCropper} from "@/components/ui/Dialogs/common/ChangeCoverDummyImgCropper.tsx"
+import { ChangeCoverDummyImgCropper } from '@/components/ui/Dialogs/common/ChangeCoverDummyImgCropper.tsx'
 
 export const DeckImgUpload = (props: PropsType) => {
   const [isEditPicture, setIsEditPicture] = useState(false)

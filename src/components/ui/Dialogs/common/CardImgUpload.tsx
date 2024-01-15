@@ -11,7 +11,7 @@ import {
   minSliderValue,
 } from '@/components/ui/Dialogs/common/DialogsData.ts'
 import { Typography } from '@/components/ui/Typography'
-import {ChangeCoverDummyImgCropper} from "@/components/ui/Dialogs/common/ChangeCoverDummyImgCropper.tsx"
+import { ChangeCoverDummyImgCropper } from '@/components/ui/Dialogs/common/ChangeCoverDummyImgCropper.tsx'
 
 export const CardImgUpload = (props: PropsType) => {
   const [isEditQuestionPicture, setIsEditQuestionPicture] = useState(false)
@@ -26,7 +26,6 @@ export const CardImgUpload = (props: PropsType) => {
   const [zoomAnswer, setZoomAnswer] = useState(minSliderValue)
   const [cropAnswerArea, setCropAnswerArea] = useState<null | CropType>(null)
   const [sliderAnswerValue, setSliderAnswerValue] = useState<number[]>([minSliderValue])
-
 
   const cropSuggestionTextQuestion = 'Picture image'
   const cropSuggestionTextAnswer = 'Answer image'
@@ -104,11 +103,11 @@ export const CardImgUpload = (props: PropsType) => {
   function onApproveQuestion() {
     setIsEditQuestionPicture(false)
     onCrop(
-        cropQuestionArea,
-        inputQuestionImg,
-        canvaWidth,
-        canvaHeight,
-        props.setCropQuestionImg
+      cropQuestionArea,
+      inputQuestionImg,
+      canvaWidth,
+      canvaHeight,
+      props.setCropQuestionImg
     ).then()
     props.onApproveQuestionCallback()
   }

@@ -12,7 +12,7 @@ import { DialogsParrent } from '@/components/ui/Dialogs/DialogsParrent/DialogsPa
 import { useAppDispatch } from '@/hooks.ts'
 import { useCreateDeckMutation } from '@/services/decks/decks.service.ts'
 import { updateDecksCurrentPage } from '@/services/decks/decks.slice.ts'
-import {fromBase64} from "@/common/functions.ts"
+import { fromBase64 } from '@/common/functions.ts'
 
 export const DialogAddPack = (props: PropsType) => {
   const schema = z.object({
@@ -85,7 +85,7 @@ export const DialogAddPack = (props: PropsType) => {
     >
       <div className={sC.DialogDescription}>
         <div className={sC.dialogElement}>
-          <DeckImgUpload cropImg={cropImg} setCropImg={setCropImg} onApproveCallback={() => {}}/>
+          <DeckImgUpload cropImg={cropImg} setCropImg={setCropImg} onApproveCallback={() => {}} />
         </div>
         <div className={sC.dialogElement}>
           <form ref={formRef}>

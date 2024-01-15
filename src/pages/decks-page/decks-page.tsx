@@ -44,7 +44,7 @@ export const DecksPage = () => {
     id: '',
     name: '',
     isPrivate: false,
-    cover: ''
+    cover: '',
   })
 
   const [isUpdateDialogOpen, setIsUpdateDialogOpen] = useState(false) // for update dialog
