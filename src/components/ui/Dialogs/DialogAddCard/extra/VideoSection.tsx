@@ -1,16 +1,18 @@
 import sP from '@/components/ui/Dialogs/DialogsParrent/DialogsParrent.module.scss'
-import sC from "@/components/ui/Dialogs/common/Dialogs.module.scss"
-import {SetVideoById} from "@/components/ui/Dialogs/DialogAddCard/extra/SetVideoById.tsx"
-import {MyYouTube} from "@/common/MyYouTube.tsx"
+import {ApproveCancelTextField} from "@/components/ui/Dialogs/DialogAddCard/extra/ApproveCancelTextField.tsx"
 import {useState} from "react"
-import {Button} from "@/components/ui/Button"
+import {extractYouTubeVideoId} from "@/components/ui/Dialogs/common/utils.ts"
+import {VideoElement} from "@/components/ui/Dialogs/DialogAddCard/extra/VideoElement.tsx"
 
 export const VideoSection = (props: Props) => {
     const [isQuestionEdit, setIsQuestionEdit] = useState(false)
     const [isAnswerEdit, setIsAnswerEdit] = useState(false)
 
-    const [tempQuestionValue, setTempQuestionValue] = useState('')
-    const [tempAnswerValue, setTempAnswerValue] = useState('')
+    const [tempQuestionUrl, setTempQuestionUrl] = useState('')
+    const [tempAnswerUrl, setTempAnswerUrl] = useState('')
+
+    const {videoId: questionVideoId, success: questionVideoIdStatus} = extractYouTubeVideoId(tempQuestionUrl)
+    const {videoId: answerVideoId, success: answerVideoIdStatus} = extractYouTubeVideoId(tempAnswerUrl)
 
     const onQuestionChangeVideo = () => {
         setIsQuestionEdit(true)
@@ -21,13 +23,21 @@ export const VideoSection = (props: Props) => {
     }
 
     const onQuestionApprove = () => {
-        props.setYoutubeQuestionId(tempQuestionValue)
-        setIsQuestionEdit(false)
+        if (questionVideoIdStatus && questionVideoId) {
+            props.setYoutubeQuestionUrl(tempQuestionUrl)
+            setIsQuestionEdit(false)
+        } else {
+            alert('wrong question link')
+        }
     }
 
     const onAnswerApprove = () => {
-        props.setYoutubeAnswerId(tempAnswerValue)
-        setIsAnswerEdit(false)
+        if (answerVideoIdStatus && answerVideoId) {
+            props.setYoutubeAnswerUrl(tempAnswerUrl)
+            setIsAnswerEdit(false)
+        } else {
+            alert('wrong answer link')
+        }
     }
 
     const onQuestionCancel = () => {
@@ -43,26 +53,15 @@ export const VideoSection = (props: Props) => {
             <div className={sP.DialogDescription}>
                 {
                     !isQuestionEdit
-                        ? <>
-                            {
-                                props.youtubeQuestionId !== ''
-                                    ? <>
-                                        <MyYouTube videoId={props.youtubeQuestionId}/>
-                                        <Button variant="secondary" className={sC.button} onClick={onQuestionChangeVideo}>
-                                            Change video
-                                        </Button>
-                                    </>
-                                    : <>
-                                        <div className={sC.dummyVideo}>Question video</div>
-                                        <Button variant="secondary" className={sC.button} onClick={onQuestionChangeVideo}>
-                                            Change video
-                                        </Button>
-                                    </>
-                            }
-                        </>
-                        : <SetVideoById
-                            tempValue={tempQuestionValue}
-                            setTempValue={setTempQuestionValue}
+                        ? <VideoElement
+                            youtubeUrl={props.youtubeQuestionUrl}
+                            questionVideoIdStatus={questionVideoIdStatus}
+                            questionVideoId={questionVideoId}
+                            onQuestionChangeVideo={onQuestionChangeVideo}
+                        />
+                        : <ApproveCancelTextField
+                            tempValue={tempQuestionUrl}
+                            setTempValue={setTempQuestionUrl}
                             onApprove={onQuestionApprove}
                             onCancel={onQuestionCancel}
                             label={'Question Youtube id'}
@@ -71,25 +70,15 @@ export const VideoSection = (props: Props) => {
                 <div>
                     {
                         !isAnswerEdit
-                            ? <>
-                                {props.youtubeAnswerId !== ''
-                                    ? <>
-                                        <MyYouTube videoId={props.youtubeAnswerId}/>
-                                        <Button variant="secondary" className={sC.button} onClick={onAnswerChangeVideo}>
-                                            Change video
-                                        </Button>
-                                    </>
-                                    : <>
-                                        <div className={sC.dummyVideo}>Answer video</div>
-                                        <Button variant="secondary" className={sC.button} onClick={onAnswerChangeVideo}>
-                                            Change video
-                                        </Button>
-                                    </>
-                                }
-                            </>
-                            : <SetVideoById
-                                tempValue={tempAnswerValue}
-                                setTempValue={setTempAnswerValue}
+                            ? <VideoElement
+                                youtubeUrl={props.youtubeAnswerUrl}
+                                questionVideoIdStatus={answerVideoIdStatus}
+                                questionVideoId={answerVideoId}
+                                onQuestionChangeVideo={onAnswerChangeVideo}
+                            />
+                            : <ApproveCancelTextField
+                                tempValue={tempAnswerUrl}
+                                setTempValue={setTempAnswerUrl}
                                 onApprove={onAnswerApprove}
                                 onCancel={onAnswerCancel}
                                 label={'Answer Youtube id'}
@@ -105,11 +94,8 @@ export const VideoSection = (props: Props) => {
 }
 
 type Props = {
-    setYoutubeQuestionId: (value: string) => void
-    setYoutubeAnswerId: (value: string) => void
-    youtubeQuestionId: string
-    youtubeAnswerId: string
+    setYoutubeQuestionUrl: (value: string) => void
+    setYoutubeAnswerUrl: (value: string) => void
+    youtubeQuestionUrl: string
+    youtubeAnswerUrl: string
 }
-
-// todo: reduce code duplication
-

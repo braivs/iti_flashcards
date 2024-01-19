@@ -12,6 +12,7 @@ import {Select} from '@/components/ui/Select'
 import {useCreateCardInDeckMutation} from '@/services/decks/decks.service.ts'
 import {fromBase64} from "@/common/functions.ts"
 import {VideoSection} from "@/components/ui/Dialogs/DialogAddCard/extra/VideoSection.tsx"
+import {extractYouTubeVideoId} from "@/components/ui/Dialogs/common/utils.ts"
 
 export const DialogAddCard = (props: Props) => {
     const TextPicture = 'Text + Picture'
@@ -22,8 +23,8 @@ export const DialogAddCard = (props: Props) => {
     const [value, setValue] = useState(TextPicture) // for select
     const [cropQuestionImg, setCropQuestionImg] = useState<string | undefined>(undefined)
     const [cropAnswerImg, setCropAnswerImg] = useState<string | undefined>(undefined)
-    const [youtubeQuestionId, setYoutubeQuestionId] = useState<string>('')
-    const [youtubeAnswerId, setYoutubeAnswerId] = useState<string>('')
+    const [youtubeQuestionUrl, setYoutubeQuestionUrl] = useState<string>('')
+    const [youtubeAnswerUrl, setYoutubeAnswerUrl] = useState<string>('')
 
     const schema = z.object({
         answer: z.string().min(3),
@@ -75,6 +76,16 @@ export const DialogAddCard = (props: Props) => {
         }
         if (answerImg) {
             formData.append('answerImg', answerImg)
+        }
+        if (youtubeQuestionUrl ) {
+            if (extractYouTubeVideoId(youtubeQuestionUrl).success) {
+                formData.append('questionVideo', youtubeQuestionUrl)
+            } else {
+                alert('wrong address')
+            }
+        }
+        if (youtubeAnswerUrl) {
+            formData.append('answerVideo', youtubeAnswerUrl)
         }
         createCardInDeck({
             deckId: props.deckId,
@@ -150,10 +161,10 @@ export const DialogAddCard = (props: Props) => {
                 {
                     value === Video &&
                         <VideoSection
-                            setYoutubeQuestionId={setYoutubeQuestionId}
-                            setYoutubeAnswerId={setYoutubeAnswerId}
-                            youtubeQuestionId={youtubeQuestionId}
-                            youtubeAnswerId={youtubeAnswerId}
+                            setYoutubeQuestionUrl={setYoutubeQuestionUrl}
+                            setYoutubeAnswerUrl={setYoutubeAnswerUrl}
+                            youtubeQuestionUrl={youtubeQuestionUrl}
+                            youtubeAnswerUrl={youtubeAnswerUrl}
                         />
                 }
 

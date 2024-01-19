@@ -3,7 +3,7 @@ import {Button} from "@/components/ui/Button"
 import sC from "@/components/ui/Dialogs/common/Dialogs.module.scss"
 import {Textfield} from "@/components/ui/Textfield"
 
-export const SetVideoById = (props: Props) => {
+export const ApproveCancelTextField = (props: Props) => {
 
     return (
         <div className={sP.textFieldContainer}>
