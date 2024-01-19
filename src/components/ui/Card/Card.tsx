@@ -4,11 +4,11 @@ import { clsx } from 'clsx'
 
 import s from './Card.module.scss'
 
-export const Card = (props: PropsType) => {
+export const Card = (props: Props) => {
   return <div className={clsx(s.component, props.className)}>{props.children}</div>
 }
 
-type PropsType = {
+type Props = {
   children: ReactNode
   className?: string
 }

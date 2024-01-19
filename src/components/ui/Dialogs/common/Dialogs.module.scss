@@ -9,18 +9,21 @@
     @include mixins.imgUploadSize;
   }
 
-  .dummyImg {
-    border: 1px solid white;
-    @include mixins.flex($justifyContent: center, $alignItems: center);
-    @include mixins.imgUploadSize;
-  }
+}
+
+.dummyImg, .dummyVideo {
+  margin-top: 24px;
+  border: 1px solid white;
+  @include mixins.flex($justifyContent: center, $alignItems: center);
 }
 
 .dummyImg {
-  border: 1px solid white;
-  @include mixins.flex($justifyContent: center, $alignItems: center);
   @include mixins.imgUploadSize;
   margin-top: 24px;
+}
+
+.dummyVideo {
+  @include mixins.videoSize;
 }
 
 .container {
@@ -33,4 +36,9 @@
   &:last-child {
     margin-left: 5px;
   }
+}
+
+.button {
+    width: 100%;
+    margin-top: 24px;
 }

@@ -1,7 +1,7 @@
-import { baseApi } from '@/services/base-api.ts'
-import { Card, UpdateCard } from '@/services/cards/cards.types.ts'
-import { decksService } from '@/services/decks/decks.service.ts'
-import { RootState } from '@/services/store.ts'
+import {baseApi} from '@/services/base-api.ts'
+import {Card, UpdateCardArgs} from '@/services/cards/cards.types.ts'
+import {decksService} from '@/services/decks/decks.service.ts'
+import {RootState} from '@/services/store.ts'
 
 const cardsService = baseApi.injectEndpoints({
   endpoints: builder => ({
@@ -28,11 +28,11 @@ const cardsService = baseApi.injectEndpoints({
       },
       invalidatesTags: ['CardsInDeck'],
     }),
-    updateCard: builder.mutation<Card, { id: string; data: UpdateCard }>({
-      query: ({ id, data }) => ({
+    updateCard: builder.mutation<Card, UpdateCardArgs>({
+      query: ({ id, formData }) => ({
         url: `/v1/cards/${id}`,
         method: 'PATCH',
-        body: data,
+        body: formData,
       }),
       invalidatesTags: ['CardsInDeck'],
     }),

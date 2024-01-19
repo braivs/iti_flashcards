@@ -9,7 +9,7 @@ import s from './Select.module.scss'
 import sC from '@/components/ui/Textfield/Textfield.module.scss'
 import { Typography } from '@/components/ui/Typography'
 
-export const Select: React.FC<SelectPropsType> = (props: SelectPropsType) => {
+export const Select: React.FC<SelectProps> = (props: SelectProps) => {
   const mappedOptions = props.options.map((e, i) => (
     <RSelect.Item key={'option-' + i} className={s.item} value={e}>
       {e}
@@ -54,12 +54,12 @@ export const Select: React.FC<SelectPropsType> = (props: SelectPropsType) => {
   )
 }
 
-type DefaultSelectPropsType = DetailedHTMLProps<
+type DefaultSelectProps = DetailedHTMLProps<
   SelectHTMLAttributes<HTMLSelectElement>,
   HTMLSelectElement
 >
 
-export type SelectPropsType = DefaultSelectPropsType & {
+export type SelectProps = DefaultSelectProps & {
   options: Array<string>
   value: string
   onChangeOption: (value: string) => void

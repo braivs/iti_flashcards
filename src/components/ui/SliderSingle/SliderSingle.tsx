@@ -4,7 +4,7 @@ import * as SliderPrimitive from '@radix-ui/react-slider'
 
 import s from './SliderSingle.module.scss'
 
-export const SliderSingle = (props: PropsType) => {
+export const SliderSingle = (props: Props) => {
   return (
     <div className={s.container}>
       <span className={s.value}>{props.value}</span>
@@ -26,7 +26,7 @@ export const SliderSingle = (props: PropsType) => {
   )
 }
 
-type PropsType = {
+type Props = {
   defaultValue: number
   min: number
   max: number

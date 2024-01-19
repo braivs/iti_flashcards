@@ -4,7 +4,7 @@ import s from './TabSwitcher.module.scss'
 
 import { Typography } from '@/components/ui/Typography'
 
-export const TabSwitcher = (props: PropsType) => {
+export const TabSwitcher = (props: Props) => {
   return (
     <div className={s.container}>
       <div className={s.TypBox}>
@@ -41,7 +41,7 @@ export type TabSwitcherValues = {
   text: string
 }
 
-type PropsType = {
+type Props = {
   onChangeCallback: (index: string) => void
   values: Array<TabSwitcherValues>
   isDisabled?: boolean

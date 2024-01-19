@@ -5,7 +5,7 @@ import { clsx } from 'clsx'
 import s from './Typography.module.scss'
 
 export const Typography = <T extends ElementType = 'p'>(
-  props: PropsType<T> & Omit<ComponentPropsWithoutRef<T>, keyof PropsType<T>>
+  props: Props<T> & Omit<ComponentPropsWithoutRef<T>, keyof Props<T>>
 ) => {
   const classNames = clsx(s.text, s[props.variant], props.className)
   const Component = props.as || 'div'
@@ -30,7 +30,7 @@ export const Typography = <T extends ElementType = 'p'>(
   )
 }
 
-type PropsType<T extends ElementType> = {
+type Props<T extends ElementType> = {
   as?: T
   variant:
     | 'Large'

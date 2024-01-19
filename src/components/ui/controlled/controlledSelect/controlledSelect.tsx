@@ -1,12 +1,12 @@
 import { Control, FieldValues, Path, useController } from 'react-hook-form'
 
 import { Select } from '@/components/ui/Select'
-import { SelectPropsType } from '@/components/ui/Select/Select.tsx'
+import { SelectProps } from '@/components/ui/Select/Select.tsx'
 
 export type ControlledTextFieldProps<TFieldValues extends FieldValues> = {
   name: Path<TFieldValues>
   control: Control<TFieldValues>
-} & Omit<SelectPropsType, 'onChange' | 'value' | 'id'>
+} & Omit<SelectProps, 'onChange' | 'value' | 'id'>
 
 export const ControlledSelect = <TFieldValues extends FieldValues>(
   props: ControlledTextFieldProps<TFieldValues>

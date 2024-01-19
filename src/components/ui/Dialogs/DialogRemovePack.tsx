@@ -6,7 +6,7 @@ import sC from '@/components/ui/Dialogs/DialogsParrent/DialogsParrent.module.scs
 import { DialogsParrent } from '@/components/ui/Dialogs/DialogsParrent/DialogsParrent.tsx'
 import { useDeleteDeckMutation } from '@/services/decks/decks.service.ts'
 
-export const DialogRemovePack = (props: PropsType) => {
+export const DialogRemovePack = (props: Props) => {
   const [deleteDeck] = useDeleteDeckMutation()
   const navigate = useNavigate()
   const onDeleteDeck = () => {
@@ -39,7 +39,7 @@ export const DialogRemovePack = (props: PropsType) => {
   )
 }
 
-type PropsType = {
+type Props = {
   open: boolean
   setOpen: (value: boolean) => void
   selectedDeck: SelectedDeck

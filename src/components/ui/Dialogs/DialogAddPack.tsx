@@ -14,7 +14,7 @@ import { useCreateDeckMutation } from '@/services/decks/decks.service.ts'
 import { updateDecksCurrentPage } from '@/services/decks/decks.slice.ts'
 import { fromBase64 } from '@/common/functions.ts'
 
-export const DialogAddPack = (props: PropsType) => {
+export const DialogAddPack = (props: Props) => {
   const schema = z.object({
     packName: z.string().min(3).max(30),
   })
@@ -105,7 +105,7 @@ export const DialogAddPack = (props: PropsType) => {
   )
 }
 
-type PropsType = {
+type Props = {
   open: boolean
   setOpen: Dispatch<SetStateAction<boolean>>
 }

@@ -34,6 +34,10 @@ input {
     hsl(206deg 22% 7% / 20%) 0 10px 20px -15px;
 
   animation: contentShow 150ms cubic-bezier(0.16, 1, 0.3, 1);
+  overflow-y: auto;
+
+
+  max-height: 95%;
 }
 
 .DialogContent:focus {

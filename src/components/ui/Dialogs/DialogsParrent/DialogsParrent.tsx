@@ -6,7 +6,7 @@ import closeIcon from '@/assets/icons/close.png'
 import { Button } from '@/components/ui/Button'
 import s from '@/components/ui/Dialogs/DialogsParrent/DialogsParrent.module.scss'
 
-export const DialogsParrent = (props: PropsType) => {
+export const DialogsParrent = (props: Props) => {
   const { isButtonDisable = false } = props
 
   return (
@@ -37,7 +37,7 @@ export const DialogsParrent = (props: PropsType) => {
   )
 }
 
-type PropsType = {
+type Props = {
   open: boolean
   setOpen: (value: boolean) => void
   onButtonAction: () => void

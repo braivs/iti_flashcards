@@ -9,7 +9,7 @@ import { Tooltip } from '@/components/ui/Tooltip/Tooltip'
 import { Card } from '@/services/cards/cards.types.ts'
 import { Sort } from '@/services/common/types.ts'
 
-export const CardsTable = (props: PropsType) => {
+export const CardsTable = (props: Props) => {
   const columns: Column[] = [
     {
       key: 'question',
@@ -122,7 +122,7 @@ export const CardsTable = (props: PropsType) => {
   )
 }
 
-type PropsType = {
+type Props = {
   sort: Sort
   setSort: (value: Sort) => void
   items: Array<Card> | undefined

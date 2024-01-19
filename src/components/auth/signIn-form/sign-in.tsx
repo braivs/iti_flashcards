@@ -23,7 +23,7 @@ const schema = z.object({
 
 type FormValues = z.input<typeof schema>
 
-export const SignIn = (props: PropsType) => {
+export const SignIn = (props: Props) => {
   const {
     handleSubmit,
     control,
@@ -107,7 +107,7 @@ export const SignIn = (props: PropsType) => {
 
 type FormType = z.infer<typeof schema>
 
-type PropsType = {
+type Props = {
   onSubmit: (data: FormType) => void
   error?: string | undefined
 }

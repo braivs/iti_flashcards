@@ -13,7 +13,7 @@ import { useGetMeQuery } from '@/services/auth/auth.service.ts'
 import { Sort } from '@/services/common/types.ts'
 import { Deck } from '@/services/decks/deck.types.ts'
 
-export const DecksTable = (props: PropsType) => {
+export const DecksTable = (props: Props) => {
   const columns: Column[] = [
     {
       key: 'name',
@@ -102,7 +102,7 @@ export const DecksTable = (props: PropsType) => {
   )
 }
 
-type PropsType = {
+type Props = {
   items: Deck[] | undefined
   onSelectDeckForUpdate: (id: string, name: string, isPrivate: boolean, cover: string) => void
   onSelectDeckForDel: (id: string, name: string, cover: string) => void

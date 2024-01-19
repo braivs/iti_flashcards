@@ -9,7 +9,7 @@ import { usePagination, DOTS } from './usePagination.ts'
 
 import { Select } from '@/components/ui/Select'
 
-export const Pagination = (props: PropsType) => {
+export const Pagination = (props: Props) => {
   const { onPageChange, totalCount, siblingCount = 1, currentPage, pageSize, className } = props
 
   const paginationRange = usePagination({
@@ -105,7 +105,7 @@ export const Pagination = (props: PropsType) => {
   )
 }
 
-type PropsType = {
+type Props = {
   onPageChange: (value: number | string) => void
   totalCount: number
   siblingCount?: number

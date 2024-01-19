@@ -5,7 +5,7 @@ import sC from '@/components/ui/Dialogs/DialogsParrent/DialogsParrent.module.scs
 import { DialogsParrent } from '@/components/ui/Dialogs/DialogsParrent/DialogsParrent.tsx'
 import { useDeleteCardMutation } from '@/services/cards/cards.service.ts'
 
-export const DialogRemoveCard = (props: PropsType) => {
+export const DialogRemoveCard = (props: Props) => {
   const [deleteCard] = useDeleteCardMutation()
   const onDeleteCard = () => {
     deleteCard({ id: props.selectedCard.id })
@@ -34,7 +34,7 @@ export const DialogRemoveCard = (props: PropsType) => {
   )
 }
 
-type PropsType = {
+type Props = {
   open: boolean
   setOpen: (value: boolean) => void
   selectedCard: SelectedCard

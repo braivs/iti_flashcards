@@ -2,7 +2,7 @@ import * as RRadioGroup from '@radix-ui/react-radio-group'
 
 import s from './RadioGroup.module.scss'
 
-export const RadioGroup = (props: PropsType) => {
+export const RadioGroup = (props: Props) => {
   const Element = (props: RadioElementType) => {
     return (
       <div className={s.element}>
@@ -42,7 +42,7 @@ export type RadioElementType = {
   label: string
 }
 
-type PropsType = {
+type Props = {
   value: string
   onValueChange: (e: string) => void
   options: Array<RadioElementType>

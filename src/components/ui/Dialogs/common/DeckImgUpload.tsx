@@ -12,7 +12,7 @@ import {
 } from '@/components/ui/Dialogs/common/DialogsData.ts'
 import { ChangeCoverDummyImgCropper } from '@/components/ui/Dialogs/common/ChangeCoverDummyImgCropper.tsx'
 
-export const DeckImgUpload = (props: PropsType) => {
+export const DeckImgUpload = (props: Props) => {
   const [isEditPicture, setIsEditPicture] = useState(false)
   const [inputImg, setInputImg] = useState<undefined | string>(undefined)
   const [crop, setCrop] = useState<Point>({ x: 0, y: 0 })
@@ -77,7 +77,7 @@ export const DeckImgUpload = (props: PropsType) => {
   )
 }
 
-type PropsType = {
+type Props = {
   cropImg: string | undefined
   setCropImg: (value: string) => void
   onApproveCallback: () => void
