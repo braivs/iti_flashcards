@@ -137,7 +137,9 @@ export const CardsPage = () => {
     question: string,
     answer: string,
     questionImg?: string,
-    answerImg?: string
+    answerImg?: string,
+    questionVideo?: string,
+    answerVideo?: string
   ) => {
     setIsUpdateDialogOpen(true)
     setSelectedForUpdateCard({
@@ -146,6 +148,8 @@ export const CardsPage = () => {
       answer,
       questionImg: questionImg ? questionImg : '',
       answerImg: answerImg ? answerImg : '',
+      questionVideo: questionVideo ? questionVideo : undefined,
+      answerVideo: answerVideo ? answerVideo : undefined,
     })
   }
   const updateCardsCurrentPageCallback = (page: number | string) => {

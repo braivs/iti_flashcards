@@ -9,7 +9,7 @@ export const ApproveCancelTextField = (props: Props) => {
         <div className={sP.textFieldContainer}>
             <div className={sP.element}>
                 <Textfield
-                    placeholder={'HPU9xqdta3E'}
+                    placeholder={'https://youtu.be/lVAjmCRr2_Q?si=ECE1RD9mNOHyCvhC'}
                     label={props.label}
                     value={props.tempValue}
                     onChange={e => props.setTempValue(e.currentTarget.value)}

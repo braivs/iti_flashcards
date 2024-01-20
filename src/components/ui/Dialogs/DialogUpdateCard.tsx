@@ -11,12 +11,15 @@ import {DialogsParrent} from '@/components/ui/Dialogs/DialogsParrent/DialogsParr
 import {useUpdateCardMutation} from '@/services/cards/cards.service.ts'
 import {CardImgUpload} from "@/components/ui/Dialogs/common/CardImgUpload.tsx"
 import {fromBase64} from "@/common/functions.ts"
+import {VideoSection} from "@/components/ui/Dialogs/DialogAddCard/extra/VideoSection.tsx"
 
 export const DialogUpdateCard = (props: Props) => {
     const [isCoverQuestionChanged, setIsCoverQuestionChanged] = useState(false)
     const [isCoverAnswerChanged, setIsCoverAnswerChanged] = useState(false)
     const [cropQuestionImg, setCropQuestionImg] = useState<string | undefined>(props.selectedCard.questionImg)
     const [cropAnswerImg, setCropAnswerImg] = useState<string | undefined>(props.selectedCard.answerImg)
+    const [youtubeQuestionUrl, setYoutubeQuestionUrl] = useState(props.selectedCard.questionVideo)
+    const [youtubeAnswerUrl, setYoutubeAnswerUrl] = useState(props.selectedCard.answerVideo)
 
     const schema = z.object({
         question: z.string().min(2).max(500),
@@ -44,7 +47,8 @@ export const DialogUpdateCard = (props: Props) => {
     const [updateCard] = useUpdateCardMutation()
 
     const handleFormSubmitted = handleSubmit(values => {
-        onUpdateCard(values.question, values.answer, cropQuestionImg, cropAnswerImg)
+        onUpdateCard(values.question, values.answer, cropQuestionImg,
+            cropAnswerImg, youtubeQuestionUrl, youtubeAnswerUrl)
             .then(() => {
                 reset()
                 props.setOpen(false)
@@ -61,14 +65,17 @@ export const DialogUpdateCard = (props: Props) => {
         formRef.current.submit()
     }
 
-    const onUpdateCard = async (question: string, answer: string, coverQuestionImg?: string, coverAnswerImg?: string) => {
+    const onUpdateCard = async (question: string, answer: string, coverQuestionImg?: string, coverAnswerImg?: string, questionVideo?: string, answerVideo?: string) => {
         if (!question || !answer || !props.id) return
 
         // Check if either question or answer has changed
         const isQuestionChanged = props.question !== question
         const isAnswerChanged = props.answer !== answer
+        const isQuestionVideoChanged = props.selectedCard.questionVideo !== questionVideo
+        const isAnswerVideoChanged = props.selectedCard.answerVideo !== answerVideo
 
-        if (isQuestionChanged || isAnswerChanged || isCoverQuestionChanged || isCoverAnswerChanged) {
+        if (isQuestionChanged || isAnswerChanged || isCoverQuestionChanged || isCoverAnswerChanged
+            || isQuestionVideoChanged || isAnswerVideoChanged) {
             const formData = new FormData()
 
             // Prepare the data object with only the changed properties
@@ -87,6 +94,12 @@ export const DialogUpdateCard = (props: Props) => {
             if (isCoverAnswerChanged) {
                 const answerImg = await fromBase64(coverAnswerImg ? coverAnswerImg : '')
                 if (answerImg) formData.append('answerImg', answerImg)
+            }
+            if (isQuestionVideoChanged) {
+                formData.append('questionVideo', questionVideo ? questionVideo : '')
+            }
+            if (isAnswerVideoChanged) {
+                formData.append('answerVideo', answerVideo ? answerVideo : '')
             }
 
             updateCard({
@@ -136,18 +149,20 @@ export const DialogUpdateCard = (props: Props) => {
                     </div>
 
                 </form>
-
-
-                <div className={sC.dialogElement}>
-                    <CardImgUpload
-                        cropQuestionImg={cropQuestionImg}
-                        cropAnswerImg={cropAnswerImg}
-                        setCropQuestionImg={setCropQuestionImg}
-                        setCropAnswerImg={setCropAnswerImg}
-                        onApproveAnswerCallback={onApproveAnswer}
-                        onApproveQuestionCallback={onApproveQuestion}
-                    />
-                </div>
+                <CardImgUpload
+                    cropQuestionImg={cropQuestionImg}
+                    cropAnswerImg={cropAnswerImg}
+                    setCropQuestionImg={setCropQuestionImg}
+                    setCropAnswerImg={setCropAnswerImg}
+                    onApproveAnswerCallback={onApproveAnswer}
+                    onApproveQuestionCallback={onApproveQuestion}
+                />
+                <VideoSection
+                    setYoutubeQuestionUrl={setYoutubeQuestionUrl}
+                    setYoutubeAnswerUrl={setYoutubeAnswerUrl}
+                    youtubeQuestionUrl={youtubeQuestionUrl ? youtubeQuestionUrl : ''}
+                    youtubeAnswerUrl={youtubeAnswerUrl ? youtubeAnswerUrl : ''}
+                />
             </div>
         </DialogsParrent>
     )

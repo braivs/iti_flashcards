@@ -8,19 +8,12 @@ import {ControlledTextField} from '@/components/ui/controlled/controlled-text-fi
 import {CardImgUpload} from '@/components/ui/Dialogs/common/CardImgUpload.tsx'
 import sC from '@/components/ui/Dialogs/DialogsParrent/DialogsParrent.module.scss'
 import {DialogsParrent} from '@/components/ui/Dialogs/DialogsParrent/DialogsParrent.tsx'
-import {Select} from '@/components/ui/Select'
 import {useCreateCardInDeckMutation} from '@/services/decks/decks.service.ts'
 import {fromBase64} from "@/common/functions.ts"
 import {VideoSection} from "@/components/ui/Dialogs/DialogAddCard/extra/VideoSection.tsx"
 import {extractYouTubeVideoId} from "@/components/ui/Dialogs/common/utils.ts"
 
 export const DialogAddCard = (props: Props) => {
-    const TextPicture = 'Text + Picture'
-    const Video = 'Video'
-
-    const arr: Array<string> = [TextPicture, Video] // for select
-
-    const [value, setValue] = useState(TextPicture) // for select
     const [cropQuestionImg, setCropQuestionImg] = useState<string | undefined>(undefined)
     const [cropAnswerImg, setCropAnswerImg] = useState<string | undefined>(undefined)
     const [youtubeQuestionUrl, setYoutubeQuestionUrl] = useState<string>('')
@@ -77,7 +70,7 @@ export const DialogAddCard = (props: Props) => {
         if (answerImg) {
             formData.append('answerImg', answerImg)
         }
-        if (youtubeQuestionUrl ) {
+        if (youtubeQuestionUrl) {
             if (extractYouTubeVideoId(youtubeQuestionUrl).success) {
                 formData.append('questionVideo', youtubeQuestionUrl)
             } else {
@@ -101,12 +94,6 @@ export const DialogAddCard = (props: Props) => {
         props.setOpen(false)
     }
 
-    const setDialogVariantCallback = (value: string) => {
-        setValue(value)
-    }
-
-
-
     return (
         <DialogsParrent
             title={'Add New Card'}
@@ -117,16 +104,6 @@ export const DialogAddCard = (props: Props) => {
             isButtonDisable={Object.keys(errors).length > 0}
         >
             <div className={sC.DialogDescription}>
-                <div className={sC.dialogElement}>
-                    <Select
-                        options={arr}
-                        onChangeOption={setDialogVariantCallback}
-                        label={'Choose a question format'}
-                        isGreyColor={true}
-                        name={'dialogSelect'}
-                        value={value}
-                    />
-                </div>
                 <form ref={formRef}>
                     <div className={sC.textFieldContainer}>
                         <div className={sC.element}>
@@ -149,24 +126,23 @@ export const DialogAddCard = (props: Props) => {
                         </div>
                     </div>
                 </form>
-                {value === TextPicture && <CardImgUpload
+                <CardImgUpload
                     cropQuestionImg={cropQuestionImg}
                     cropAnswerImg={cropAnswerImg}
                     setCropQuestionImg={setCropQuestionImg}
                     setCropAnswerImg={setCropAnswerImg}
-                    onApproveAnswerCallback={() => {}}
-                    onApproveQuestionCallback={() => {}}
+                    onApproveAnswerCallback={() => {
+                    }}
+                    onApproveQuestionCallback={() => {
+                    }}
                 />
-                }
-                {
-                    value === Video &&
-                        <VideoSection
-                            setYoutubeQuestionUrl={setYoutubeQuestionUrl}
-                            setYoutubeAnswerUrl={setYoutubeAnswerUrl}
-                            youtubeQuestionUrl={youtubeQuestionUrl}
-                            youtubeAnswerUrl={youtubeAnswerUrl}
-                        />
-                }
+                <VideoSection
+                    setYoutubeQuestionUrl={setYoutubeQuestionUrl}
+                    setYoutubeAnswerUrl={setYoutubeAnswerUrl}
+                    youtubeQuestionUrl={youtubeQuestionUrl}
+                    youtubeAnswerUrl={youtubeAnswerUrl}
+                />
+
 
             </div>
         </DialogsParrent>

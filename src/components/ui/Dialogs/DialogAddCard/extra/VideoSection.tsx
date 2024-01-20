@@ -8,8 +8,8 @@ export const VideoSection = (props: Props) => {
     const [isQuestionEdit, setIsQuestionEdit] = useState(false)
     const [isAnswerEdit, setIsAnswerEdit] = useState(false)
 
-    const [tempQuestionUrl, setTempQuestionUrl] = useState('')
-    const [tempAnswerUrl, setTempAnswerUrl] = useState('')
+    const [tempQuestionUrl, setTempQuestionUrl] = useState(props.youtubeQuestionUrl)
+    const [tempAnswerUrl, setTempAnswerUrl] = useState(props.youtubeAnswerUrl)
 
     const {videoId: questionVideoId, success: questionVideoIdStatus} = extractYouTubeVideoId(tempQuestionUrl)
     const {videoId: answerVideoId, success: answerVideoIdStatus} = extractYouTubeVideoId(tempAnswerUrl)

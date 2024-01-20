@@ -43,7 +43,9 @@ export const CardsTable = (props: Props) => {
       data.question,
       data.answer,
       data.questionImg ? data.questionImg : '',
-      data.answerImg ? data.answerImg : ''
+      data.answerImg ? data.answerImg : '',
+        data.questionVideo ? data.questionVideo : undefined,
+        data.answerVideo ? data.answerVideo : undefined,
     )
   }
 
@@ -132,7 +134,9 @@ type Props = {
     question: string,
     answer: string,
     questionImg?: string,
-    answerImg?: string
+    answerImg?: string,
+    questionVideo?: string,
+    answerVideo?: string
   ) => void
   onSelectCardForDel: (id: string, question: string) => void
 }
