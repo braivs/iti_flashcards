@@ -5,6 +5,10 @@
   position: relative;
   @include mixins.img-upload-size;
 
+  img {
+    max-width: 100%;
+  }
+
   .croppedImg {
     @include mixins.img-upload-size;
   }
