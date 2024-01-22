@@ -1,6 +1,10 @@
-import sC from '@/components/ui/Dialogs/common/Dialogs.module.scss'
-import s from '@/components/ui/Dialogs/DialogAddCard/DialogAddCard.module.scss'
+import { ChangeEvent } from 'react'
+
 import Cropper, { Area, Point } from 'react-easy-crop'
+
+import { Button } from '@/components/ui/Button'
+import { CustomFileUpload } from '@/components/ui/Dialogs/common/CustomFileUpload.tsx'
+import sC from '@/components/ui/Dialogs/common/Dialogs.module.scss'
 import {
   canvaHeight,
   canvaWidth,
@@ -8,10 +12,8 @@ import {
   minSliderValue,
   sliderStep,
 } from '@/components/ui/Dialogs/common/DialogsData.ts'
+import s from '@/components/ui/Dialogs/DialogAddCard/DialogAddCard.module.scss'
 import { SliderSingle } from '@/components/ui/SliderSingle/SliderSingle.tsx'
-import { Button } from '@/components/ui/Button'
-import { ChangeEvent } from 'react'
-import { CustomFileUpload } from '@/components/ui/Dialogs/common/CustomFileUpload.tsx'
 
 export const ChangeCoverDummyImgCropper = (props: ExtraChangeCoverDummyImgCropperProps) => {
   return (

@@ -5,12 +5,12 @@
   justify-content: $justifyContent;
 }
 
-@mixin imgUploadSize() {
+@mixin img-upload-size() {
   max-width: 100%;
   height: 119px;
 }
 
-@mixin videoSize() {
+@mixin video-size() {
   max-width: 100%;
   height: 270px;
 }

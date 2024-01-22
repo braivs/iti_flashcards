@@ -44,8 +44,8 @@ export const CardsTable = (props: Props) => {
       data.answer,
       data.questionImg ? data.questionImg : '',
       data.answerImg ? data.answerImg : '',
-        data.questionVideo ? data.questionVideo : undefined,
-        data.answerVideo ? data.answerVideo : undefined,
+      data.questionVideo ? data.questionVideo : undefined,
+      data.answerVideo ? data.answerVideo : undefined
     )
   }
 

@@ -4,6 +4,7 @@ import { zodResolver } from '@hookform/resolvers/zod'
 import { useForm } from 'react-hook-form'
 import { z } from 'zod'
 
+import { fromBase64 } from '@/common/functions.ts'
 import { Checkbox } from '@/components/ui/Checkbox'
 import { ControlledTextField } from '@/components/ui/controlled/controlled-text-field'
 import { DeckImgUpload } from '@/components/ui/Dialogs/common/DeckImgUpload.tsx'
@@ -12,7 +13,6 @@ import { DialogsParent } from '@/components/ui/Dialogs/DialogsParent/DialogsPare
 import { useAppDispatch } from '@/hooks.ts'
 import { useCreateDeckMutation } from '@/services/decks/decks.service.ts'
 import { updateDecksCurrentPage } from '@/services/decks/decks.slice.ts'
-import { fromBase64 } from '@/common/functions.ts'
 
 export const DialogAddPack = (props: Props) => {
   const schema = z.object({

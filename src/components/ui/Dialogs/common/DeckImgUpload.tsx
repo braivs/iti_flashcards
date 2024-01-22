@@ -3,6 +3,7 @@ import { ChangeEvent, useCallback, useState } from 'react'
 import { Area, Point } from 'react-easy-crop'
 
 import { onFileChange } from '@/common/functions.ts'
+import { ChangeCoverDummyImgCropper } from '@/components/ui/Dialogs/common/ChangeCoverDummyImgCropper.tsx'
 import { onCrop } from '@/components/ui/Dialogs/common/cropFunctions.ts'
 import { CropType } from '@/components/ui/Dialogs/common/CropTypes.ts'
 import {
@@ -10,7 +11,6 @@ import {
   canvaWidth,
   minSliderValue,
 } from '@/components/ui/Dialogs/common/DialogsData.ts'
-import { ChangeCoverDummyImgCropper } from '@/components/ui/Dialogs/common/ChangeCoverDummyImgCropper.tsx'
 
 export const DeckImgUpload = (props: Props) => {
   const [isEditPicture, setIsEditPicture] = useState(false)

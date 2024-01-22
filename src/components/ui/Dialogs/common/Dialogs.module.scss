@@ -3,14 +3,10 @@
 .imgContainer {
   margin: 0 auto;
   position: relative;
-  @include mixins.imgUploadSize;
-
-  img {
-    max-width: 100%;
-  }
+  @include mixins.img-upload-size;
 
   .croppedImg {
-    @include mixins.imgUploadSize;
+    @include mixins.img-upload-size;
   }
 
 }
@@ -22,11 +18,11 @@
 }
 
 .dummyImg {
-  @include mixins.imgUploadSize;
+  @include mixins.img-upload-size;
 }
 
 .dummyVideo {
-  @include mixins.videoSize;
+  @include mixins.video-size;
 }
 
 .container {

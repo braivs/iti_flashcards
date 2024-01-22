@@ -1,5 +1,4 @@
-import { useEffect } from 'react'
-
+import { FetchBaseQueryError } from '@reduxjs/toolkit/query'
 import { Link, useNavigate, useParams } from 'react-router-dom'
 import { toast, ToastContainer } from 'react-toastify'
 
@@ -39,13 +38,14 @@ export const LearnModalPage = () => {
     return <Loader />
   }
 
-  //TODO fix this error
-  const errorData = error && error?.data
+  const errorData = ((error as FetchBaseQueryError)?.data || { message: 'some error' }) as {
+    message: string
+  }
 
   if (isError) {
     // return <ErrorPage errorMessage={error?.data?.message} />
     const notify = () => {
-      toast.error(errorData.message, { theme: 'colored', autoClose: 2000 })
+      toast.error(errorData?.message, { theme: 'colored', autoClose: 2000 })
     }
 
     notify()
@@ -53,7 +53,7 @@ export const LearnModalPage = () => {
     return (
       <div className={s.body}>
         <Typography variant={'Body_1'} className={s.text}>
-          {errorData.message}
+          {errorData?.message}
         </Typography>
         <ToastContainer position={'top-center'} limit={1} />
         <Link to={'/'}>
