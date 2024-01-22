@@ -6,8 +6,8 @@ import {z} from 'zod'
 
 import {ControlledTextField} from '@/components/ui/controlled/controlled-text-field'
 import {CardImgUpload} from '@/components/ui/Dialogs/common/CardImgUpload.tsx'
-import sC from '@/components/ui/Dialogs/DialogsParrent/DialogsParrent.module.scss'
-import {DialogsParrent} from '@/components/ui/Dialogs/DialogsParrent/DialogsParrent.tsx'
+import sC from '@/components/ui/Dialogs/DialogsParent/DialogsParent.module.scss'
+import {DialogsParent} from '@/components/ui/Dialogs/DialogsParent/DialogsParent.tsx'
 import {useCreateCardInDeckMutation} from '@/services/decks/decks.service.ts'
 import {fromBase64} from "@/common/functions.ts"
 import {VideoSection} from "@/components/ui/Dialogs/DialogAddCard/extra/VideoSection.tsx"
@@ -95,7 +95,7 @@ export const DialogAddCard = (props: Props) => {
     }
 
     return (
-        <DialogsParrent
+        <DialogsParent
             title={'Add New Card'}
             open={props.open}
             setOpen={onClose}
@@ -105,7 +105,7 @@ export const DialogAddCard = (props: Props) => {
         >
             <div className={sC.DialogDescription}>
                 <form ref={formRef}>
-                    <div className={sC.textFieldContainer}>
+                    <div className={sC.elementContainer}>
                         <div className={sC.element}>
                             <ControlledTextField
                                 name={'question'}
@@ -115,7 +115,7 @@ export const DialogAddCard = (props: Props) => {
                             />
                         </div>
                     </div>
-                    <div className={sC.textFieldContainer}>
+                    <div className={sC.elementContainer}>
                         <div className={sC.element}>
                             <ControlledTextField
                                 name={'answer'}
@@ -145,7 +145,7 @@ export const DialogAddCard = (props: Props) => {
 
 
             </div>
-        </DialogsParrent>
+        </DialogsParent>
     )
 }
 

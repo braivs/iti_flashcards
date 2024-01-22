@@ -7,8 +7,8 @@ import {z} from 'zod'
 import {SelectedDeck} from '@/common/types.ts'
 import {Checkbox} from '@/components/ui/Checkbox'
 import {ControlledTextField} from '@/components/ui/controlled/controlled-text-field'
-import sC from '@/components/ui/Dialogs/DialogsParrent/DialogsParrent.module.scss'
-import {DialogsParrent} from '@/components/ui/Dialogs/DialogsParrent/DialogsParrent.tsx'
+import sC from '@/components/ui/Dialogs/DialogsParent/DialogsParent.module.scss'
+import {DialogsParent} from '@/components/ui/Dialogs/DialogsParent/DialogsParent.tsx'
 import {useAppDispatch} from '@/hooks.ts'
 import {useUpdateDeckMutation} from '@/services/decks/decks.service.ts'
 import {updateDecksCurrentPage} from '@/services/decks/decks.slice.ts'
@@ -111,7 +111,7 @@ export const DialogUpdatePack = (props: Props) => {
     }
 
     return (
-        <DialogsParrent
+        <DialogsParent
             title={'Edit Pack'}
             open={props.open}
             setOpen={onClose}
@@ -127,7 +127,7 @@ export const DialogUpdatePack = (props: Props) => {
             </div>
             <form ref={formRef}>
                 <div className={sC.DialogDescription}>
-                    <div className={sC.textFieldContainer}>
+                    <div className={sC.elementContainer}>
                         <div className={sC.element}>
                             <ControlledTextField name={'name'} label={'Name Pack'} control={control}/>
                         </div>
@@ -135,7 +135,7 @@ export const DialogUpdatePack = (props: Props) => {
                     <Checkbox label={'Private pack'} checked={isPrivate} onValueChange={setIsPrivate}/>
                 </div>
             </form>
-        </DialogsParrent>
+        </DialogsParent>
     )
 }
 

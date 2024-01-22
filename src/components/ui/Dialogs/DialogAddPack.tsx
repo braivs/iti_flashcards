@@ -7,8 +7,8 @@ import { z } from 'zod'
 import { Checkbox } from '@/components/ui/Checkbox'
 import { ControlledTextField } from '@/components/ui/controlled/controlled-text-field'
 import { DeckImgUpload } from '@/components/ui/Dialogs/common/DeckImgUpload.tsx'
-import sC from '@/components/ui/Dialogs/DialogsParrent/DialogsParrent.module.scss'
-import { DialogsParrent } from '@/components/ui/Dialogs/DialogsParrent/DialogsParrent.tsx'
+import sC from '@/components/ui/Dialogs/DialogsParent/DialogsParent.module.scss'
+import { DialogsParent } from '@/components/ui/Dialogs/DialogsParent/DialogsParent.tsx'
 import { useAppDispatch } from '@/hooks.ts'
 import { useCreateDeckMutation } from '@/services/decks/decks.service.ts'
 import { updateDecksCurrentPage } from '@/services/decks/decks.slice.ts'
@@ -75,7 +75,7 @@ export const DialogAddPack = (props: Props) => {
   }
 
   return (
-    <DialogsParrent
+    <DialogsParent
       title={'Add New Pack'}
       open={props.open}
       setOpen={onClose}
@@ -101,7 +101,7 @@ export const DialogAddPack = (props: Props) => {
           <Checkbox label={'Private pack'} checked={isPrivate} onValueChange={setIsPrivate} />
         </div>
       </div>
-    </DialogsParrent>
+    </DialogsParent>
   )
 }
 

@@ -34,10 +34,8 @@ input {
     hsl(206deg 22% 7% / 20%) 0 10px 20px -15px;
 
   animation: contentShow 150ms cubic-bezier(0.16, 1, 0.3, 1);
-  overflow-y: auto;
-
-
   max-height: 95%;
+  overflow-y: hidden;
 }
 
 .DialogContent:focus {
@@ -60,15 +58,18 @@ input {
   border-bottom: 1px solid var(--color-dark-500);
 }
 
-.DialogDescription {
+.dialogDescription {
   margin: 0 auto;
-  padding: 18px 0;
+  padding: 10px;
   max-width: 484px;
   width: 100%;
 
   font-size: 16px;
   line-height: 1.5;
-  color: var(--color-light-100);
+  //color: var(--color-light-100);
+  max-height: 80vh;
+  overflow-y: auto;
+  overflow-x: hidden;
 }
 
 .dialogElement {
@@ -193,10 +194,25 @@ input {
   }
 }
 
-.textFieldContainer {
+.elementContainer:not(:last-child) {
   margin-bottom: 24px;
+}
+
+.sectionContainer {
+  margin-top: 24px;
 }
 
 .element {
   height: 58px;
+}
+
+.greyText {
+  color: var(--color-dark-100);
+}
+
+.childrenContainer {
+  overflow-y: auto;
+  //height: 50%;
+  border: 1px solid red;
+  max-height: inherit;
 }

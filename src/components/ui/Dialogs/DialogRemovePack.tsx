@@ -2,8 +2,8 @@ import * as RDialog from '@radix-ui/react-dialog'
 import { useNavigate } from 'react-router-dom'
 
 import { SelectedDeck } from '@/common/types.ts'
-import sC from '@/components/ui/Dialogs/DialogsParrent/DialogsParrent.module.scss'
-import { DialogsParrent } from '@/components/ui/Dialogs/DialogsParrent/DialogsParrent.tsx'
+import sC from '@/components/ui/Dialogs/DialogsParent/DialogsParent.module.scss'
+import { DialogsParent } from '@/components/ui/Dialogs/DialogsParent/DialogsParent.tsx'
 import { useDeleteDeckMutation } from '@/services/decks/decks.service.ts'
 
 export const DialogRemovePack = (props: Props) => {
@@ -23,7 +23,7 @@ export const DialogRemovePack = (props: Props) => {
   }
 
   return (
-    <DialogsParrent
+    <DialogsParent
       title={'Delete Pack'}
       open={props.open}
       setOpen={props.setOpen}
@@ -35,7 +35,7 @@ export const DialogRemovePack = (props: Props) => {
         <br />
         All cards will be deleted.
       </RDialog.Description>
-    </DialogsParrent>
+    </DialogsParent>
   )
 }
 

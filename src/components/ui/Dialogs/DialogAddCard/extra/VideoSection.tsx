@@ -1,8 +1,9 @@
-import sP from '@/components/ui/Dialogs/DialogsParrent/DialogsParrent.module.scss'
+import sP from '@/components/ui/Dialogs/DialogsParent/DialogsParent.module.scss'
 import {ApproveCancelTextField} from "@/components/ui/Dialogs/DialogAddCard/extra/ApproveCancelTextField.tsx"
 import {useState} from "react"
 import {extractYouTubeVideoId} from "@/components/ui/Dialogs/common/utils.ts"
 import {VideoElement} from "@/components/ui/Dialogs/DialogAddCard/extra/VideoElement.tsx"
+import {Typography} from "@/components/ui/Typography"
 
 export const VideoSection = (props: Props) => {
     const [isQuestionEdit, setIsQuestionEdit] = useState(false)
@@ -49,8 +50,9 @@ export const VideoSection = (props: Props) => {
     }
 
     return (
-        <div>
-            <div className={sP.DialogDescription}>
+        <div className={sP.sectionContainer}>
+            <div className={sP.elementContainer}>
+                <Typography variant={'Body_2'} className={sP.greyText}>Video question</Typography>
                 {
                     !isQuestionEdit
                         ? <VideoElement
@@ -67,28 +69,29 @@ export const VideoSection = (props: Props) => {
                             label={'Question Youtube id'}
                         />
                 }
-                <div>
-                    {
-                        !isAnswerEdit
-                            ? <VideoElement
-                                youtubeUrl={props.youtubeAnswerUrl}
-                                questionVideoIdStatus={answerVideoIdStatus}
-                                questionVideoId={answerVideoId}
-                                onQuestionChangeVideo={onAnswerChangeVideo}
-                            />
-                            : <ApproveCancelTextField
-                                tempValue={tempAnswerUrl}
-                                setTempValue={setTempAnswerUrl}
-                                onApprove={onAnswerApprove}
-                                onCancel={onAnswerCancel}
-                                label={'Answer Youtube id'}
-                            />
+            </div>
+            <div className={sP.elementContainer}>
+                <Typography variant={'Body_2'} className={sP.greyText}>Video answer</Typography>
+                {
+                    !isAnswerEdit
+                        ? <VideoElement
+                            youtubeUrl={props.youtubeAnswerUrl}
+                            questionVideoIdStatus={answerVideoIdStatus}
+                            questionVideoId={answerVideoId}
+                            onQuestionChangeVideo={onAnswerChangeVideo}
+                        />
+                        : <ApproveCancelTextField
+                            tempValue={tempAnswerUrl}
+                            setTempValue={setTempAnswerUrl}
+                            onApprove={onAnswerApprove}
+                            onCancel={onAnswerCancel}
+                            label={'Answer Youtube id'}
+                        />
 
-                    }
-
-                </div>
+                }
 
             </div>
+
         </div>
     )
 }

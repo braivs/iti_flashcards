@@ -4,9 +4,9 @@ import * as RDialog from '@radix-ui/react-dialog'
 
 import closeIcon from '@/assets/icons/close.png'
 import { Button } from '@/components/ui/Button'
-import s from '@/components/ui/Dialogs/DialogsParrent/DialogsParrent.module.scss'
+import s from '@/components/ui/Dialogs/DialogsParent/DialogsParent.module.scss'
 
-export const DialogsParrent = (props: Props) => {
+export const DialogsParent = (props: Props) => {
   const { isButtonDisable = false } = props
 
   return (
@@ -22,7 +22,9 @@ export const DialogsParrent = (props: Props) => {
               </button>
             </RDialog.Close>
           </RDialog.Title>
-          {props.children}
+          <RDialog.Description className={s.dialogDescription}>
+            {props.children}
+          </RDialog.Description>
           <div className={s.buttonContainer}>
             <RDialog.Close asChild>
               <Button className={s.buttonCancel}>Cancel</Button>

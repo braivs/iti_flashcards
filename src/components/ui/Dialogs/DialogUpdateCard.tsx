@@ -6,8 +6,8 @@ import {z} from 'zod'
 
 import {SelectedCardUpdate} from '@/common/types.ts'
 import {ControlledTextField} from '@/components/ui/controlled/controlled-text-field'
-import sC from '@/components/ui/Dialogs/DialogsParrent/DialogsParrent.module.scss'
-import {DialogsParrent} from '@/components/ui/Dialogs/DialogsParrent/DialogsParrent.tsx'
+import sC from '@/components/ui/Dialogs/DialogsParent/DialogsParent.module.scss'
+import {DialogsParent} from '@/components/ui/Dialogs/DialogsParent/DialogsParent.tsx'
 import {useUpdateCardMutation} from '@/services/cards/cards.service.ts'
 import {CardImgUpload} from "@/components/ui/Dialogs/common/CardImgUpload.tsx"
 import {fromBase64} from "@/common/functions.ts"
@@ -125,7 +125,7 @@ export const DialogUpdateCard = (props: Props) => {
     }
 
     return (
-        <DialogsParrent
+        <DialogsParent
             title={'Edit Card'}
             open={props.open}
             setOpen={onClose}
@@ -136,12 +136,12 @@ export const DialogUpdateCard = (props: Props) => {
             <div className={sC.DialogDescription}>
                 <form ref={formRef}>
                     <div className={sC.dialogElement}>
-                        <div className={sC.textFieldContainer}>
+                        <div className={sC.elementContainer}>
                             <div className={sC.element}>
                                 <ControlledTextField name={'question'} label={'Question'} control={control}/>
                             </div>
                         </div>
-                        <div className={sC.textFieldContainer}>
+                        <div className={sC.elementContainer}>
                             <div className={sC.element}>
                                 <ControlledTextField name={'answer'} label={'Answer'} control={control}/>
                             </div>
@@ -164,7 +164,7 @@ export const DialogUpdateCard = (props: Props) => {
                     youtubeAnswerUrl={youtubeAnswerUrl ? youtubeAnswerUrl : ''}
                 />
             </div>
-        </DialogsParrent>
+        </DialogsParent>
     )
 }
 

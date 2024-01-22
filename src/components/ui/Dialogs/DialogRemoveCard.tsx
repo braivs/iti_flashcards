@@ -1,8 +1,8 @@
 import * as RDialog from '@radix-ui/react-dialog'
 
 import { SelectedCard } from '@/common/types.ts'
-import sC from '@/components/ui/Dialogs/DialogsParrent/DialogsParrent.module.scss'
-import { DialogsParrent } from '@/components/ui/Dialogs/DialogsParrent/DialogsParrent.tsx'
+import sC from '@/components/ui/Dialogs/DialogsParent/DialogsParent.module.scss'
+import { DialogsParent } from '@/components/ui/Dialogs/DialogsParent/DialogsParent.tsx'
 import { useDeleteCardMutation } from '@/services/cards/cards.service.ts'
 
 export const DialogRemoveCard = (props: Props) => {
@@ -18,7 +18,7 @@ export const DialogRemoveCard = (props: Props) => {
   }
 
   return (
-    <DialogsParrent
+    <DialogsParent
       title={'Delete Card'}
       open={props.open}
       setOpen={props.setOpen}
@@ -30,7 +30,7 @@ export const DialogRemoveCard = (props: Props) => {
         <br />
         All cards will be deleted.
       </RDialog.Description>
-    </DialogsParrent>
+    </DialogsParent>
   )
 }
 
