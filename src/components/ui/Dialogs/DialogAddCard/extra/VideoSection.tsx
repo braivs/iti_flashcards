@@ -1,4 +1,5 @@
 import sP from '@/components/ui/Dialogs/DialogsParent/DialogsParent.module.scss'
+import sC from '@/components/ui/Dialogs/common/Dialogs.module.scss'
 import {ApproveCancelTextField} from "@/components/ui/Dialogs/DialogAddCard/extra/ApproveCancelTextField.tsx"
 import {useState} from "react"
 import {extractYouTubeVideoId} from "@/components/ui/Dialogs/common/utils.ts"
@@ -53,43 +54,47 @@ export const VideoSection = (props: Props) => {
         <div className={sP.sectionContainer}>
             <div className={sP.elementContainer}>
                 <Typography variant={'Body_2'} className={sP.greyText}>Video question</Typography>
-                {
-                    !isQuestionEdit
-                        ? <VideoElement
-                            youtubeUrl={props.youtubeQuestionUrl}
-                            questionVideoIdStatus={questionVideoIdStatus}
-                            questionVideoId={questionVideoId}
-                            onQuestionChangeVideo={onQuestionChangeVideo}
-                        />
-                        : <ApproveCancelTextField
-                            tempValue={tempQuestionUrl}
-                            setTempValue={setTempQuestionUrl}
-                            onApprove={onQuestionApprove}
-                            onCancel={onQuestionCancel}
-                            label={'Question Youtube id'}
-                        />
-                }
+                <div className={sC.antiTwitchVideoCont}>
+                    {
+                        !isQuestionEdit
+                            ? <VideoElement
+                                youtubeUrl={props.youtubeQuestionUrl}
+                                questionVideoIdStatus={questionVideoIdStatus}
+                                questionVideoId={questionVideoId}
+                                onQuestionChangeVideo={onQuestionChangeVideo}
+                            />
+                            : <ApproveCancelTextField
+                                tempValue={tempQuestionUrl}
+                                setTempValue={setTempQuestionUrl}
+                                onApprove={onQuestionApprove}
+                                onCancel={onQuestionCancel}
+                                label={'Question Youtube id'}
+                            />
+                    }
+                </div>
+
             </div>
             <div className={sP.elementContainer}>
                 <Typography variant={'Body_2'} className={sP.greyText}>Video answer</Typography>
-                {
-                    !isAnswerEdit
-                        ? <VideoElement
-                            youtubeUrl={props.youtubeAnswerUrl}
-                            questionVideoIdStatus={answerVideoIdStatus}
-                            questionVideoId={answerVideoId}
-                            onQuestionChangeVideo={onAnswerChangeVideo}
-                        />
-                        : <ApproveCancelTextField
-                            tempValue={tempAnswerUrl}
-                            setTempValue={setTempAnswerUrl}
-                            onApprove={onAnswerApprove}
-                            onCancel={onAnswerCancel}
-                            label={'Answer Youtube id'}
-                        />
+                <div className={sC.antiTwitchVideoCont}>
+                    {
+                        !isAnswerEdit
+                            ? <VideoElement
+                                youtubeUrl={props.youtubeAnswerUrl}
+                                questionVideoIdStatus={answerVideoIdStatus}
+                                questionVideoId={answerVideoId}
+                                onQuestionChangeVideo={onAnswerChangeVideo}
+                            />
+                            : <ApproveCancelTextField
+                                tempValue={tempAnswerUrl}
+                                setTempValue={setTempAnswerUrl}
+                                onApprove={onAnswerApprove}
+                                onCancel={onAnswerCancel}
+                                label={'Answer Youtube id'}
+                            />
 
-                }
-
+                    }
+                </div>
             </div>
 
         </div>
