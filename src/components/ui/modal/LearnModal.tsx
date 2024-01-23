@@ -8,8 +8,10 @@ import { RadioGroup } from '../RadioGroup/RadioGroup'
 import s from './LearnModal.module.scss'
 
 import { ArrowBack } from '@/assets/icons/ArrowBack.tsx'
+import { MyYouTube } from '@/common/MyYouTube/MyYouTube.tsx'
 import { Button } from '@/components/ui/Button'
 import { Card } from '@/components/ui/Card'
+import { extractYouTubeVideoId } from '@/components/ui/Dialogs/common/utils.ts'
 import { Typography } from '@/components/ui/Typography'
 import { DeckLearnArg } from '@/services/decks/deck.types.ts'
 
@@ -23,6 +25,8 @@ type LearnModalType = {
   onChange: ({ grade, cardId }: DeckLearnArg) => void
   imgAnswer: string | null
   imgQuestion: string | null
+  questionVideo: string | null
+  answerVideo: string | null
 }
 
 export const answerRaiting = [
@@ -43,11 +47,15 @@ export const LearnModal: FC<LearnModalType> = ({
   id,
   imgAnswer,
   imgQuestion,
+  questionVideo,
+  answerVideo,
 }) => {
   const [hiddenRaiting, setHiddenRaiting] = useState(false)
 
   const [value, setValue] = useState(answerRaiting[0].value)
 
+  const questionVideoId = extractYouTubeVideoId(questionVideo ? questionVideo : '').videoId
+  const answerVideoId = extractYouTubeVideoId(answerVideo ? answerVideo : '').videoId
   const sendMessageHandler = () => {
     onChange && onChange({ cardId: id, grade: +value })
     setHiddenRaiting(false)
@@ -96,6 +104,7 @@ export const LearnModal: FC<LearnModalType> = ({
           {imgQuestion && (
             <img src={imgQuestion} alt="imgQuestion" className={classNames.questionImg} />
           )}
+          {questionVideo && <MyYouTube videoId={questionVideoId} />}
         </div>
         {/*Count wrapper*/}
         <div className={s.countWrapper}>
@@ -116,6 +125,7 @@ export const LearnModal: FC<LearnModalType> = ({
               </Typography>
             </Typography>
             {imgAnswer && <img src={imgAnswer} alt="imgAnswer" className={s.answerImg} />}
+            {answerVideo && <MyYouTube videoId={answerVideoId} />}
             <Typography variant={'Subtitle_1'}>Rate yourself:</Typography>
             <div className={classNames.gradeWrapper}>
               <RadioGroup

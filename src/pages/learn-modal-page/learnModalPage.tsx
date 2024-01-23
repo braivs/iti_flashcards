@@ -78,6 +78,8 @@ export const LearnModalPage = () => {
           onChange={sendGrade}
           imgAnswer={cardData.answerImg}
           imgQuestion={cardData.questionImg}
+          questionVideo={cardData.questionVideo}
+          answerVideo={cardData.answerVideo}
         />
       )}
     </div>
