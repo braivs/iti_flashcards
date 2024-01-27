@@ -23,7 +23,6 @@ export const getCroppedImg = async (
 
   canvas.width = canvaWidth
   canvas.height = canvaHeight
-
   ctx &&
     ctx.drawImage(image, crop.x, crop.y, crop.width, crop.height, 0, 0, canvas.width, canvas.height)
 

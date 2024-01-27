@@ -32,7 +32,7 @@ export const DeckImgUpload = (props: Props) => {
   }
 
   const onCropComplete = useCallback(
-    // @ts-ignore
+    // @ts-ignore //todo: maybe fix type
     (croppedArea: Area, croppedAreaPixels: Area) => {
       setCropArea({
         x: croppedAreaPixels.x,
