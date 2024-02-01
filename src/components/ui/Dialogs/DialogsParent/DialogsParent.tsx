@@ -23,28 +23,28 @@ export const DialogsParent = (props: Props) => {
             </RDialog.Close>
           </RDialog.Title>
           <div className={s.children}>
-            {props.children}
+            {props.children(<div className={s.buttonContainer}>
+              <RDialog.Close asChild>
+                <Button className={s.buttonCancel}>Cancel</Button>
+              </RDialog.Close>
+              <Button onClick={props.onButtonAction} disabled={isButtonDisable} type={'submit'}>
+                {props.actionButtonText}
+              </Button>
+            </div>)}
           </div>
-          <div className={s.buttonContainer}>
-            <RDialog.Close asChild>
-              <Button className={s.buttonCancel}>Cancel</Button>
-            </RDialog.Close>
-            <Button onClick={props.onButtonAction} disabled={isButtonDisable}>
-              {props.actionButtonText}
-            </Button>
-          </div>
+
         </RDialog.Content>
       </RDialog.Portal>
     </RDialog.Root>
   )
 }
 
-type Props = {
+type Props<T extends (buttons: ReactNode) => ReactNode | ReactNode> = {
   open: boolean
   setOpen: (value: boolean) => void
   onButtonAction: () => void
   actionButtonText: string
-  children: ReactNode
+  children: T
   title: string
   isButtonDisable?: boolean
 }

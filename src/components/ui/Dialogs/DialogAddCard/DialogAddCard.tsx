@@ -103,8 +103,8 @@ export const DialogAddCard = (props: Props) => {
             actionButtonText={'Add New Card'}
             isButtonDisable={Object.keys(errors).length > 0}
         >
-            <div className={sC.DialogDescription}>
-                <form ref={formRef}>
+            {(buttons)=><div className={sC.DialogDescription}>
+                <form onSubmit={handleSubmit(()=>{})}>
                     <div className={sC.elementContainer}>
                         <div className={sC.element}>
                             <ControlledTextField
@@ -125,6 +125,7 @@ export const DialogAddCard = (props: Props) => {
                             />
                         </div>
                     </div>
+                    {buttons}
                 </form>
                 <CardImgUpload
                     cropQuestionImg={cropQuestionImg}
@@ -142,7 +143,7 @@ export const DialogAddCard = (props: Props) => {
                     youtubeQuestionUrl={youtubeQuestionUrl}
                     youtubeAnswerUrl={youtubeAnswerUrl}
                 />
-            </div>
+            </div>}
         </DialogsParent>
     )
 }
