@@ -48,6 +48,7 @@ export const Header: FC<HeaderProps> = ({ className, ...rest }) => {
               align={'end'}
             >
               <DropdownItemWithAvatar
+                disabled={true}
                 trigger={<Avatar urlAdress={me.avatar ? me.avatar : defaultAva} />}
               >
                 <Typography variant={'Subtitle_2'} className={s.userName}>
