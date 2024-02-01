@@ -74,6 +74,10 @@ const privateRoutes: RouteObject[] = [
     path: '/cards/:deckId',
     element: <CardsPage />,
   },
+  {
+    path: '*',
+    element: <ErrorPage />,
+  },
 ]
 
 const router = createBrowserRouter([

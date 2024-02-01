@@ -12,10 +12,10 @@
   .croppedImg {
     @include mixins.img-upload-size;
   }
-
 }
 
-.dummyImg, .dummyVideo {
+.dummyImg,
+.dummyVideo {
   border: 1px solid var(--color-dark-100);
   @include mixins.flex($justifyContent: center, $alignItems: center);
   color: var(--color-dark-100);
@@ -39,8 +39,8 @@
 }
 
 .button {
-    width: 100%;
-    margin-top: 24px;
+  width: 100%;
+  margin-top: 24px;
 }
 
 .antiTwitchVideoCont {
