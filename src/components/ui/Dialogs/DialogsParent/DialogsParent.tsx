@@ -10,7 +10,7 @@ export const DialogsParent = (props: Props) => {
   const { isButtonDisable = false } = props
 
   return (
-    <RDialog.Root open={props.open} onOpenChange={props.setOpen}>
+    <RDialog.Root open={props.open} onOpenChange={props.setOpen} >
       <RDialog.Portal>
         <RDialog.Overlay className={s.DialogOverlay} />
         <RDialog.Content className={s.DialogContent}>

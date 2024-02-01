@@ -12,7 +12,6 @@ import {
     minSliderValue,
     sliderStep,
 } from '@/components/ui/Dialogs/common/DialogsData.ts'
-import s from '@/components/ui/Dialogs/DialogAddCard/DialogAddCard.module.scss'
 import {SliderSingle} from '@/components/ui/SliderSingle/SliderSingle.tsx'
 
 export const ChangeCoverDummyImgCropper = (props: ExtraChangeCoverDummyImgCropperProps) => {
@@ -24,7 +23,7 @@ export const ChangeCoverDummyImgCropper = (props: ExtraChangeCoverDummyImgCroppe
                         <div className={sC.dummyImg}>{props.cropSuggestionText}</div>
                     ) : (
                         <div className={sC.imgContainer}>
-                            <img className={s.croppedImg} src={props.file.cropImg} alt="cropImg"/>
+                            <img className={sC.croppedImg} src={props.file.cropImg} alt="cropImg"/>
                         </div>
                     )}
                 </>

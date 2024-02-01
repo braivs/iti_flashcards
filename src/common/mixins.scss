@@ -6,11 +6,11 @@
 }
 
 @mixin img-upload-size() {
-  max-width: 100%;
+  max-width: var(--canva-width);
   height: 119px;
 }
 
 @mixin video-size() {
-  max-width: 100%;
+  max-width: var(--canva-width);
   height: 270px;
 }
