@@ -84,9 +84,12 @@ export const SignIn = (props: Props) => {
             className={sC.checkbox}
             position={'left'}
           />
-          <Link to={'/recover-password'} className={sC.right}>
-            Forgot Password?
-          </Link>
+          <div className={sC.right}>
+            <Link to={'/recover-password'} className={sC.right}>
+              Forgot Password?
+            </Link>
+          </div>
+
           {/*<Button variant="link" as={'a'} href={'/recover-password'} className={sC.right}>*/}
           {/*  Forgot Password?*/}
           {/*</Button>*/}
@@ -96,9 +99,11 @@ export const SignIn = (props: Props) => {
           <Typography variant={'Body_2'} className={clsx(sC.center, sC.colorLight)}>
             Don&apos;t have an account?
           </Typography>
-          <Link to={'/sign-up'} className={clsx(sC.center, sC.signUp)}>
-            Sign Up
-          </Link>
+          <div className={clsx(sC.center, sC.signUp)}>
+            <Link to={'/sign-up'} className={clsx(sC.center, sC.signUp)}>
+              Sign Up
+            </Link>
+          </div>
         </Card>
       </div>
     </form>
