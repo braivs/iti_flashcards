@@ -6,7 +6,7 @@ import { maxCardsCountHard } from '@/pages/decks-page/maxCardsCount.tsx'
 export const decksSlice = createSlice({
   name: 'decks',
   initialState: {
-    itemsPerPage: '9',
+    itemsPerPage: '5',
     searchByName: '',
     cardsCounts: [0, maxCardsCountHard],
     currentPage: 1,
