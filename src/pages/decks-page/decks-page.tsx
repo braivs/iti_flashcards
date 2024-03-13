@@ -104,6 +104,7 @@ export const DecksPage = () => {
   const filterHandler = () => {
     dispatch(updateDecksCurrentPage(1))
     dispatch(setAuthorId(''))
+    dispatch(setSearchByName(''))
     dispatch(setCardsCounts([0, maxCardsCountHard]))
   }
 

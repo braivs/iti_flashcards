@@ -58,6 +58,13 @@ export const DialogAddCard = (props: Props) => {
 
     const onAddNewCard = async (question: string, answer: string) => {
         if (!question || !answer || !props.deckId) return
+
+        // clean old values
+        setCropQuestionImg(undefined)
+        setCropAnswerImg(undefined)
+        setYoutubeQuestionUrl('')
+        setYoutubeAnswerUrl('')
+
         const formData = new FormData()
         const questionImg = await fromBase64(cropQuestionImg ? cropQuestionImg : '')
         const answerImg = await fromBase64(cropAnswerImg ? cropAnswerImg : '')
