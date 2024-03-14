@@ -1,105 +1,77 @@
-import { ChangeEvent, ComponentPropsWithoutRef, ElementRef, forwardRef, useState } from 'react'
+import {ComponentPropsWithoutRef, ElementRef, forwardRef, useEffect, useState} from 'react'
 
 import * as SliderPrimitive from '@radix-ui/react-slider'
-import { clsx } from 'clsx'
+import {clsx} from 'clsx'
 
 import s from './slider.module.scss'
 
-import { Typography } from '@/components/ui/Typography'
+import {Typography} from '@/components/ui/Typography'
+import {useAppDispatch} from "@/hooks.ts"
+import {setCardsCounts} from "@/services/decks/decks.slice.ts"
 
 export const Slider = forwardRef<
-  ElementRef<typeof SliderPrimitive.Root>,
-  ComponentPropsWithoutRef<typeof SliderPrimitive.Root>
->(({ className, name, title, value, onValueChange, onValueCommit, ...props }, ref) => {
-  const [currentSliderValue, setCurrentSliderValue] = useState<number[]>([
-    value?.[0] || 0,
-    value?.[1] || 0,
-  ])
+    ElementRef<typeof SliderPrimitive.Root>,
+    ComponentPropsWithoutRef<typeof SliderPrimitive.Root>
+>(({ className, name, title, value, defaultValue, onValueChange, onValueCommit, step, min, max, minStepsBetweenThumbs, ...props }, ref) => {
+    const dispatch = useAppDispatch();
 
-  const onLeftInput = (e: ChangeEvent<HTMLInputElement>) => {
-    //console.log(/^[0-9]*$/.test(e.currentTarget.value))
-    if (/^[0-9]*$/.test(e.currentTarget.value)) {
-      setCurrentSliderValue([
-        +e.currentTarget.value < (props?.min || 0) || +e.currentTarget.value > (props?.max || 0)
-          ? props.min || 0
-          : +e.currentTarget.value,
-        value?.[1] || 0,
-      ])
-    }
-  }
-  const onRightInput = (e: ChangeEvent<HTMLInputElement>) => {
-    //console.log(/^[0-9]*$/.test(e.currentTarget.value))
-    if (/^[0-9]*$/.test(e.currentTarget.value)) {
-      setCurrentSliderValue([
-        currentSliderValue[0],
-        +e.currentTarget.value > (props.max || 0) || +e.currentTarget.value < (props.min || 0)
-          ? props.max || 0
-          : +e.currentTarget.value,
-      ])
-    }
-  }
-  const applyValueCommit = () => {
-    if (currentSliderValue) {
-      onValueChange && onValueChange(currentSliderValue)
-      onValueCommit && onValueCommit(currentSliderValue)
-    }
-  }
+    // Устанавливаем начальное значение для слайдера с учетом value или defaultValue
+    const initialValue = value || defaultValue || [min || 0, max || 100]; // Установите подходящие значения по умолчанию
+    const [internalValue, setInternalValue] = useState<number[]>(initialValue);
 
-  return (
-    <div>
-      {title && (
-        <Typography variant={'Body_2'} as={'label'}>
-          {title}
-        </Typography>
-      )}
-      <div className={s.container}>
+    // Синхронизируем внутреннее состояние со значениями из пропсов, если они изменяются
+    useEffect(() => {
+        if (value) {
+            setInternalValue(value);
+        }
+    }, [value]);
+
+    const handleValueChange = (newValues: number[]) => {
+        setInternalValue(newValues);
+        if (onValueChange) {
+            onValueChange(newValues);
+        }
+        dispatch(setCardsCounts(newValues));
+    };
+
+    const handleCommit = () => {
+        if (onValueCommit) {
+            onValueCommit(internalValue);
+        }
+    };
+
+    return (
         <div>
-          <span className={s.value}>
-            <input
-              id={'1'}
-              onChange={onLeftInput}
-              onBlur={applyValueCommit}
-              value={currentSliderValue?.[0]}
-              onKeyPress={e => {
-                if (e.key === 'Enter') {
-                  applyValueCommit()
-                }
-              }}
-            />
-          </span>
+            {title && (
+                <Typography variant={'Body_2'} as={'label'} htmlFor={name}>
+                    {title}
+                </Typography>
+            )}
+            <div className={s.container}>
+                <SliderPrimitive.Root
+                    ref={ref}
+                    className={clsx(s.root, className)}
+                    value={internalValue}
+                    onValueChange={handleValueChange}
+                    onValueCommit={handleCommit}
+                    step={step}
+                    min={min}
+                    max={max}
+                    name={name}
+                    {...props}
+                >
+                    <SliderPrimitive.Track className={s.track}>
+                        <SliderPrimitive.Range className={s.range} />
+                    </SliderPrimitive.Track>
+                    {/*{internalValue.map((_, index) => (
+                        <SliderPrimitive.Thumb
+                            key={index}
+                            className={s.thumb}
+                            getAriaValueText={(value) => `${value}`}
+                        />
+                    ))}*/}
+                </SliderPrimitive.Root>
+            </div>
         </div>
-        <SliderPrimitive.Root
-          ref={ref}
-          className={clsx(s.root, className)}
-          value={currentSliderValue}
-          onValueChange={e => {
-            setCurrentSliderValue(e)
-          }}
-          onValueCommit={applyValueCommit}
-          {...props}
-        >
-          <SliderPrimitive.Track className={s.track}>
-            <SliderPrimitive.Range className={s.range} />
-          </SliderPrimitive.Track>
-          <SliderPrimitive.Thumb className={s.thumb} />
-          <SliderPrimitive.Thumb className={s.thumb} />
-        </SliderPrimitive.Root>
-        <div>
-          <span className={s.value}>
-            <input
-              id={'2'}
-              value={currentSliderValue[1]}
-              onChange={onRightInput}
-              onBlur={applyValueCommit}
-              onKeyPress={e => {
-                if (e.key === 'Enter') {
-                  applyValueCommit()
-                }
-              }}
-            />
-          </span>
-        </div>
-      </div>
-    </div>
-  )
-})
+    );
+});
