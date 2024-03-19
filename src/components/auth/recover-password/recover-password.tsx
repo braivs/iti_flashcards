@@ -58,9 +58,11 @@ export const RecoverPassword = (props: Props) => {
         <Typography variant="Body_2" className={s.caption}>
           Did you remember your password?
         </Typography>
-        <Link to={'/login'} className={s.loginLink}>
-          Try logging in
-        </Link>
+        <div>
+          <Link to={'/login'} className={s.loginLink}>
+            Try logging in
+          </Link>
+        </div>
       </Card>
     </>
   )

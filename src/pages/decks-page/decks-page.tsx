@@ -4,9 +4,9 @@ import sT from '../../common/commonStyles/tables.module.scss'
 
 import trashIcon from '@/assets/icons/trashIcon.png'
 import sC from '@/common/commonStyles/common.module.scss'
+import { paginationSelectValues } from '@/common/constants.ts'
 import { sortStringCallback } from '@/common/functions.ts'
 import { DecksOrderBy, SelectedDeck } from '@/common/types.ts'
-import { paginationSelectValues } from '@/common/constants.ts'
 import { Button } from '@/components/ui/Button'
 import { DialogAddPack } from '@/components/ui/Dialogs/DialogAddPack.tsx'
 import { DialogRemovePack } from '@/components/ui/Dialogs/DialogRemovePack.tsx'
@@ -105,7 +105,9 @@ export const DecksPage = () => {
     dispatch(updateDecksCurrentPage(1))
     dispatch(setAuthorId(''))
     dispatch(setSearchByName(''))
+    setSliderValue([0, maxCardsCountHard])
     dispatch(setCardsCounts([0, maxCardsCountHard]))
+    sliderChangeHandler()
   }
 
   // for pagination
